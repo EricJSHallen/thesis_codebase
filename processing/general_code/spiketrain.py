@@ -26,7 +26,7 @@ plot_time_unit = "us"      # options: "s", "ms", "us", "ns"
 # -----------------------------
 
 def get_pulse_width():
-    """
+    """ 
     Replace this later with your own pulse-width function.
 
     Example Poisson-distributed width idea:
