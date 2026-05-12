@@ -246,7 +246,8 @@ foreach(st1FreqDirName st1FreqDirs
                                     )
 
                                     ; Send Spectre result database to this run-specific directory.
-                                    resultsDir(runDir)
+                                    currentResultsDir = runDir
+                                    resultsDir(currentResultsDir)
 
                                     ; ------------------------------------------------
                                     ; Set PWL-file design variables
@@ -318,13 +319,20 @@ foreach(st1FreqDirName st1FreqDirs
                                     ; ------------------------------------------------
                                     ; Close results before deleting PSF
                                     ; ------------------------------------------------
-                                    ; This avoids errors such as:
-                                    ;     rm: cannot remove '.../psf': Directory not empty
+                                    ; Your Cadence/OCEAN version requires one argument
+                                    ; for closeResults(), hence:
                                     ;
-                                    ; Those can occur if OCEAN/Spectre still has PSF
-                                    ; files open when rm is called.
+                                    ;     closeResults(currentResultsDir)
+                                    ;
+                                    ; rather than:
+                                    ;
+                                    ;     closeResults()
 
-                                    closeResults()
+                                    closeResults(currentResultsDir)
+
+                                    ; Optional small delay, useful if the filesystem is slow
+                                    ; to release files after Spectre/OCEAN closes them.
+                                    sleep(1)
 
                                     ; ------------------------------------------------
                                     ; Optionally delete PSF data
