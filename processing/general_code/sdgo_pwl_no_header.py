@@ -13,12 +13,12 @@ import numpy as np
 output_root = Path(__file__).resolve().parent / "spike_train_output"
 
 num_spike_train_sets = 2      # Creates st_1, st_2, ..., st_n
-max_frequency_hz = 200         # Creates 1_hz, 2_hz, ..., max_frequency_hz_hz
+max_frequency_hz = 600         # Creates 1_hz, 2_hz, ..., max_frequency_hz_hz
 trials_per_frequency = 1     # Creates trial_1.pwl, ..., trial_j.pwl
 
 total_time = 1.0              # seconds; use 1.0 s if you want exactly i spikes for i Hz
 pulse_height = 1.8            # volts
-pulse_width = 100e-6          # seconds; width of each spike pulse
+pulse_width = 10e-6          # seconds; width of each spike pulse
 
 rise_time = 1e-8              # seconds; finite rising edge for simulator-friendly pulses
 fall_time = 1e-8              # seconds; finite falling edge for simulator-friendly pulses
