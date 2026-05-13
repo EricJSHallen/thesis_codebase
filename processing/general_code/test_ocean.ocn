@@ -105,7 +105,6 @@ printf("Using st_2 PWL file: %s\n" st2File)
 ; If /I172/Iout and /I56/Iout are terminal-current expressions,
 ; this is the appropriate save type.
 
-save('i "/I172/Iout")
 save('i "/I56/Iout")
 
 ; ------------------------------------------------------------
@@ -126,7 +125,6 @@ ocnPrint(
     ?output strcat(runDir "/output_currents.txt")
     ?precision 10
     ?numSpaces 1
-    iout_172
     iout_56
 )
 
