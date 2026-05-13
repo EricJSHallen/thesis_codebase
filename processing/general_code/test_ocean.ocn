@@ -1,6 +1,6 @@
 ; ============================================================
 ; Minimal OCEAN test script
-; Test one pair of PWL files and export two output currents
+; Test one pair of PWL files and export transient outputs
 ; ============================================================
 
 simulator('spectre)
@@ -44,9 +44,10 @@ analysis('tran ?stop "1s")
 ; ------------------------------------------------------------
 ; Define ordinary design variables
 ; ------------------------------------------------------------
-; These values are copied from your ADE design-variable list.
-; I am assigning the dependent variables directly to avoid
-; undefined-variable problems in the generated Spectre netlist.
+; These values are copied from the ADE design-variable list.
+; Dependent variables are assigned directly to avoid undefined
+; variable problems in the generated Spectre netlist.
+; ------------------------------------------------------------
 
 desVar("ml" 180n)
 desVar("mw" 180n)
@@ -78,9 +79,9 @@ desVar("vmax" 1.8)
 ; ------------------------------------------------------------
 ; PWL design variables
 ; ------------------------------------------------------------
-; Important:
 ; The actual Spectre parameter value must include quotation marks.
-; That is why the strings are wrapped with "\"" ... "\"".
+; Therefore the file paths are wrapped with "\"" ... "\"".
+; ------------------------------------------------------------
 
 st1File = strcat(pwlBaseDir "/st_1/600_hz/trial_1.pwl")
 st2File = strcat(pwlBaseDir "/st_2/600_hz/trial_1.pwl")
@@ -100,12 +101,16 @@ printf("Using st_1 PWL file: %s\n" st1File)
 printf("Using st_2 PWL file: %s\n" st2File)
 
 ; ------------------------------------------------------------
-; Save requested currents
+; Save signals
 ; ------------------------------------------------------------
-; If /I172/Iout and /I56/Iout are terminal-current expressions,
-; this is the appropriate save type.
+; For debugging, save everything. Once this works, replace this
+; with a narrower save statement.
+; ------------------------------------------------------------
 
-save('i "/I56/Iout")
+save('all)
+
+; Later, after debugging, you can try something narrower like:
+; save("/I56/Iout" "/vpre1" "/vpre")
 
 ; ------------------------------------------------------------
 ; Run simulation
@@ -114,12 +119,34 @@ save('i "/I56/Iout")
 run()
 
 ; ------------------------------------------------------------
-; Export selected current waveforms after simulation
+; Export selected transient waveforms
 ; ------------------------------------------------------------
 
 selectResult('tran)
 
-iout_56  = i("/I56/Iout")
+; Retrieve waveforms from transient results.
+; This is usually more robust than i("/I56/Iout") for saved signal
+; expressions such as those shown in ADE Outputs Setup.
+
+iout_56 = getData("/I56/Iout" ?result 'tran)
+vpre1   = getData("/vpre1"    ?result 'tran)
+vpre    = getData("/vpre"     ?result 'tran)
+
+; Check that the requested signals were actually found.
+
+unless(iout_56
+    error("Could not find transient waveform /I56/Iout. Check the saved signal name and Spectre results.\n")
+)
+
+unless(vpre1
+    printf("Warning: could not find transient waveform /vpre1.\n")
+)
+
+unless(vpre
+    printf("Warning: could not find transient waveform /vpre.\n")
+)
+
+; Export the current waveform.
 
 ocnPrint(
     ?output strcat(runDir "/output_currents.txt")
@@ -128,6 +155,28 @@ ocnPrint(
     iout_56
 )
 
+; Export voltage waveforms if they exist.
+
+when(vpre1
+    ocnPrint(
+        ?output strcat(runDir "/output_vpre1.txt")
+        ?precision 10
+        ?numSpaces 1
+        vpre1
+    )
+)
+
+when(vpre
+    ocnPrint(
+        ?output strcat(runDir "/output_vpre.txt")
+        ?precision 10
+        ?numSpaces 1
+        vpre
+    )
+)
+
 printf("Finished test run.\n")
 printf("Results directory: %s\n" runDir)
-printf("Exported currents: %s\n" strcat(runDir "/output_currents.txt"))
+printf("Exported current: %s\n" strcat(runDir "/output_currents.txt"))
+printf("Exported vpre1:   %s\n" strcat(runDir "/output_vpre1.txt"))
+printf("Exported vpre:    %s\n" strcat(runDir "/output_vpre.txt"))
