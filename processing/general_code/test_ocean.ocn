@@ -1,0 +1,135 @@
+; ============================================================
+; Minimal OCEAN test script
+; Test one pair of PWL files and export two output currents
+; ============================================================
+
+simulator('spectre)
+
+; ------------------------------------------------------------
+; Design under test
+; ------------------------------------------------------------
+
+design("sebastian_thesis_pilot" "synapsedualinputtb" "schematic")
+
+; ------------------------------------------------------------
+; Directory setup
+; ------------------------------------------------------------
+
+baseRepoDir = "/home/s5117909/Documents/thesis/sebastian_thesis_repo"
+
+pwlBaseDir = strcat(baseRepoDir "/processing/general_code/spike_train_output")
+
+outputBaseDir = strcat(baseRepoDir "/processing/cadence_extraction/testoutput")
+
+runName = "test"
+runDir = strcat(outputBaseDir "/" runName)
+
+unless(isDir(outputBaseDir)
+    system(strcat("mkdir -p " outputBaseDir))
+)
+
+unless(isDir(runDir)
+    system(strcat("mkdir -p " runDir))
+)
+
+; Send Spectre output data to this directory.
+resultsDir(runDir)
+
+; ------------------------------------------------------------
+; Analysis
+; ------------------------------------------------------------
+
+analysis('tran ?stop "1s")
+
+; ------------------------------------------------------------
+; Define ordinary design variables
+; ------------------------------------------------------------
+; These values are copied from your ADE design-variable list.
+; I am assigning the dependent variables directly to avoid
+; undefined-variable problems in the generated Spectre netlist.
+
+desVar("ml" 180n)
+desVar("mw" 180n)
+
+desVar("m2l"   180n)
+desVar("m2ltb" 180n)
+desVar("m2w"   180n)
+desVar("m2wtb" 180n)
+
+desVar("m3l" 180n)
+desVar("m3w" 180n)
+
+desVar("m4l"   180n)
+desVar("m4ltb" 180n)
+desVar("m4w"   180n)
+desVar("m4wtb" 180n)
+
+desVar("m5l" 180n)
+desVar("m5w" 180n)
+
+desVar("pw"   100u)
+desVar("T"    1m)
+desVar("Vin"  0)
+desVar("Vtau" 1.7)
+desVar("Vthr" 0.6)
+desVar("Vw"   1.0)
+desVar("vmax" 1.8)
+
+; ------------------------------------------------------------
+; PWL design variables
+; ------------------------------------------------------------
+; Important:
+; The actual Spectre parameter value must include quotation marks.
+; That is why the strings are wrapped with "\"" ... "\"".
+
+st1File = strcat(pwlBaseDir "/st_1/200_hz/trial_1.pwl")
+st2File = strcat(pwlBaseDir "/st_2/200_hz/trial_1.pwl")
+
+unless(isFile(st1File)
+    error("Cannot find st_1 PWL file: %s\n" st1File)
+)
+
+unless(isFile(st2File)
+    error("Cannot find st_2 PWL file: %s\n" st2File)
+)
+
+desVar("pwlFile_st1" strcat("\"" st1File "\""))
+desVar("pwlFile_st2" strcat("\"" st2File "\""))
+
+printf("Using st_1 PWL file: %s\n" st1File)
+printf("Using st_2 PWL file: %s\n" st2File)
+
+; ------------------------------------------------------------
+; Save requested currents
+; ------------------------------------------------------------
+; If /I172/Iout and /I56/Iout are terminal-current expressions,
+; this is the appropriate save type.
+
+save('i "/I172/Iout")
+save('i "/I56/Iout")
+
+; ------------------------------------------------------------
+; Run simulation
+; ------------------------------------------------------------
+
+run()
+
+; ------------------------------------------------------------
+; Export selected current waveforms after simulation
+; ------------------------------------------------------------
+
+selectResult('tran)
+
+iout_56  = i("/I56/Iout")
+
+ocnPrint(
+    ?output strcat(runDir "/output_currents.txt")
+    ?precision 10
+    ?numSpaces 1
+    iout_172
+    iout_56
+)
+
+printf("Finished test run.\n")
+printf("Results directory: %s\n" runDir)
+printf("Exported currents: %s\n" strcat(runDir "/output_currents.txt"))
