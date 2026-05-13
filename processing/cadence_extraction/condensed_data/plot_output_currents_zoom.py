@@ -10,15 +10,15 @@ INPUT_CSV = BASE_DIR / "output_currents.csv"
 OUTPUT_FIGURE = BASE_DIR / "output_currents_plot_overlap_counted.png"
 
 # Keep the same zoom width you chose: 0.45 to 0.46 is a 0.01 s window.
-WINDOW_WIDTH_S = 1
+WINDOW_WIDTH_S = 0.02
 
 # If True, the script automatically centers the 0.01 s window on the region
 # with the largest number of overlapping spikes.
 AUTO_CENTER_ON_OVERLAP = True
 
 # Used only if AUTO_CENTER_ON_OVERLAP = False.
-START_TIME_S = 0
-END_TIME_S = 1
+START_TIME_S = 0.28
+END_TIME_S = 0.30
 
 # Spike-detection settings.
 # A spike is detected as a local minimum below this fraction of the full
