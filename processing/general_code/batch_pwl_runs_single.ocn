@@ -1,42 +1,19 @@
-; ============================================================
+
 ; Batch OCEAN script
-; Mix st_1 and st_2 frequencies, but keep matching trials
-;
-; Example included:
-;     st_1/1_hz/trial_1.pwl with st_2/100_hz/trial_1.pwl
-;
-; Example excluded:
-;     st_1/1_hz/trial_1.pwl with st_2/100_hz/trial_3.pwl
-;
-; Exports:
-;     i("/I172/Iout")
-;     i("/I56/Iout")
-;     v("/vpre")
-;     v("/vpre1")
-;
-; By default, deletes the PSF directory after output_signals.txt
-; is written.
-; ============================================================
 
 simulator('spectre)
 
-; ------------------------------------------------------------
 ; Design under test
-; ------------------------------------------------------------
 
 design("sebastian_thesis_pilot" "dynapsetb1" "schematic")
 
-; ------------------------------------------------------------
 ; User options
-; ------------------------------------------------------------
 
 ; Set to t if you want to keep full PSF simulation databases.
 ; Set to nil if you only want output_signals.txt.
 keepPsf = nil
 
-; ------------------------------------------------------------
 ; Base directories
-; ------------------------------------------------------------
 
 baseRepoDir = "/home/s5117909/Documents/thesis/sebastian_thesis_repo"
 
@@ -45,7 +22,7 @@ pwlBaseDir = strcat(baseRepoDir "/processing/general_code/spike_train_output")
 st1BaseDir = strcat(pwlBaseDir "/st_1")
 st2BaseDir = strcat(pwlBaseDir "/st_2")
 
-outputBaseDir = strcat(baseRepoDir "/processing/cadence_extraction/output_duo_data")
+outputBaseDir = strcat(baseRepoDir "/processing/cadence_extraction/output_single_data")
 
 unless(isDir(outputBaseDir)
     system(strcat("mkdir -p \"" outputBaseDir "\""))
@@ -92,7 +69,6 @@ desVar("vmax" 1.8)
 ; Save requested currents and voltages
 ; ------------------------------------------------------------
 
-save('i "/I172/Iout")
 save('i "/I56/Iout")
 
 save('v "/vpre")
@@ -300,7 +276,6 @@ foreach(st1FreqDirName st1FreqDirs
 
                                     selectResult('tran)
 
-                                    iout_172 = i("/I172/Iout")
                                     iout_56  = i("/I56/Iout")
 
                                     vpre  = v("/vpre")
@@ -310,7 +285,6 @@ foreach(st1FreqDirName st1FreqDirs
                                         ?output strcat(runDir "/output_signals.txt")
                                         ?precision 10
                                         ?numSpaces 1
-                                        iout_172
                                         iout_56
                                         vpre
                                         vpre1

@@ -45,7 +45,7 @@ pwlBaseDir = strcat(baseRepoDir "/processing/general_code/spike_train_output")
 st1BaseDir = strcat(pwlBaseDir "/st_1")
 st2BaseDir = strcat(pwlBaseDir "/st_2")
 
-outputBaseDir = strcat(baseRepoDir "/processing/cadence_extraction/output_duo_data")
+outputBaseDir = strcat(baseRepoDir "/processing/cadence_extraction/output_data")
 
 unless(isDir(outputBaseDir)
     system(strcat("mkdir -p \"" outputBaseDir "\""))
