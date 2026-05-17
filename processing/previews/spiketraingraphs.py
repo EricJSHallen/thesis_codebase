@@ -11,7 +11,7 @@ import re
 
 def dataloader ():  
     DATADIR = Path(__file__).resolve().parents[1] / "cadence_extracted"
-    OUTPUTCSV = "st1_81_hz__st2_401_hz__trial_1.csv"
+    OUTPUTCSV = "st1_561_hz__st2_561_hz__trial_1.csv"
     csv_path1 = DATADIR / "condensed1syn" / OUTPUTCSV
     csv_path2 = DATADIR / "condensed2syn" / OUTPUTCSV
     df1 = pd.read_csv(csv_path1)
@@ -93,8 +93,8 @@ def main():
 
     fig, axes = plt.subplots(11, 1, sharex=True, figsize=(10, 12))
  
-    t_min = 0.1
-    t_max = 0.12
+    t_min = 0.175
+    t_max = 0.18
 
     # t_min = 0.003
     # t_max = 0.004
