@@ -26,6 +26,7 @@ analysis('tran ?stop "1s")
 
 ; Define ordinary design variables
 
+;simulation complained about bad transistor sizes. perhaps increase to 0.2u or higher.
 desVar("m2l"   180n)
 desVar("m2ltb" 180n)
 desVar("m2w"   180n)
@@ -38,6 +39,7 @@ desVar("m4w"   180n)
 desVar("m4wtb" 180n)
 desVar("m5l" 180n)
 desVar("m5w" 180n)
+;are the bellow really necessary since I am using PWL input
 desVar("pw"   100u)
 desVar("T"    1m)
 desVar("Vin"  0)
