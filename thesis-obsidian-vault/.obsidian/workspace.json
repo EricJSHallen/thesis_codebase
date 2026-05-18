@@ -67,14 +67,12 @@
             "id": "84c1d703d0a2c5ff",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "0_planning/1_CIW-report-from-simulations15052026.md",
-                "mode": "source",
-                "source": false
+                "file": "0_Results/simulation_results_height_map.png"
               },
-              "icon": "lucide-file",
-              "title": "1_CIW-report-from-simulations15052026"
+              "icon": "lucide-image",
+              "title": "simulation_results_height_map"
             }
           }
         ],
@@ -242,25 +240,29 @@
   },
   "active": "84c1d703d0a2c5ff",
   "lastOpenFiles": [
-    "0_planning/1_to-do.md",
     "0_Results/1_feedback_notes.md",
     "0_Results/1_2week_results summary..md",
-    "0_Results/simulation_results0_5_81_401hz_spike_after_simultaneous_spike.png",
-    "0_Results/simulation_results0_5_81_401hz.png",
-    "0_Results/simulation_results_height_map.png",
+    "0_Results/simulation_results0_3.png",
+    "0_Results/simulation_results0_2.png",
     "0_Results/simulation_results0_4.png",
+    "0_Results/simulation_results0_5_81_401hz.png",
+    "0_Results/simulation_results0_5_81_401hz_spike_after_simultaneous_spike.png",
+    "0_Results/Untitled.md",
+    "0_Results/simulation_results_height_map.png",
+    "0_planning/IT questions for vincent.md",
+    "cadence_ocean_parallel_ipc_runbook_gptgenerated.md",
+    "0_planning/1_CIW-report-from-simulations15052026.md",
+    "Unconfirmed 964230.crdownload",
+    "0_planning/1_to-do.md",
     "0_notetaking/1_coding_learning_and_questions.md",
     "0_notetaking/1_vocab_and_terminology.md",
     "0_Results/simulation_results0.png",
-    "0_Results/simulation_results0_3.png",
-    "0_Results/simulation_results0_2.png",
     "0_Results/simulation_results0_1.png",
     "0_papers",
     "0_notetaking",
     "0_Results",
     "README.md",
     "Welcome.md",
-    "0_planning/1_CIW-report-from-simulations15052026.md",
     "0_planning"
   ]
 }
