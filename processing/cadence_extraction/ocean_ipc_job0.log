@@ -1,0 +1,1095 @@
+*WARNING* file /home/s5117909/CDS.log File is already locked by some other process.
+*WARNING* file /home/s5117909/CDS.log.1 File is already locked by some other process.
+*WARNING* file /home/s5117909/CDS.log.2 File is already locked by some other process.
+*WARNING* file /home/s5117909/CDS.log.3 File is already locked by some other process.
+*WARNING* file /home/s5117909/CDS.log.4 File is already locked by some other process.
+*WARNING* file /home/s5117909/CDS.log.5 File is already locked by some other process.
+COPYRIGHT (C) 1992-2024  CADENCE DESIGN SYSTEMS INC.  ALL RIGHTS RESERVED.
+          (C) 1992-2024  UNIX SYSTEMS Laboratories INC.,
+                         Reproduced with permission.
+
+This Cadence Design Systems program and online documentation are
+proprietary/confidential information and may be disclosed/used only
+as authorized in a license agreement controlling such use and disclosure.
+
+          RESTRICTED RIGHTS NOTICE (SHORT FORM)
+Use/reproduction/disclosure is subject to restriction
+set forth at FAR 1252.227-19 or its equivalent.
+Loading geView.cxt 
+Loading menuBuilder.cxt 
+Loading im.cxt 
+Loading schView.cxt 
+Loading selectSv.cxt 
+Loading pvsui.cxt
+Loading wireEdit.cxt 
+Loading pte2.cxt 
+Loading xlUI.cxt 
+Loading auCore.cxt 
+Loading vhdl.cxt 
+Loading seismic.cxt 
+Loading ci.cxt 
+Loading layers.cxt 
+Loading drv.cxt 
+Loading ams.cxt 
+Loading adexlDM.cxt 
+Loading cpf.cxt 
+Loading cli.cxt 
+Loading lp.cxt 
+Loading sipLayout.cxt 
+Loading diagCenter.cxt 
+INFO (ELI-00333) Client process connection mode is NormalChild.
+*WARNING* ddiAddLibToOA: Can't access library 'synopsys' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/SYNOPSYS' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'ambit' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/AMBIT' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'std' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/STD' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'ieee' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/IEEE' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+Loading oasis.cxt 
+Loading dal.cxt 
+Loading awv.cxt 
+Loading vdsil.cxt 
+Loading analog.cxt 
+Loading asimenv.cxt 
+Loading spectrei.cxt 
+Loading adexlCore.cxt 
+Loading socket.cxt 
+Loading par.cxt 
+Loading alvs.cxt 
+Loading caa.cxt 
+Loading amps.cxt 
+Loading adexl.cxt 
+Loading lx.cxt 
+Loading pe.cxt 
+Loading lce.cxt 
+Loading le.cxt 
+Loading drdEdit.cxt 
+Loading rte.cxt 
+Loading te.cxt 
+Loading schHDL.cxt 
+Loading devCheck.cxt 
+Loading relXpert.cxt 
+Loading simui.cxt 
+*WARNING* ddiAddLibToOA: Can't access library 'synopsys' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/SYNOPSYS' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'ambit' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/AMBIT' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'std' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/STD' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'ieee' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/IEEE' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* (DB-270000): dbOpenCellViewByType: Unable to lock database file for sebastian_thesis_pilot/synapsedualinputtb/schematic.
+** Info: PDK loadpath is "/projects/bics/designkits/xfab/xp018/cadence/v8_0/PDK/IC61/v8_0_2"
+Loading XfSktTools.cxt
+Loading XfMenu.cxt
+Loading XfTechXp018.cxt
+Loading XfPcellCore.cxt
+function ansiSpicePrintProperties_subcircuit redefined
+Loading XfSkillExt.cxt
+Initializing library.
+Finished Initializing Library .
+    Generic PcellKit: 'production' loaded.
+    Generic Pcell Skill Tools: 'production' loaded.
+Parallel split: job 0 of 4
+Frequency mixing: enabled
+Trial mixing: disabled; only matching trial_N files are paired
+Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_81_hz__trial_1/psf.
+Loading spectreinl.cxt 
+Loading hnlInit.cxt 
+Loading seCore.cxt 
+function ansCdlCompPrim redefined
+function ansCdlCompPrim redefined
+Begin Incremental Netlisting May 18 14:25:23 2026
+End netlisting May 18 14:25:23 2026
+Loading monte.cxt 
+
+	The netlist is up to date.
+	Time taken to compare the design with netlist:   0.0s
+Loading hspiceD.cxt 
+Loading msgHandler.cxt 
+Loading UltraSim.cxt 
+Loading AMSOSS.cxt 
+Loading AMS.cxt 
+simulate...
+Loading viva.cxt 
+
+
+Spectre (R) Circuit Simulator
+Version 23.1.0.327.isr4 64bit -- 9 Dec 2023
+
+Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved
+        worldwide. Cadence and Spectre are registered trademarks of Cadence
+        Design Systems, Inc. All others are the property of their respective
+        holders.
+
+
+
+Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA
+        Security, Inc.
+
+
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 17055
+
+Memory  available: 108.9506 GB  physical: 135.0280 GB
+
+Linux   : CentOS Linux release 7 (Core)
+CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
+All processors running at 2693.7 MHz
+        Socket: Processors
+        0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
+                10, 11
+        
+System load averages (1min, 5min, 15min) : 17.8 %, 10.9 %, 9.7 %
+HPC is enabled
+This is a virtual machine
+
+
+
+Simulating `input.scs' on bics02 at 2:25:24 PM, Mon May 18, 2026 (process id:
+        17055).
+Current working directory:
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
+
+Command line:
+    /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/bin/spectre  \
+        -64 input.scs +escchars +log  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_81_hz__trial_1/psf/spectre.out
+        \
+        -format psfxl -raw  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_81_hz__trial_1/psf
+        \
+        +aps +mt +lqtimeout 900 -maxw 5 -maxn 5 -env ade  \
+        +adespetkn=adespe ++aps +mt=4
+
+Licensing Information:
+[14:25:24.084881] Configured Lic search path (22.01-s002):
+        5280@lic009.workspace.rug.nl
+
+
+Licensing Information:
+[14:25:24.365608] Periodic Lic check successful
+
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/input.scs
+
+Reading file: 
+        /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/spectre/etc/configs/spectre.cfg
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/ade_e.scs
+
+Time for NDB Parsing: CPU = 125.573 ms, elapsed = 236.555 ms.
+Time accumulated: CPU = 298.275 ms, elapsed = 236.562 ms.
+
+Peak resident memory used = 88.6 Mbytes.
+
+
+
+Error found by spectre during circuit read-in.
+    ERROR (SFE-23): "input.scs" 42: The instance `M4' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 46: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+Error found by spectre in `dynapse1', during circuit read-in.
+
+    ERROR (SFE-23): "input.scs" 21: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+    ERROR (SFE-23): "input.scs" 25: The instance `M3' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 29: The instance `M4' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+    ERROR (SFE-23): "input.scs" 32: The instance `M5' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 35: The instance `C0' is referencing an
+        undefined model or subcircuit, `cmm4'. Either include the file
+        containing the definition of `cmm4', or define `cmm4' before running
+        the simulation.
+
+
+Time for Elaboration: CPU = 23.769 ms, elapsed = 30.411 ms.
+
+Time accumulated: CPU = 322.206 ms, elapsed = 267.133 ms.
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+Notice from spectre during circuit read-in.
+    Multithreading enabled: 4 threads in the system with 12 available
+        processors.
+
+
+Time for parsing: CPU = 102 us, elapsed = 100.851 us.
+
+Time accumulated: CPU = 322.543 ms, elapsed = 267.465 ms.
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~
+Pre-Simulation Summary
+~~~~~~~~~~~~~~~~~~~~~~
+   -   (APS) Multi-threading. The recommended number of threads is 8, consider
+        adding +mt=8 on command line.
+~~~~~~~~~~~~~~~~~~~~~~
+
+Licensing Information:
+Lic Summary:
+[14:25:25.019507] Cdslmd servers:5280@lic009.workspace.rug.nl
+[14:25:25.019530] Feature usage summary:
+[14:25:25.019531] Virtuoso_Multi_mode_Simulation
+
+
+
+Aggregate audit (2:25:25 PM, Mon May 18, 2026):
+
+Time used: CPU = 327 ms, elapsed = 271 ms, util. = 120%.
+Time spent in licensing: elapsed = 72.7 ms, percentage of total = 26.8%.
+Peak memory used = 96.3 Mbytes.
+
+Simulation started at: 2:25:24 PM, Mon May 18, 2026, ended at: 2:25:25 PM, Mon
+        May 18, 2026, with elapsed time (wall clock): 271 ms.
+
+spectre completes with 7 errors, 0 warnings, and 1 notice.
+
+WARNING (OCN-6038): Results tran are not available for /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_81_hz__trial_1. Use results() for a list of available results.
+Finished: st1_81_hz__st2_81_hz__trial_1
+Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_401_hz__trial_1/psf.
+function ansCdlCompPrim redefined
+function ansCdlCompPrim redefined
+Begin Incremental Netlisting May 18 14:25:25 2026
+End netlisting May 18 14:25:25 2026
+
+	The netlist is up to date.
+	Time taken to compare the design with netlist:   0.0s
+simulate...
+
+
+Spectre (R) Circuit Simulator
+Version 23.1.0.327.isr4 64bit -- 9 Dec 2023
+
+Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved
+        worldwide. Cadence and Spectre are registered trademarks of Cadence
+        Design Systems, Inc. All others are the property of their respective
+        holders.
+
+
+
+Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA
+        Security, Inc.
+
+
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 17336
+
+Memory  available: 108.9295 GB  physical: 135.0280 GB
+
+Linux   : CentOS Linux release 7 (Core)
+CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
+All processors running at 2693.7 MHz
+        Socket: Processors
+        0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
+                10, 11
+        
+System load averages (1min, 5min, 15min) : 17.8 %, 10.9 %, 9.7 %
+HPC is enabled
+This is a virtual machine
+
+
+
+Simulating `input.scs' on bics02 at 2:25:26 PM, Mon May 18, 2026 (process id:
+        17336).
+Current working directory:
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
+
+Command line:
+    /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/bin/spectre  \
+        -64 input.scs +escchars +log  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_401_hz__trial_1/psf/spectre.out
+        \
+        -format psfxl -raw  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_401_hz__trial_1/psf
+        \
+        +aps +mt +lqtimeout 900 -maxw 5 -maxn 5 -env ade  \
+        +adespetkn=adespe ++aps +mt=4
+
+Licensing Information:
+[14:25:26.084897] Configured Lic search path (22.01-s002):
+        5280@lic009.workspace.rug.nl
+
+
+Licensing Information:
+[14:25:26.439994] Periodic Lic check successful
+
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/input.scs
+
+Reading file: 
+        /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/spectre/etc/configs/spectre.cfg
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/ade_e.scs
+
+Time for NDB Parsing: CPU = 103.405 ms, elapsed = 179.39 ms.
+Time accumulated: CPU = 236.912 ms, elapsed = 179.398 ms.
+
+Peak resident memory used = 88.6 Mbytes.
+
+
+
+Error found by spectre during circuit read-in.
+    ERROR (SFE-23): "input.scs" 42: The instance `M4' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 46: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+Error found by spectre in `dynapse1', during circuit read-in.
+    ERROR (SFE-23): "input.scs" 21: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 25: The instance `M3' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+    ERROR (SFE-23): "input.scs" 29: The instance `M4' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 32: The instance `M5' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+    ERROR (SFE-23): "input.scs" 35: The instance `C0' is referencing an
+        undefined model or subcircuit, `cmm4'. Either include the file
+        containing the definition of `cmm4', or define `cmm4' before running
+        the simulation.
+
+
+Time for Elaboration: CPU = 21.575 ms, elapsed = 25.1629 ms.
+Time accumulated: CPU = 258.624 ms, elapsed = 204.697 ms.
+
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+Notice from spectre during circuit read-in.
+    Multithreading enabled: 4 threads in the system with 12 available
+        processors.
+
+
+Time for parsing: CPU = 52 us, elapsed = 50.0679 us.
+Time accumulated: CPU = 258.82 ms, elapsed = 204.891 ms.
+
+Peak resident memory used = 94.9 Mbytes.
+
+
+~~~~~~~~~~~~~~~~~~~~~~
+Pre-Simulation Summary
+~~~~~~~~~~~~~~~~~~~~~~
+   -   (APS) Multi-threading. The recommended number of threads is 8, consider
+        adding +mt=8 on command line.
+
+~~~~~~~~~~~~~~~~~~~~~~
+
+Licensing Information:
+Lic Summary:
+[14:25:26.000691] Cdslmd servers:5280@lic009.workspace.rug.nl
+[14:25:26.000712] Feature usage summary:
+[14:25:26.000713] Virtuoso_Multi_mode_Simulation
+
+
+
+Aggregate audit (2:25:26 PM, Mon May 18, 2026):
+
+Time used: CPU = 262 ms, elapsed = 209 ms, util. = 126%.
+Time spent in licensing: elapsed = 60.6 ms, percentage of total = 29%.
+
+Peak memory used = 96.3 Mbytes.
+
+Simulation started at: 2:25:26 PM, Mon May 18, 2026, ended at: 2:25:26 PM, Mon
+        May 18, 2026, with elapsed time (wall clock): 209 ms.
+spectre completes with 7 errors, 0 warnings, and 1 notice.
+
+WARNING (OCN-6038): Results tran are not available for /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_401_hz__trial_1. Use results() for a list of available results.
+Finished: st1_81_hz__st2_401_hz__trial_1
+Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_321_hz__st2_81_hz__trial_1/psf.
+function ansCdlCompPrim redefined
+function ansCdlCompPrim redefined
+Begin Incremental Netlisting May 18 14:25:27 2026
+End netlisting May 18 14:25:27 2026
+
+	The netlist is up to date.
+	Time taken to compare the design with netlist:   0.0s
+simulate...
+
+
+Spectre (R) Circuit Simulator
+Version 23.1.0.327.isr4 64bit -- 9 Dec 2023
+
+Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved
+        worldwide. Cadence and Spectre are registered trademarks of Cadence
+        Design Systems, Inc. All others are the property of their respective
+        holders.
+
+
+
+
+Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA
+        Security, Inc.
+
+
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 17753
+
+Memory  available: 108.9267 GB  physical: 135.0280 GB
+
+Linux   : CentOS Linux release 7 (Core)
+CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
+All processors running at 2693.7 MHz
+        Socket: Processors
+        0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
+                10, 11
+        
+System load averages (1min, 5min, 15min) : 17.8 %, 10.9 %, 9.7 %
+HPC is enabled
+This is a virtual machine
+
+
+
+Simulating `input.scs' on bics02 at 2:25:28 PM, Mon May 18, 2026 (process id:
+        17753).
+Current working directory:
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
+
+Command line:
+    /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/bin/spectre  \
+        -64 input.scs +escchars +log  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_321_hz__st2_81_hz__trial_1/psf/spectre.out
+        \
+        -format psfxl -raw  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_321_hz__st2_81_hz__trial_1/psf
+        \
+        +aps +mt +lqtimeout 900 -maxw 5 -maxn 5 -env ade  \
+        +adespetkn=adespe ++aps +mt=4
+
+Licensing Information:
+
+[14:25:28.084913] Configured Lic search path (22.01-s002):
+        5280@lic009.workspace.rug.nl
+
+
+Licensing Information:
+[14:25:28.245994] Periodic Lic check successful
+
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/input.scs
+
+Reading file: 
+        /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/spectre/etc/configs/spectre.cfg
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/ade_e.scs
+
+Time for NDB Parsing: CPU = 106.862 ms, elapsed = 277.563 ms.
+
+Time accumulated: CPU = 245.062 ms, elapsed = 277.57 ms.
+Peak resident memory used = 88.6 Mbytes.
+
+
+
+Error found by spectre during circuit read-in.
+    ERROR (SFE-23): "input.scs" 42: The instance `M4' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 46: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+Error found by spectre in `dynapse1', during circuit read-in.
+    ERROR (SFE-23): "input.scs" 21: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 25: The instance `M3' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+    ERROR (SFE-23): "input.scs" 29: The instance `M4' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 32: The instance `M5' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 35: The instance `C0' is referencing an
+        undefined model or subcircuit, `cmm4'. Either include the file
+        containing the definition of `cmm4', or define `cmm4' before running
+        the simulation.
+
+
+Time for Elaboration: CPU = 17.971 ms, elapsed = 21.5051 ms.
+
+Time accumulated: CPU = 263.173 ms, elapsed = 299.214 ms.
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+Notice from spectre during circuit read-in.
+    Multithreading enabled: 4 threads in the system with 12 available
+        processors.
+
+
+Time for parsing: CPU = 56 us, elapsed = 55.0747 us.
+
+Time accumulated: CPU = 263.387 ms, elapsed = 299.426 ms.
+
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~
+Pre-Simulation Summary
+~~~~~~~~~~~~~~~~~~~~~~
+   -   (APS) Multi-threading. The recommended number of threads is 8, consider
+        adding +mt=8 on command line.
+
+~~~~~~~~~~~~~~~~~~~~~~
+
+Licensing Information:
+Lic Summary:
+[14:25:28.325851] Cdslmd servers:5280@lic009.workspace.rug.nl
+[14:25:28.325873] Feature usage summary:
+[14:25:28.325874] Virtuoso_Multi_mode_Simulation
+
+
+
+Aggregate audit (2:25:28 PM, Mon May 18, 2026):
+
+Time used: CPU = 267 ms, elapsed = 303 ms, util. = 88.1%.
+
+Time spent in licensing: elapsed = 267 ms, percentage of total = 88.1%.
+
+Peak memory used = 96.3 Mbytes.
+
+Simulation started at: 2:25:28 PM, Mon May 18, 2026, ended at: 2:25:28 PM, Mon
+        May 18, 2026, with elapsed time (wall clock): 303 ms.
+
+spectre completes with 7 errors, 0 warnings, and 1 notice.
+
+WARNING (OCN-6038): Results tran are not available for /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_321_hz__st2_81_hz__trial_1. Use results() for a list of available results.
+Finished: st1_321_hz__st2_81_hz__trial_1
+Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_321_hz__st2_401_hz__trial_1/psf.
+function ansCdlCompPrim redefined
+function ansCdlCompPrim redefined
+Begin Incremental Netlisting May 18 14:25:28 2026
+End netlisting May 18 14:25:29 2026
+
+	The netlist is up to date.
+	Time taken to compare the design with netlist:   1.0s
+simulate...
+
+
+Spectre (R) Circuit Simulator
+Version 23.1.0.327.isr4 64bit -- 9 Dec 2023
+
+Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved
+        worldwide. Cadence and Spectre are registered trademarks of Cadence
+        Design Systems, Inc. All others are the property of their respective
+        holders.
+
+
+
+Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA
+        Security, Inc.
+
+
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 18483
+
+Memory  available: 108.8913 GB  physical: 135.0280 GB
+
+Linux   : CentOS Linux release 7 (Core)
+CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
+All processors running at 2693.7 MHz
+        Socket: Processors
+        0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
+                10, 11
+        
+System load averages (1min, 5min, 15min) : 25.0 %, 12.5 %, 10.3 %
+HPC is enabled
+This is a virtual machine
+
+
+
+Simulating `input.scs' on bics02 at 2:25:29 PM, Mon May 18, 2026 (process id:
+        18483).
+Current working directory:
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
+
+Command line:
+    /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/bin/spectre  \
+        -64 input.scs +escchars +log  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_321_hz__st2_401_hz__trial_1/psf/spectre.out
+        \
+        -format psfxl -raw  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_321_hz__st2_401_hz__trial_1/psf
+        \
+        +aps +mt +lqtimeout 900 -maxw 5 -maxn 5 -env ade  \
+        +adespetkn=adespe ++aps +mt=4
+
+Licensing Information:
+[14:25:29.084921] Configured Lic search path (22.01-s002):
+        5280@lic009.workspace.rug.nl
+
+
+Licensing Information:
+[14:25:29.256627] Periodic Lic check successful
+
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/input.scs
+
+Reading file: 
+        /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/spectre/etc/configs/spectre.cfg
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/ade_e.scs
+
+Time for NDB Parsing: CPU = 98.968 ms, elapsed = 171.2 ms.
+
+Time accumulated: CPU = 245.106 ms, elapsed = 171.206 ms.
+Peak resident memory used = 88.6 Mbytes.
+
+
+
+Error found by spectre during circuit read-in.
+    ERROR (SFE-23): "input.scs" 42: The instance `M4' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 46: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+Error found by spectre in `dynapse1', during circuit read-in.
+    ERROR (SFE-23): "input.scs" 21: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 25: The instance `M3' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+    ERROR (SFE-23): "input.scs" 29: The instance `M4' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 32: The instance `M5' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+    ERROR (SFE-23): "input.scs" 35: The instance `C0' is referencing an
+        undefined model or subcircuit, `cmm4'. Either include the file
+        containing the definition of `cmm4', or define `cmm4' before running
+        the simulation.
+
+
+Time for Elaboration: CPU = 17.711 ms, elapsed = 20.6649 ms.
+
+Time accumulated: CPU = 262.956 ms, elapsed = 192.01 ms.
+
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+
+Notice from spectre during circuit read-in.
+    Multithreading enabled: 4 threads in the system with 12 available
+        processors.
+
+
+Time for parsing: CPU = 68 us, elapsed = 66.9956 us.
+
+Time accumulated: CPU = 263.181 ms, elapsed = 192.234 ms.
+
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~
+Pre-Simulation Summary
+~~~~~~~~~~~~~~~~~~~~~~
+
+   -   (APS) Multi-threading. The recommended number of threads is 8, consider
+        adding +mt=8 on command line.
+
+~~~~~~~~~~~~~~~~~~~~~~
+
+Licensing Information:
+Lic Summary:
+[14:25:29.335523] Cdslmd servers:5280@lic009.workspace.rug.nl
+[14:25:29.335546] Feature usage summary:
+[14:25:29.335547] Virtuoso_Multi_mode_Simulation
+
+
+
+Aggregate audit (2:25:29 PM, Mon May 18, 2026):
+
+Time used: CPU = 267 ms, elapsed = 196 ms, util. = 136%.
+
+Time spent in licensing: elapsed = 55.3 ms, percentage of total = 28.3%.
+
+Peak memory used = 96.3 Mbytes.
+
+Simulation started at: 2:25:29 PM, Mon May 18, 2026, ended at: 2:25:29 PM, Mon
+        May 18, 2026, with elapsed time (wall clock): 196 ms.
+
+spectre completes with 7 errors, 0 warnings, and 1 notice.
+
+WARNING (OCN-6038): Results tran are not available for /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_321_hz__st2_401_hz__trial_1. Use results() for a list of available results.
+Finished: st1_321_hz__st2_401_hz__trial_1
+Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_1_hz__st2_81_hz__trial_1/psf.
+function ansCdlCompPrim redefined
+function ansCdlCompPrim redefined
+Begin Incremental Netlisting May 18 14:25:30 2026
+End netlisting May 18 14:25:30 2026
+
+	The netlist is up to date.
+	Time taken to compare the design with netlist:   0.0s
+simulate...
+
+
+Spectre (R) Circuit Simulator
+Version 23.1.0.327.isr4 64bit -- 9 Dec 2023
+
+Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved
+        worldwide. Cadence and Spectre are registered trademarks of Cadence
+        Design Systems, Inc. All others are the property of their respective
+        holders.
+
+
+
+Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA
+        Security, Inc.
+
+
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 18803
+
+Memory  available: 108.7803 GB  physical: 135.0280 GB
+
+Linux   : CentOS Linux release 7 (Core)
+CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
+All processors running at 2693.7 MHz
+        Socket: Processors
+        0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
+                10, 11
+        
+System load averages (1min, 5min, 15min) : 25.0 %, 12.5 %, 10.3 %
+HPC is enabled
+This is a virtual machine
+
+
+
+Simulating `input.scs' on bics02 at 2:25:31 PM, Mon May 18, 2026 (process id:
+        18803).
+Current working directory:
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
+
+Command line:
+    /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/bin/spectre  \
+        -64 input.scs +escchars +log  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_1_hz__st2_81_hz__trial_1/psf/spectre.out
+        \
+        -format psfxl -raw  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_1_hz__st2_81_hz__trial_1/psf
+        \
+        +aps +mt +lqtimeout 900 -maxw 5 -maxn 5 -env ade  \
+        +adespetkn=adespe ++aps +mt=4
+
+Licensing Information:
+[14:25:31.084865] Configured Lic search path (22.01-s002):
+        5280@lic009.workspace.rug.nl
+
+
+Licensing Information:
+[14:25:31.450329] Periodic Lic check successful
+
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/input.scs
+
+Reading file: 
+        /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/spectre/etc/configs/spectre.cfg
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/ade_e.scs
+
+Time for NDB Parsing: CPU = 104.963 ms, elapsed = 172.995 ms.
+
+Time accumulated: CPU = 240.005 ms, elapsed = 173.001 ms.
+Peak resident memory used = 88.6 Mbytes.
+
+
+
+Error found by spectre during circuit read-in.
+    ERROR (SFE-23): "input.scs" 42: The instance `M4' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 46: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+Error found by spectre in `dynapse1', during circuit read-in.
+    ERROR (SFE-23): "input.scs" 21: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 25: The instance `M3' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 29: The instance `M4' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+    ERROR (SFE-23): "input.scs" 32: The instance `M5' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 35: The instance `C0' is referencing an
+        undefined model or subcircuit, `cmm4'. Either include the file
+        containing the definition of `cmm4', or define `cmm4' before running
+        the simulation.
+
+
+Time for Elaboration: CPU = 17.394 ms, elapsed = 20.5069 ms.
+
+Time accumulated: CPU = 257.535 ms, elapsed = 193.644 ms.
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+Notice from spectre during circuit read-in.
+    Multithreading enabled: 4 threads in the system with 12 available
+        processors.
+
+
+Time for parsing: CPU = 49 us, elapsed = 47.9221 us.
+Time accumulated: CPU = 257.732 ms, elapsed = 193.834 ms.
+
+Peak resident memory used = 94.9 Mbytes.
+
+
+~~~~~~~~~~~~~~~~~~~~~~
+Pre-Simulation Summary
+~~~~~~~~~~~~~~~~~~~~~~
+   -   (APS) Multi-threading. The recommended number of threads is 8, consider
+        adding +mt=8 on command line.
+
+~~~~~~~~~~~~~~~~~~~~~~
+
+Licensing Information:
+Lic Summary:
+[14:25:31.005082] Cdslmd servers:5280@lic009.workspace.rug.nl
+[14:25:31.005107] Feature usage summary:
+[14:25:31.005107] Virtuoso_Multi_mode_Simulation
+
+
+
+Aggregate audit (2:25:31 PM, Mon May 18, 2026):
+
+Time used: CPU = 261 ms, elapsed = 198 ms, util. = 132%.
+Time spent in licensing: elapsed = 61.2 ms, percentage of total = 31%.
+
+Peak memory used = 96.3 Mbytes.
+
+Simulation started at: 2:25:31 PM, Mon May 18, 2026, ended at: 2:25:31 PM, Mon
+        May 18, 2026, with elapsed time (wall clock): 198 ms.
+spectre completes with 7 errors, 0 warnings, and 1 notice.
+
+WARNING (OCN-6038): Results tran are not available for /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_1_hz__st2_81_hz__trial_1. Use results() for a list of available results.
+Finished: st1_1_hz__st2_81_hz__trial_1
+Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_1_hz__st2_401_hz__trial_1/psf.
+function ansCdlCompPrim redefined
+function ansCdlCompPrim redefined
+Begin Incremental Netlisting May 18 14:25:32 2026
+End netlisting May 18 14:25:32 2026
+
+	The netlist is up to date.
+	Time taken to compare the design with netlist:   0.0s
+simulate...
+
+
+Spectre (R) Circuit Simulator
+Version 23.1.0.327.isr4 64bit -- 9 Dec 2023
+
+Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved
+        worldwide. Cadence and Spectre are registered trademarks of Cadence
+        Design Systems, Inc. All others are the property of their respective
+        holders.
+
+
+
+
+Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA
+        Security, Inc.
+
+
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 19048
+
+Memory  available: 108.7307 GB  physical: 135.0280 GB
+
+Linux   : CentOS Linux release 7 (Core)
+CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
+All processors running at 2693.7 MHz
+        Socket: Processors
+        0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
+                10, 11
+        
+System load averages (1min, 5min, 15min) : 25.0 %, 12.5 %, 10.3 %
+HPC is enabled
+This is a virtual machine
+
+
+
+Simulating `input.scs' on bics02 at 2:25:32 PM, Mon May 18, 2026 (process id:
+        19048).
+Current working directory:
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
+
+Command line:
+    /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/bin/spectre  \
+        -64 input.scs +escchars +log  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_1_hz__st2_401_hz__trial_1/psf/spectre.out
+        \
+        -format psfxl -raw  \
+        ../../../../../Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_1_hz__st2_401_hz__trial_1/psf
+        \
+        +aps +mt +lqtimeout 900 -maxw 5 -maxn 5 -env ade  \
+        +adespetkn=adespe ++aps +mt=4
+
+Licensing Information:
+
+[14:25:33.084881] Configured Lic search path (22.01-s002):
+        5280@lic009.workspace.rug.nl
+
+
+Licensing Information:
+[14:25:33.212459] Periodic Lic check successful
+
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/input.scs
+
+Reading file: 
+        /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/spectre/etc/configs/spectre.cfg
+
+Reading file: 
+        /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/ade_e.scs
+
+Time for NDB Parsing: CPU = 124.51 ms, elapsed = 297.892 ms.
+
+Time accumulated: CPU = 261.359 ms, elapsed = 297.898 ms.
+
+Peak resident memory used = 88.6 Mbytes.
+
+
+
+Error found by spectre during circuit read-in.
+    ERROR (SFE-23): "input.scs" 42: The instance `M4' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 46: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+Error found by spectre in `dynapse1', during circuit read-in.
+    ERROR (SFE-23): "input.scs" 21: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 25: The instance `M3' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+    ERROR (SFE-23): "input.scs" 29: The instance `M4' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+
+    ERROR (SFE-23): "input.scs" 32: The instance `M5' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+    ERROR (SFE-23): "input.scs" 35: The instance `C0' is referencing an
+        undefined model or subcircuit, `cmm4'. Either include the file
+        containing the definition of `cmm4', or define `cmm4' before running
+        the simulation.
+
+
+Time for Elaboration: CPU = 17.999 ms, elapsed = 21.0559 ms.
+Time accumulated: CPU = 279.546 ms, elapsed = 319.141 ms.
+
+Peak resident memory used = 94.9 Mbytes.
+
+
+
+Notice from spectre during circuit read-in.
+    Multithreading enabled: 4 threads in the system with 12 available
+        processors.
+
+
+Time for parsing: CPU = 55 us, elapsed = 54.8363 us.
+
+Time accumulated: CPU = 279.75 ms, elapsed = 319.343 ms.
+
+Peak resident memory used = 94.9 Mbytes.
+
+
+~~~~~~~~~~~~~~~~~~~~~~
+Pre-Simulation Summary
+~~~~~~~~~~~~~~~~~~~~~~
+   -   (APS) Multi-threading. The recommended number of threads is 8, consider
+        adding +mt=8 on command line.
+
+~~~~~~~~~~~~~~~~~~~~~~
+
+Licensing Information:
+Lic Summary:
+[14:25:33.311675] Cdslmd servers:5280@lic009.workspace.rug.nl
+[14:25:33.311712] Feature usage summary:
+[14:25:33.311713] Virtuoso_Multi_mode_Simulation
+
+
+
+Aggregate audit (2:25:33 PM, Mon May 18, 2026):
+
+Time used: CPU = 283 ms, elapsed = 323 ms, util. = 87.8%.
+
+Time spent in licensing: elapsed = 262 ms, percentage of total = 81.2%.
+
+Peak memory used = 96.3 Mbytes.
+
+Simulation started at: 2:25:32 PM, Mon May 18, 2026, ended at: 2:25:33 PM, Mon
+        May 18, 2026, with elapsed time (wall clock): 323 ms.
+
+spectre completes with 7 errors, 0 warnings, and 1 notice.
+
+WARNING (OCN-6038): Results tran are not available for /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_1_hz__st2_401_hz__trial_1. Use results() for a list of available results.
+Finished: st1_1_hz__st2_401_hz__trial_1
+Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_161_hz__st2_81_hz__trial_1/psf.
+function ansCdlCompPrim redefined
+function ansCdlCompPrim redefined
+Begin Incremental Netlisting May 18 14:25:33 2026
+End netlisting May 18 14:25:33 2026
+
+	The netlist is up to date.
+	Time taken to compare the design with netlist:   0.0s
