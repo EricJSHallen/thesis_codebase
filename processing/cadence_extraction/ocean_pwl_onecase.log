@@ -123,8 +123,6 @@ Initializing library.
 Finished Initializing Library .
     Generic PcellKit: 'production' loaded.
     Generic Pcell Skill Tools: 'production' loaded.
-Using PDK model file: /home/s5117909/eda_env/xp018/xp018_combine.lib
-Using PDK model section: <none>
 Parallel split: job 0 of 64
 Frequency mixing: enabled
 Trial mixing: disabled; only matching trial_N files are paired
@@ -132,8 +130,8 @@ Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/process
 Loading spectreinl.cxt 
 Loading hnlInit.cxt 
 Loading seCore.cxt 
-Begin Incremental Netlisting May 18 17:31:54 2026
-End netlisting May 18 17:31:54 2026
+Begin Incremental Netlisting May 18 18:04:36 2026
+End netlisting May 18 18:04:36 2026
 Loading monte.cxt 
 
 	The netlist is up to date.
@@ -157,14 +155,13 @@ Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved
 
 
 
-
 Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA
         Security, Inc.
 
 
-User: s5117909   Host: bics02   HostID: 7F0101   PID: 8080
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 19831
 
-Memory  available: 110.5617 GB  physical: 135.0280 GB
+Memory  available: 110.3273 GB  physical: 135.0280 GB
 
 Linux   : CentOS Linux release 7 (Core)
 CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
@@ -173,14 +170,13 @@ All processors running at 2693.7 MHz
         0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
                 10, 11
         
-System load averages (1min, 5min, 15min) : 15.8 %, 15.5 %, 14.9 %
+System load averages (1min, 5min, 15min) : 22.2 %, 19.5 %, 19.5 %
 HPC is enabled
 This is a virtual machine
 
 
-
-Simulating `input.scs' on bics02 at 5:31:55 PM, Mon May 18, 2026 (process id:
-        8080).
+Simulating `input.scs' on bics02 at 6:04:37 PM, Mon May 18, 2026 (process id:
+        19831).
 
 Current working directory:
         /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
@@ -197,14 +193,12 @@ Command line:
         +adespetkn=adespe ++aps +mt=4
 
 Licensing Information:
-
-[17:31:55.084913] Configured Lic search path (22.01-s002):
+[18:04:37.084921] Configured Lic search path (22.01-s002):
         5280@lic009.workspace.rug.nl
 
 
 Licensing Information:
-
-[17:31:55.447545] Periodic Lic check successful
+[18:04:38.023466] Periodic Lic check successful
 
 
 Reading file: 
@@ -216,202 +210,88 @@ Reading file:
 Reading file: 
         /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist/ade_e.scs
 
-Reading file:  /home/s5117909/eda_env/xp018/xp018_combine.lib
+Time for NDB Parsing: CPU = 121.393 ms, elapsed = 218.373 ms.
+Time accumulated: CPU = 281.188 ms, elapsed = 218.379 ms.
+
+Peak resident memory used = 88.6 Mbytes.
+
 
 
 Error found by spectre during circuit read-in.
+    ERROR (SFE-23): "input.scs" 42: The instance `M4' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 7: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
+    ERROR (SFE-23): "input.scs" 46: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+Error found by spectre in `dynapse1', during circuit read-in.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 8: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
+    ERROR (SFE-23): "input.scs" 21: The instance `M2' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
+    ERROR (SFE-23): "input.scs" 25: The instance `M3' is referencing an
+        undefined model or subcircuit, `ne'. Either include the file containing
+        the definition of `ne', or define `ne' before running the simulation.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 9: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
+    ERROR (SFE-23): "input.scs" 29: The instance `M4' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
+    ERROR (SFE-23): "input.scs" 32: The instance `M5' is referencing an
+        undefined model or subcircuit, `pe'. Either include the file containing
+        the definition of `pe', or define `pe' before running the simulation.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 10: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
+    ERROR (SFE-23): "input.scs" 35: The instance `C0' is referencing an
+        undefined model or subcircuit, `cmm4'. Either include the file
+        containing the definition of `cmm4', or define `cmm4' before running
+        the simulation.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 11: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 12: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
+Time for Elaboration: CPU = 18.288 ms, elapsed = 24.029 ms.
+Time accumulated: CPU = 299.627 ms, elapsed = 242.558 ms.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 13: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
+Peak resident memory used = 94.9 Mbytes.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 14: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
 
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 15: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 16: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 17: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 18: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 19: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-874): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 21:
-        Cannot run the simulation because syntax error `Unexpected end of line.
-        Expected equals sign, numeric value or string value' was encountered at
-        line 22, column 1. Correct the syntax error and rerun the simulation.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 22: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 23: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 28: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 29: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 30: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 31: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 32: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 33: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 34: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 35: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 36: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 37: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 38: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 39: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 40: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 41: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 42: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 43: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 44: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 45: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 46: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 47: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 48: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-874): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 50:
-        Cannot run the simulation because syntax error `Unexpected end of line.
-        Expected equals sign, numeric value or string value' was encountered at
-        line 51, column 1. Correct the syntax error and rerun the simulation.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 51: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 52: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-874): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 54:
-        Cannot run the simulation because syntax error `Unexpected end of line.
-        Expected equals sign, numeric value or string value' was encountered at
-        line 55, column 1. Correct the syntax error and rerun the simulation.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 55: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 56: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-874): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 58:
-        Cannot run the simulation because syntax error `Unexpected end of line.
-        Expected equals sign, numeric value or string value' was encountered at
-        line 59, column 1. Correct the syntax error and rerun the simulation.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 59: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 60: `A'
-        (first char of `ASSIGN') is not a valid SPICE element type.
-
-    ERROR (SFE-874): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 62:
-        Cannot run the simulation because syntax error `Unexpected end of line.
-        Expected equals sign, numeric value or string value' was encountered at
-        line 63, column 1. Correct the syntax error and rerun the simulation.
-
-    ERROR (SFE-1806): "/home/s5117909/eda_env/xp018/xp018_combine.lib" 63: `#'
-        (first char of `#ASSIGN') is not a valid SPICE element type.
 
 Notice from spectre during circuit read-in.
-    "/home/s5117909/eda_env/xp018/xp018_combine.lib" 64: Failed to parse
-        configure file `/home/s5117909/eda_env/xp018/xp018_combine.lib'. If
-        statements in `/home/s5117909/eda_env/xp018/xp018_combine.lib' is
-        spectre syntax,  Use `simulator lang=spectre' to introduce spice
-        language sections.
+    Multithreading enabled: 4 threads in the system with 12 available
+        processors.
 
 
-Time for NDB Parsing: CPU = 125.58 ms, elapsed = 280.406 ms.
+Time for parsing: CPU = 68 us, elapsed = 67.9493 us.
+Time accumulated: CPU = 299.844 ms, elapsed = 242.773 ms.
 
-Time accumulated: CPU = 270.877 ms, elapsed = 280.412 ms.
-
-Peak resident memory used = 88.8 Mbytes.
+Peak resident memory used = 94.9 Mbytes.
 
 
+~~~~~~~~~~~~~~~~~~~~~~
+Pre-Simulation Summary
+~~~~~~~~~~~~~~~~~~~~~~
+   -   (APS) Multi-threading. The recommended number of threads is 8, consider
+        adding +mt=8 on command line.
+
+~~~~~~~~~~~~~~~~~~~~~~
 
 Licensing Information:
-
 Lic Summary:
-[17:31:56.126072] Cdslmd servers:5280@lic009.workspace.rug.nl
-[17:31:56.126097] Feature usage summary:
-[17:31:56.126098] Virtuoso_Multi_mode_Simulation
+[18:04:38.146776] Cdslmd servers:5280@lic009.workspace.rug.nl
+[18:04:38.146802] Feature usage summary:
+[18:04:38.146803] Virtuoso_Multi_mode_Simulation
 
 
 
-Aggregate audit (5:31:56 PM, Mon May 18, 2026):
+Aggregate audit (6:04:38 PM, Mon May 18, 2026):
 
-Time used: CPU = 275 ms, elapsed = 289 ms, util. = 95.2%.
+Time used: CPU = 303 ms, elapsed = 246 ms, util. = 123%.
+Time spent in licensing: elapsed = 65.3 ms, percentage of total = 26.6%.
 
-Time spent in licensing: elapsed = 66.5 ms, percentage of total = 23%.
+Peak memory used = 96.3 Mbytes.
 
-Peak memory used = 89.5 Mbytes.
+Simulation started at: 6:04:37 PM, Mon May 18, 2026, ended at: 6:04:38 PM, Mon
+        May 18, 2026, with elapsed time (wall clock): 246 ms.
 
-Simulation started at: 5:31:55 PM, Mon May 18, 2026, ended at: 5:31:56 PM, Mon
-        May 18, 2026, with elapsed time (wall clock): 289 ms.
-
-spectre completes with 48 errors, 0 warnings, and 1 notice.
+spectre completes with 7 errors, 0 warnings, and 1 notice.
 
 WARNING (OCN-6038): Results tran are not available for /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_81_hz__trial_1. Use results() for a list of available results.
 Finished: st1_81_hz__st2_81_hz__trial_1
@@ -422,3 +302,4 @@ Cases skipped by this process: 63
 Manifest written to: /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/run_manifest_job_0_of_64.csv
 Output base directory: /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data
 CAD_BATCH_EXIT=1, exiting OCEAN.
+
