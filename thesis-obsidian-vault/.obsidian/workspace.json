@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "cadence_ocean_ipc_parallel_debug_summarygpt generated.md",
+                "file": "runbooks/cadence_ocean_parallel_ipc_runbook_v3.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "cadence_ocean_ipc_parallel_debug_summarygpt generated"
+              "title": "cadence_ocean_parallel_ipc_runbook_v3"
             }
           }
         ],
@@ -240,11 +240,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "84c1d703d0a2c5ff",
+  "active": "04c975e4d427d996",
   "lastOpenFiles": [
-    "cadence_ocean_parallel_ipc_runbook_gptgenerated.md",
+    "runbooks/cadence_ocean_parallel_ipc_chatgpt_handoff.md",
+    "runbooks",
+    "runbooks/cadence_ocean_parallel_ipc_runbook_v3.md",
+    "Unconfirmed 334450.crdownload",
+    "runbooks/cadence_ocean_ipc_debugging_runbook_v2.md",
+    "Unconfirmed 701679.crdownload",
+    "runbooks/cadence_ocean_ipc_parallel_debug_summarygpt generated.md",
+    "runbooks/cadence_ocean_parallel_ipc_runbook_gptgenerated.md",
+    "Unconfirmed 801433.crdownload",
     "0_Results/simulation_results_height_map.png",
-    "cadence_ocean_ipc_parallel_debug_summarygpt generated.md",
     "Unconfirmed 255141.crdownload",
     "0_Results/1_feedback_notes.md",
     "0_Results/1_2week_results summary..md",
