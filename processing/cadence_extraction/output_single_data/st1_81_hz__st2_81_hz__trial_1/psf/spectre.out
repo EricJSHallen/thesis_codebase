@@ -5,8 +5,8 @@ Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved worldwi
 
 Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA Security, Inc.
 
-User: s5117909   Host: bics02   HostID: 7F0101   PID: 24398
-Memory  available: 110.4887 GB  physical: 135.0280 GB
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 13308
+Memory  available: 110.5574 GB  physical: 135.0280 GB
 Linux   : CentOS Linux release 7 (Core)
 CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
 All processors running at 2693.7 MHz
@@ -14,12 +14,12 @@ All processors running at 2693.7 MHz
         0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
                 10, 11
         
-System load averages (1min, 5min, 15min) : 7.9 %, 6.0 %, 6.7 %
+System load averages (1min, 5min, 15min) : 12.8 %, 9.8 %, 7.9 %
 HPC is enabled
 This is a virtual machine
 
 
-Simulating `input.scs' on bics02 at 10:21:04 AM, Tue May 19, 2026 (process id: 24398).
+Simulating `input.scs' on bics02 at 10:35:40 AM, Tue May 19, 2026 (process id: 13308).
 Current working directory: /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
 Command line:
     /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/bin/spectre  \
@@ -31,10 +31,10 @@ Command line:
         +adespetkn=adespe ++aps +mt=4
 
 Licensing Information:
-[10:21:04.084801] Configured Lic search path (22.01-s002): 5280@lic009.workspace.rug.nl
+[10:35:40.084841] Configured Lic search path (22.01-s002): 5280@lic009.workspace.rug.nl
 
 Licensing Information:
-[10:21:04.368833] Periodic Lic check successful
+[10:35:40.286634] Periodic Lic check successful
 
 Loading /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/cmi/lib/64bit/5.0/libinfineon_sh.so ...
 Loading /projects/bics/cadence/installs/SPECTRE231/tools.lnx86/cmi/lib/64bit/5.0/libphilips_I_sh.so ...
@@ -415,8 +415,8 @@ Reading file:  /projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/
 Reading file:  /projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/models/res/s_res.scs
 Reading file:  /projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/xp018.scs
 Reading file:  /projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/mc_params/mc_spectre_g.scs
-Time for NDB Parsing: CPU = 756.735 ms, elapsed = 1.82638 s.
-Time accumulated: CPU = 913.762 ms, elapsed = 1.82639 s.
+Time for NDB Parsing: CPU = 631.629 ms, elapsed = 1.37754 s.
+Time accumulated: CPU = 802.382 ms, elapsed = 1.37755 s.
 Peak resident memory used = 102 Mbytes.
 
 
@@ -2023,16 +2023,16 @@ Error found by spectre during circuit read-in.
     ERROR (SFE-396): "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/cap/mosvc5_pmos.scs" 20: Model `mosvc5_pmos' has already been defined.
     ERROR (SFE-396): "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/cap/mosvc5i_nmos.scs" 20: Model `mosvc5_nmos' has already been defined.
 
-Time for Elaboration: CPU = 218.803 ms, elapsed = 1.48429 s.
-Time accumulated: CPU = 1.13287 s, elapsed = 3.31423 s.
+Time for Elaboration: CPU = 54.962 ms, elapsed = 61.8551 ms.
+Time accumulated: CPU = 857.516 ms, elapsed = 1.43957 s.
 Peak resident memory used = 111 Mbytes.
 
 
 Notice from spectre during circuit read-in.
     Multithreading enabled: 4 threads in the system with 12 available processors.
 
-Time for parsing: CPU = 424 us, elapsed = 1.67108 ms.
-Time accumulated: CPU = 1.1337 s, elapsed = 3.31968 s.
+Time for parsing: CPU = 79 us, elapsed = 77.9629 us.
+Time accumulated: CPU = 857.793 ms, elapsed = 1.43985 s.
 Peak resident memory used = 111 Mbytes.
 
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -2042,15 +2042,15 @@ Pre-Simulation Summary
 ~~~~~~~~~~~~~~~~~~~~~~
 Licensing Information:
 Lic Summary:
-[10:21:08.100152] Cdslmd servers:5280@lic009.workspace.rug.nl
-[10:21:08.100178] Feature usage summary:
-[10:21:08.100179] Virtuoso_Multi_mode_Simulation
+[10:35:41.077520] Cdslmd servers:5280@lic009.workspace.rug.nl
+[10:35:41.077537] Feature usage summary:
+[10:35:41.077538] Virtuoso_Multi_mode_Simulation
 
 
-Aggregate audit (10:21:08 AM, Tue May 19, 2026):
-Time used: CPU = 1.15 s, elapsed = 3.34 s, util. = 34.3%.
-Time spent in licensing: elapsed = 71.8 ms.
+Aggregate audit (10:35:41 AM, Tue May 19, 2026):
+Time used: CPU = 870 ms, elapsed = 1.45 s, util. = 59.9%.
+Time spent in licensing: elapsed = 64.6 ms.
 Peak memory used = 112 Mbytes.
-Simulation started at: 10:21:04 AM, Tue May 19, 2026, ended at: 10:21:08 AM, Tue May 19, 2026, with elapsed time (wall clock): 3.34 s.
+Simulation started at: 10:35:40 AM, Tue May 19, 2026, ended at: 10:35:41 AM, Tue May 19, 2026, with elapsed time (wall clock): 1.45 s.
 spectre completes with 1601 errors, 0 warnings, and 1 notice.
 spectre terminated prematurely due to fatal error.

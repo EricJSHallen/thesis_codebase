@@ -85,6 +85,26 @@ Loading schHDL.cxt
 Loading devCheck.cxt 
 Loading relXpert.cxt 
 Loading simui.cxt 
+          Invalid environment option: redefinedparams. Valid choices
+          are (switchViewList stopViewList paramRangeCheckFile
+          analysisOrder stimulusFile printComments definitionFiles
+          userCmdLineOption autoDisplay checkpoint recover savestate
+          restart cmd64bit sst2usecolon liclog lsusp cpfIsVMSEnabled
+          enableArclength licOrder firstRun licQueueTimeOut
+          licQueueSleep pllPlugin vcoType pllWizardinfo emAnaType
+          lastEmAnaType emTechFile emLayerMap emOnlyICTFile
+          emirEnable emirEnable_ocean emirEnable_static
+          emirEnable_spgs emirLCVDisable macroModelEnable
+          rptOptionToggle emirSumList emirSumList_Dynamic
+          emirSumList_Static emirSumList_SPGS emirSumList_MacroModel
+          emirDSPF macroModelList dspfFile poloNameMapDBDir
+          mapFirstSubnodeForNet case_sensitive extra_port port_order
+          bus_delimiter other_opts setEngNotation setTopLevelAsSubckt
+          enableNoiseRefactor enableNewMultiHarmCut
+          enablePhaseNoiseBW enableDiagnose termMismatch
+          termDirectionMismatch displayToolTip
+          preserveSubcktTermNamesByOrder spectreLineLength). Use
+          ocnHelp('envOption) for more information.
 *WARNING* LIB sebastian_thesis_pilot from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 2 redefines
 LIB sebastian_thesis_pilot from File /home/s5117909/eda_env/xp018/cds.lib
 Insert UNDEFINE sebastian_thesis_pilot
@@ -130,12 +150,12 @@ Delete psf data in /home/s5117909/Documents/thesis/sebastian_thesis_repo/process
 Loading spectreinl.cxt 
 Loading hnlInit.cxt 
 Loading seCore.cxt 
-Begin Incremental Netlisting May 19 10:21:03 2026
-End netlisting May 19 10:21:03 2026
+Begin Incremental Netlisting May 19 10:35:38 2026
+End netlisting May 19 10:35:38 2026
 Loading monte.cxt 
 
 	The netlist is up to date.
-	Time taken to compare the design with netlist:   0.0s
+	Time taken to compare the design with netlist:   1.0s
 Loading hspiceD.cxt 
 Loading msgHandler.cxt 
 Loading UltraSim.cxt 
@@ -155,14 +175,13 @@ Copyright (C) 1989-2023 Cadence Design Systems, Inc. All rights reserved
 
 
 
-
 Includes RSA BSAFE(R) Cryptographic or Security Protocol Software from RSA
         Security, Inc.
 
 
-User: s5117909   Host: bics02   HostID: 7F0101   PID: 24398
+User: s5117909   Host: bics02   HostID: 7F0101   PID: 13308
 
-Memory  available: 110.4887 GB  physical: 135.0280 GB
+Memory  available: 110.5574 GB  physical: 135.0280 GB
 
 Linux   : CentOS Linux release 7 (Core)
 CPU Type: Intel(R) Xeon(R) Gold 6150 CPU @ 2.70GHz
@@ -171,14 +190,14 @@ All processors running at 2693.7 MHz
         0:       0,  1,  2,  3,  4,  5,  6,  7,  8,  9
                 10, 11
         
-System load averages (1min, 5min, 15min) : 7.9 %, 6.0 %, 6.7 %
+System load averages (1min, 5min, 15min) : 12.8 %, 9.8 %, 7.9 %
 HPC is enabled
 This is a virtual machine
 
 
 
-Simulating `input.scs' on bics02 at 10:21:04 AM, Tue May 19, 2026 (process id:
-        24398).
+Simulating `input.scs' on bics02 at 10:35:40 AM, Tue May 19, 2026 (process id:
+        13308).
 
 Current working directory:
         /home/s5117909/simulation/synapsedualinputtb/spectre/schematic/netlist
@@ -196,13 +215,12 @@ Command line:
 
 Licensing Information:
 
-[10:21:04.084801] Configured Lic search path (22.01-s002):
+[10:35:40.084841] Configured Lic search path (22.01-s002):
         5280@lic009.workspace.rug.nl
 
 
 Licensing Information:
-
-[10:21:04.368833] Periodic Lic check successful
+[10:35:40.286634] Periodic Lic check successful
 
 
 Reading file: 
@@ -1327,12 +1345,10 @@ Reading file:
 Reading file: 
         /projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/mc_params/mc_spectre_g.scs
 
-Time for NDB Parsing: CPU = 756.735 ms, elapsed = 1.82638 s.
-
-Time accumulated: CPU = 913.762 ms, elapsed = 1.82639 s.
+Time for NDB Parsing: CPU = 631.629 ms, elapsed = 1.37754 s.
+Time accumulated: CPU = 802.382 ms, elapsed = 1.37755 s.
 
 Peak resident memory used = 102 Mbytes.
-
 
 
 
@@ -1350,35 +1366,30 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         100: Cannot run the simulation because parameter `ne_u0_m' has already
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         101: Cannot run the simulation because parameter `ne_nfactor_m' has
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         102: Cannot run the simulation because parameter `ne_vth0_d' has
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         103: Cannot run the simulation because parameter `ne_xl' has already
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         104: Cannot run the simulation because parameter `ne_xw' has already
@@ -1434,7 +1445,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         112: Cannot run the simulation because parameter `pe_tox' has already
@@ -1448,7 +1458,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         114: Cannot run the simulation because parameter `pe_vth0_d' has
@@ -1462,7 +1471,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         116: Cannot run the simulation because parameter `pe_xw' has already
@@ -1490,7 +1498,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         120: Cannot run the simulation because parameter `pe_cjswg' has already
@@ -1504,7 +1511,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         122: Cannot run the simulation because parameter `pe_au0' has already
@@ -1518,7 +1524,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         124: Cannot run the simulation because parameter `nn_u0_m' has already
@@ -1532,7 +1537,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         126: Cannot run the simulation because parameter `nn_xl' has already
@@ -1546,7 +1550,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         128: Cannot run the simulation because parameter `nn_cgdo' has already
@@ -1560,7 +1563,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         130: Cannot run the simulation because parameter `nn_cj' has already
@@ -1574,7 +1576,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         132: Cannot run the simulation because parameter `nn_avt' has already
@@ -1588,7 +1589,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         134: Cannot run the simulation because parameter `nei_nch' has already
@@ -1602,7 +1602,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         136: Cannot run the simulation because parameter `nei_u0_m' has already
@@ -1623,7 +1622,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         139: Cannot run the simulation because parameter `nei_xl' has already
@@ -1637,7 +1635,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         141: Cannot run the simulation because parameter `nei_cg_m' has already
@@ -1651,7 +1648,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         143: Cannot run the simulation because parameter `nei_cjsw' has already
@@ -1672,7 +1668,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         146: Cannot run the simulation because parameter `nei_au0' has already
@@ -1686,7 +1681,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         148: Cannot run the simulation because parameter `pei_tox' has already
@@ -1707,7 +1701,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         151: Cannot run the simulation because parameter `pei_xl' has already
@@ -1728,7 +1721,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         154: Cannot run the simulation because parameter `pei_cj' has already
@@ -1749,7 +1741,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         157: Cannot run the simulation because parameter `pei_Avt' has already
@@ -1777,7 +1768,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         161: Cannot run the simulation because parameter `nel_nfactor_m' has
@@ -1791,7 +1781,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         163: Cannot run the simulation because parameter `nel_k2_m' has already
@@ -1805,7 +1794,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         165: Cannot run the simulation because parameter `nel_vth0_d' has
@@ -1819,7 +1807,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         167: Cannot run the simulation because parameter `nel_xw' has already
@@ -1847,7 +1834,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         171: Cannot run the simulation because parameter `nel_cgso' has already
@@ -1861,7 +1847,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         173: Cannot run the simulation because parameter `nel_vtmm' has already
@@ -1882,7 +1867,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         176: Cannot run the simulation because parameter `pel_u0_m' has already
@@ -1896,7 +1880,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         178: Cannot run the simulation because parameter `pel_k1_m' has already
@@ -1910,7 +1893,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         180: Cannot run the simulation because parameter `pel_voff_m' has
@@ -1924,7 +1906,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         182: Cannot run the simulation because parameter `pel_xl' has already
@@ -1938,7 +1919,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         184: Cannot run the simulation because parameter `pel_rdsw_m' has
@@ -1952,7 +1932,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         186: Cannot run the simulation because parameter `pel_cgdl' has already
@@ -1987,7 +1966,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         191: Cannot run the simulation because parameter `nesvt_toxe' has
@@ -2008,7 +1986,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         194: Cannot run the simulation because parameter `nesvt_rdsw_mul' has
@@ -2022,7 +1999,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         196: Cannot run the simulation because parameter `nesvt_cgdl_mul' has
@@ -2036,7 +2012,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         198: Cannot run the simulation because parameter `nesvt_u0mm' has
@@ -2071,7 +2046,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         203: Cannot run the simulation because parameter `nesvti_cgdo_mul' has
@@ -2085,7 +2059,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         205: Cannot run the simulation because parameter `nesvti_vtmm' has
@@ -2099,7 +2072,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         207: Cannot run the simulation because parameter `pesvt_toxe' has
@@ -2113,7 +2085,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         209: Cannot run the simulation because parameter `pesvt_nfactor_mul'
@@ -2134,7 +2105,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         212: Cannot run the simulation because parameter `pesvt_vsat_mul' has
@@ -2162,7 +2132,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         216: Cannot run the simulation because parameter `pesvt_xw' has already
@@ -2183,7 +2152,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         219: Cannot run the simulation because parameter `pesvt_cgdl_mul' has
@@ -2239,7 +2207,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         227: Cannot run the simulation because parameter `nd5_vth0_d' has
@@ -2260,7 +2227,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         230: Cannot run the simulation because parameter `nd5_cgdo_m' has
@@ -2288,7 +2254,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         234: Cannot run the simulation because parameter `nd5_cjswg' has
@@ -2309,7 +2274,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         237: Cannot run the simulation because parameter `nd5i_nch_m' has
@@ -2323,7 +2287,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         239: Cannot run the simulation because parameter `nd5i_u0_m' has
@@ -2337,7 +2300,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         241: Cannot run the simulation because parameter `nd5i_xl' has already
@@ -2379,7 +2341,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         247: Cannot run the simulation because parameter `nd5i_cjswg' has
@@ -2400,7 +2361,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         250: Cannot run the simulation because parameter `nn5_u0_m' has already
@@ -2428,7 +2388,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         254: Cannot run the simulation because parameter `nn5_cgdo' has already
@@ -2449,21 +2408,18 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         257: Cannot run the simulation because parameter `nn5_cjsw' has already
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         258: Cannot run the simulation because parameter `nn5_avt' has already
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         259: Cannot run the simulation because parameter `nn5_au0' has already
@@ -2484,7 +2440,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         262: Cannot run the simulation because parameter `ne5_nch' has already
@@ -2512,7 +2467,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         266: Cannot run the simulation because parameter `ne5_vth0_d' has
@@ -2533,7 +2487,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         269: Cannot run the simulation because parameter `ne5_rdsw' has already
@@ -2554,7 +2507,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         272: Cannot run the simulation because parameter `ne5_cj' has already
@@ -2568,7 +2520,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         274: Cannot run the simulation because parameter `ne5_cjswg' has
@@ -2582,7 +2533,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         276: Cannot run the simulation because parameter `ne5_au0' has already
@@ -2596,7 +2546,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         278: Cannot run the simulation because parameter `pe5_tox' has already
@@ -2610,7 +2559,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         280: Cannot run the simulation because parameter `pe5_nfactor_m' has
@@ -2631,7 +2579,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         283: Cannot run the simulation because parameter `pe5_xw' has already
@@ -2645,7 +2592,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         285: Cannot run the simulation because parameter `pe5_cgdo' has already
@@ -2659,7 +2605,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         287: Cannot run the simulation because parameter `pe5_cj' has already
@@ -2680,7 +2625,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         290: Cannot run the simulation because parameter `pe5_avt' has already
@@ -2701,7 +2645,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         293: Cannot run the simulation because parameter `ne5i_tox' has already
@@ -2729,7 +2672,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         297: Cannot run the simulation because parameter `ne5i_xl' has already
@@ -2757,7 +2699,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         301: Cannot run the simulation because parameter `ne5i_cgso' has
@@ -2806,7 +2747,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         308: Cannot run the simulation because parameter `pe5i_tox' has already
@@ -2820,7 +2760,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         310: Cannot run the simulation because parameter `pe5i_nfactor_m' has
@@ -2834,7 +2773,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         312: Cannot run the simulation because parameter `pe5i_xl' has already
@@ -2904,7 +2842,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         322: Cannot run the simulation because parameter `nede_nsubc' has
@@ -2918,7 +2855,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         324: Cannot run the simulation because parameter `nede_vmax' has
@@ -2932,7 +2868,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         326: Cannot run the simulation because parameter `nede_lovers' has
@@ -2995,7 +2930,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         335: Cannot run the simulation because parameter `neda_rd' has already
@@ -3009,7 +2943,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         337: Cannot run the simulation because parameter `neda_loverld' has
@@ -3023,7 +2956,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         339: Cannot run the simulation because parameter `neda_cjswd' has
@@ -3051,7 +2983,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         343: Cannot run the simulation because parameter `nedb_nsubc' has
@@ -3065,7 +2996,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         345: Cannot run the simulation because parameter `nedb_rd' has already
@@ -3100,7 +3030,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         350: Cannot run the simulation because parameter `nedb_cjs' has already
@@ -3142,7 +3071,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         356: Cannot run the simulation because parameter `nedc_lovers' has
@@ -3156,7 +3084,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         358: Cannot run the simulation because parameter `nedc_cjs' has already
@@ -3212,7 +3139,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         366: Cannot run the simulation because parameter `nedd_vmax' has
@@ -3226,7 +3152,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         368: Cannot run the simulation because parameter `nedd_rd23' has
@@ -3240,7 +3165,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         370: Cannot run the simulation because parameter `nedd_loverld' has
@@ -3345,7 +3269,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         385: Cannot run the simulation because parameter `peda_tox' has already
@@ -3359,7 +3282,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         387: Cannot run the simulation because parameter `peda_mueph1' has
@@ -3373,7 +3295,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         389: Cannot run the simulation because parameter `peda_lovers' has
@@ -3415,7 +3336,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         395: Cannot run the simulation because parameter `pedb_tox' has already
@@ -3429,7 +3349,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         397: Cannot run the simulation because parameter `pedb_mueph1' has
@@ -3443,7 +3362,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         399: Cannot run the simulation because parameter `pedb_lovers' has
@@ -3492,7 +3410,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         406: Cannot run the simulation because parameter `pedc_nsubc' has
@@ -3506,7 +3423,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         408: Cannot run the simulation because parameter `pedc_rd' has already
@@ -3520,7 +3436,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         410: Cannot run the simulation because parameter `pedc_loverld' has
@@ -3534,7 +3449,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         412: Cannot run the simulation because parameter `pedc_cjswd' has
@@ -3548,7 +3462,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         414: Cannot run the simulation because parameter `pedc_cjsws' has
@@ -3590,7 +3503,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         420: Cannot run the simulation because parameter `pedd_rd' has already
@@ -3604,7 +3516,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         422: Cannot run the simulation because parameter `pedd_lovers' has
@@ -3632,7 +3543,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         426: Cannot run the simulation because parameter `pedd_cjs' has already
@@ -3674,7 +3584,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         432: Cannot run the simulation because parameter `nmma_rs' has already
@@ -3688,7 +3597,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         434: Cannot run the simulation because parameter `nmmb_tox' has already
@@ -3716,7 +3624,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         438: Cannot run the simulation because parameter `nmmb_rs' has already
@@ -3744,7 +3651,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         442: Cannot run the simulation because parameter `nmb_mueph1' has
@@ -3772,7 +3678,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         446: Cannot run the simulation because parameter `nmmc_tox' has already
@@ -3786,7 +3691,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         448: Cannot run the simulation because parameter `nmmc_mueph1' has
@@ -3800,7 +3704,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         450: Cannot run the simulation because parameter `nmmc_rs' has already
@@ -3814,7 +3717,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         452: Cannot run the simulation because parameter `nmc_tox' has already
@@ -3849,7 +3751,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         457: Cannot run the simulation because parameter `nmc_loverld' has
@@ -3863,7 +3764,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         459: Cannot run the simulation because parameter `pmma_nsubc' has
@@ -3877,7 +3777,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         461: Cannot run the simulation because parameter `pmma_rs' has already
@@ -3919,7 +3818,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         467: Cannot run the simulation because parameter `pmmb_loverld' has
@@ -4017,7 +3915,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         481: Cannot run the simulation because parameter `pmc_nsubc' has
@@ -4031,7 +3928,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         483: Cannot run the simulation because parameter `pmc_rd' has already
@@ -4066,7 +3962,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         488: Cannot run the simulation because parameter `nhva_nsubc_mul' has
@@ -4080,7 +3975,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         490: Cannot run the simulation because parameter `nhva_mueph1_mul' has
@@ -4108,7 +4002,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         494: Cannot run the simulation because parameter `nhva_loverld' has
@@ -4122,7 +4015,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         496: Cannot run the simulation because parameter `nhva_rdrmue_mm' has
@@ -4164,7 +4056,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         502: Cannot run the simulation because parameter `nhvb_ldrift1' has
@@ -4178,7 +4069,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         504: Cannot run the simulation because parameter `nhvb_rdrvmax' has
@@ -4192,7 +4082,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         506: Cannot run the simulation because parameter `nhvb_mueph1_mm' has
@@ -4206,7 +4095,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         508: Cannot run the simulation because parameter `nhvb_vfbc_mm' has
@@ -4220,7 +4108,6 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         510: Cannot run the simulation because parameter `phva_nsubc_mul' has
@@ -4248,7 +4135,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         514: Cannot run the simulation because parameter `phva_loverld' has
@@ -4276,7 +4162,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         518: Cannot run the simulation because parameter `phvb_tox' has already
@@ -4304,7 +4189,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         522: Cannot run the simulation because parameter `phvb_rdrmue' has
@@ -4318,7 +4202,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         524: Cannot run the simulation because parameter `phvb_loverld' has
@@ -7559,28 +7442,24 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         987: Cannot run the simulation because parameter `qpv_nhvb_dtf' has
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         988: Cannot run the simulation because parameter `qpv_phva_dis' has
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         989: Cannot run the simulation because parameter `qpv_phva_dbf' has
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         990: Cannot run the simulation because parameter `qpv_phva_dvaf' has
@@ -7594,7 +7473,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         992: Cannot run the simulation because parameter `qpv_phva_dise' has
@@ -7629,7 +7507,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         997: Cannot run the simulation because parameter `qpv_phva_dcje' has
@@ -7769,7 +7646,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1017: Cannot run the simulation because parameter `dn_bot_mul' has
@@ -7804,21 +7680,18 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1022: Cannot run the simulation because parameter `dnn_cjorbot' has
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1023: Cannot run the simulation because parameter `dnn_cjorsti' has
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1024: Cannot run the simulation because parameter `dnn_bot_mul' has
@@ -7937,7 +7810,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1041: Cannot run the simulation because parameter `dnw_gat_mul' has
@@ -8161,7 +8033,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1073: Cannot run the simulation because parameter `ddnwmv_is_mul_exp'
@@ -8175,7 +8046,6 @@ Error found by spectre during circuit read-in.
         has already been defined. To allow duplicate parameter definitions, set
         the value of `redefinedparams' to `ignore' or `warning' in the netlist
         to consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1075: Cannot run the simulation because parameter `ddnwmv_cjorsti_mul'
@@ -8420,7 +8290,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1110: Cannot run the simulation because parameter `dsb_dr1_dis' has
@@ -8651,7 +8520,6 @@ Error found by spectre during circuit read-in.
         has already been defined. To allow duplicate parameter definitions, set
         the value of `redefinedparams' to `ignore' or `warning' in the netlist
         to consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1143: Cannot run the simulation because parameter `ddpbvdnw_sti_mul'
@@ -8665,7 +8533,6 @@ Error found by spectre during circuit read-in.
         has already been defined. To allow duplicate parameter definitions, set
         the value of `redefinedparams' to `ignore' or `warning' in the netlist
         to consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1145: Cannot run the simulation because parameter `dndddpb_rs_r_mul'
@@ -8909,7 +8776,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1179: Cannot run the simulation because parameter `dzc_bot_mul' has
@@ -9000,21 +8866,18 @@ Error found by spectre during circuit read-in.
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1192: Cannot run the simulation because parameter `rdn_dw' has already
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1193: Cannot run the simulation because parameter `rdn_ar' has already
         been defined. To allow duplicate parameter definitions, set the value
         of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1194: Cannot run the simulation because parameter `rdp_rsh' has already
@@ -9602,7 +9465,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1278: Cannot run the simulation because parameter `csf2p_ac' has
@@ -9693,7 +9555,6 @@ Error found by spectre during circuit read-in.
         already been defined. To allow duplicate parameter definitions, set the
         value of `redefinedparams' to `ignore' or `warning' in the netlist to
         consider the parameter defined later. Next, rerun the simulation.
-
     ERROR (SFE-59):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/../mc_params/mc_spectre_g.scs"
         1291: Cannot run the simulation because parameter `csft6_factor' has
@@ -10630,7 +10491,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nede_bjt.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/neda.scs"
         33: Cannot create subcircuit definition `neda' because a subcircuit
@@ -10638,7 +10498,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/neda.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/neda_bjt.scs"
         33: Cannot create subcircuit definition `neda_bjt' because a subcircuit
@@ -10646,7 +10505,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/neda_bjt.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nedb.scs"
         33: Cannot create subcircuit definition `nedb' because a subcircuit
@@ -10654,7 +10512,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nedb.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nedb_bjt.scs"
         33: Cannot create subcircuit definition `nedb_bjt' because a subcircuit
@@ -10694,7 +10551,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nedd_bjt.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pede.scs"
         33: Cannot create subcircuit definition `pede' because a subcircuit
@@ -10750,7 +10606,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pedc.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pedc_bjt.scs"
         33: Cannot create subcircuit definition `pedc_bjt' because a subcircuit
@@ -10790,7 +10645,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nmma_bjt.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nmmb.scs"
         24: Cannot create subcircuit definition `nmmb' because a subcircuit
@@ -10830,7 +10684,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nmmc.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nmmc_bjt.scs"
         24: Cannot create subcircuit definition `nmmc_bjt' because a subcircuit
@@ -10846,7 +10699,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nmc.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nmc_bjt.scs"
         24: Cannot create subcircuit definition `nmc_bjt' because a subcircuit
@@ -10862,7 +10714,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pmma.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pmma_bjt.scs"
         24: Cannot create subcircuit definition `pmma_bjt' because a subcircuit
@@ -10878,7 +10729,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pmmb.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pmmb_bjt.scs"
         24: Cannot create subcircuit definition `pmmb_bjt' because a subcircuit
@@ -10894,7 +10744,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pmb.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/pmb_bjt.scs"
         24: Cannot create subcircuit definition `pmb_bjt' because a subcircuit
@@ -10958,7 +10807,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nhvb.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/nhvb_bjt.scs"
         31: Cannot create subcircuit definition `nhvb_bjt' because a subcircuit
@@ -10998,7 +10846,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/phvb_bjt.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/ndia.scs"
         31: Cannot create subcircuit definition `ndia' because a subcircuit
@@ -11014,7 +10861,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/ndia_bjt.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/mos/ndib.scs"
         31: Cannot create subcircuit definition `ndib' because a subcircuit
@@ -11070,7 +10916,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpvb5.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpvc5.scs"
         20: Cannot create subcircuit definition `qpvc5' because a subcircuit
@@ -11094,7 +10939,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnva5.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnvb.scs"
         28: Cannot create subcircuit definition `qnvb' because a subcircuit
@@ -11126,7 +10970,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnvc.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnvca.scs"
         28: Cannot create subcircuit definition `qnvca' because a subcircuit
@@ -11142,7 +10985,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnvcra.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnvcrb.scs"
         28: Cannot create subcircuit definition `qnvcrb' because a subcircuit
@@ -11182,7 +11024,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpv_pd.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpv_pe.scs"
         24: Cannot create subcircuit definition `qpv_pe' because a subcircuit
@@ -11198,7 +11039,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpv_pf.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpv_pf2.scs"
         21: Cannot create subcircuit definition `qpv_pf2' because a subcircuit
@@ -11214,7 +11054,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpv_pg.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnl_pa.scs"
         21: Cannot create subcircuit definition `qnl_pa' because a subcircuit
@@ -11230,7 +11069,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnl_pb.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpl_pa.scs"
         21: Cannot create subcircuit definition `qpl_pa' because a subcircuit
@@ -11246,7 +11084,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpl_pb.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpv_ndia.scs"
         24: Cannot create subcircuit definition `qpv_ndia' because a subcircuit
@@ -11278,7 +11115,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qnv_ndib.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/bip/qpv_nhva.scs"
         24: Cannot create subcircuit definition `qpv_nhva' because a subcircuit
@@ -11318,7 +11154,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dn.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dnn.scs"
         22: Cannot create subcircuit definition `dnn' because a subcircuit with
@@ -11334,7 +11169,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dp.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dnw.scs"
         28: Cannot create subcircuit definition `dnw' because a subcircuit with
@@ -11350,7 +11184,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dn5.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dnn5.scs"
         22: Cannot create subcircuit definition `dnn5' because a subcircuit
@@ -11374,7 +11207,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dnw5.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/ddnwmv.scs"
         28: Cannot create subcircuit definition `ddnwmv' because a subcircuit
@@ -11398,7 +11230,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/ddnw25.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/ddnw60.scs"
         28: Cannot create subcircuit definition `ddnw60' because a subcircuit
@@ -11430,7 +11261,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dpdnw25.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dpdnw60.scs"
         28: Cannot create subcircuit definition `dpdnw60' because a subcircuit
@@ -11446,7 +11276,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dipdnwmv.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dipdnw15.scs"
         28: Cannot create subcircuit definition `dipdnw15' because a subcircuit
@@ -11462,7 +11291,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dipdnw25.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dipdnw60.scs"
         28: Cannot create subcircuit definition `dipdnw60' because a subcircuit
@@ -11502,7 +11330,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dipdnw60z.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dnp.scs"
         29: Cannot create subcircuit definition `dnp' because a subcircuit with
@@ -11574,7 +11401,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dpdddnw_esd.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dpddipdnw_esd.scs"
         29: Cannot create subcircuit definition `dpddipdnw_esd' because a
@@ -11590,7 +11416,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dnddpb.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dvdnw.scs"
         28: Cannot create subcircuit definition `dvdnw' because a subcircuit
@@ -11606,7 +11431,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dvdnw_esd.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/ddpbvdnw.scs"
         28: Cannot create subcircuit definition `ddpbvdnw' because a subcircuit
@@ -11638,7 +11462,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dpddvdnw_esd.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dpburvdnw.scs"
         22: Cannot create subcircuit definition `dpburvdnw' because a
@@ -11670,7 +11493,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dn5nm.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dp5pm.scs"
         29: Cannot create subcircuit definition `dp5pm' because a subcircuit
@@ -11686,7 +11508,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dza_a.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dza_b.scs"
         21: Cannot create subcircuit definition `dza_b' because a subcircuit
@@ -11702,7 +11523,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dza_d.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dza_m.scs"
         21: Cannot create subcircuit definition `dza_m' because a subcircuit
@@ -11758,7 +11578,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/ddnwnvm.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dipdnwnvm.scs"
         29: Cannot create subcircuit definition `dipdnwnvm' because a
@@ -11774,7 +11593,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dpdnwnvm.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/dio/dpsdnwnvm.scs"
         30: Cannot create subcircuit definition `dpsdnwnvm' because a
@@ -11822,7 +11640,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rnw.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rnw_scr.scs"
         26: Cannot create subcircuit definition `rnw_scr' because a subcircuit
@@ -11854,7 +11671,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rdp5.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rnw5.scs"
         26: Cannot create subcircuit definition `rnw5' because a subcircuit
@@ -11966,7 +11782,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rm1.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rm2.scs"
         26: Cannot create subcircuit definition `rm2' because a subcircuit with
@@ -11990,7 +11805,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rm4.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rm5.scs"
         26: Cannot create subcircuit definition `rm5' because a subcircuit with
@@ -12006,7 +11820,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rmtp.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rmtpl.scs"
         26: Cannot create subcircuit definition `rmtpl' because a subcircuit
@@ -12038,7 +11851,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/p_rm2.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/p_rm3.scs"
         26: Cannot create subcircuit definition `p_rm3' because a subcircuit
@@ -12070,7 +11882,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/p_rmtp.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/p_rmtpl.scs"
         26: Cannot create subcircuit definition `p_rmtpl' because a subcircuit
@@ -12190,7 +12001,6 @@ Error found by spectre during circuit read-in.
         `/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/cap/csandwt5.scs'.
         Either rename the existing subcircuit definition or remove the previous
         subcircuit definition, and rerun the simulation.
-
     ERROR (SFE-3):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/cap/csf2p.scs"
         20: Cannot create subcircuit definition `csf2p' because a subcircuit
@@ -12738,7 +12548,6 @@ Error found by spectre during circuit read-in.
     ERROR (SFE-396):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rsildn.scs"
         24: Model `rsildn' has already been defined.
-
     ERROR (SFE-396):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rsildp.scs"
         24: Model `rsildp' has already been defined.
@@ -12746,7 +12555,6 @@ Error found by spectre during circuit read-in.
     ERROR (SFE-396):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rctp1.scs"
         25: Model `rctp1' has already been defined.
-
     ERROR (SFE-396):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rsilnp1.scs"
         24: Model `rsilnp1' has already been defined.
@@ -12766,7 +12574,6 @@ Error found by spectre during circuit read-in.
     ERROR (SFE-396):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rsbdn5.scs"
         24: Model `rsbdn5' has already been defined.
-
     ERROR (SFE-396):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rsbdp5.scs"
         24: Model `rsbdp5' has already been defined.
@@ -12774,7 +12581,6 @@ Error found by spectre during circuit read-in.
     ERROR (SFE-396):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rsbnp1.scs"
         24: Model `rsbnp1' has already been defined.
-
     ERROR (SFE-396):
         "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/./models/res/rsbpp1.scs"
         24: Model `rsbpp1' has already been defined.
@@ -12812,57 +12618,49 @@ Error found by spectre during circuit read-in.
         20: Model `mosvc5_nmos' has already been defined.
 
 
-Time for Elaboration: CPU = 218.803 ms, elapsed = 1.48429 s.
-
-Time accumulated: CPU = 1.13287 s, elapsed = 3.31423 s.
-
+Time for Elaboration: CPU = 54.962 ms, elapsed = 61.8551 ms.
+Time accumulated: CPU = 857.516 ms, elapsed = 1.43957 s.
 Peak resident memory used = 111 Mbytes.
 
 
 
 
 Notice from spectre during circuit read-in.
-
     Multithreading enabled: 4 threads in the system with 12 available
         processors.
 
 
-Time for parsing: CPU = 424 us, elapsed = 1.67108 ms.
-
-Time accumulated: CPU = 1.1337 s, elapsed = 3.31968 s.
+Time for parsing: CPU = 79 us, elapsed = 77.9629 us.
+Time accumulated: CPU = 857.793 ms, elapsed = 1.43985 s.
 
 Peak resident memory used = 111 Mbytes.
-
 
 
 ~~~~~~~~~~~~~~~~~~~~~~
 Pre-Simulation Summary
 ~~~~~~~~~~~~~~~~~~~~~~
-
    -   (APS) Multi-threading. The recommended number of threads is 8, consider
         adding +mt=8 on command line.
-
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Licensing Information:
-
 Lic Summary:
-[10:21:08.100152] Cdslmd servers:5280@lic009.workspace.rug.nl
-[10:21:08.100178] Feature usage summary:
-[10:21:08.100179] Virtuoso_Multi_mode_Simulation
+[10:35:41.077520] Cdslmd servers:5280@lic009.workspace.rug.nl
+[10:35:41.077537] Feature usage summary:
+[10:35:41.077538] Virtuoso_Multi_mode_Simulation
 
 
 
-Aggregate audit (10:21:08 AM, Tue May 19, 2026):
+Aggregate audit (10:35:41 AM, Tue May 19, 2026):
 
-Time used: CPU = 1.15 s, elapsed = 3.34 s, util. = 34.3%.
+Time used: CPU = 870 ms, elapsed = 1.45 s, util. = 59.9%.
 
-Time spent in licensing: elapsed = 71.8 ms.
+Time spent in licensing: elapsed = 64.6 ms.
 
 Peak memory used = 112 Mbytes.
 
-Simulation started at: 10:21:04 AM, Tue May 19, 2026, ended at: 10:21:08 AM,
-        Tue May 19, 2026, with elapsed time (wall clock): 3.34 s.
+Simulation started at: 10:35:40 AM, Tue May 19, 2026, ended at: 10:35:41 AM,
+        Tue May 19, 2026, with elapsed time (wall clock): 1.45 s.
 
 spectre completes with 1601 errors, 0 warnings, and 1 notice.
 
