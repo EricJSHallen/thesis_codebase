@@ -67,12 +67,14 @@
             "id": "84c1d703d0a2c5ff",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "0_Results/simulation_results_height_map.png"
+                "file": "cadence_ocean_ipc_parallel_debug_summarygpt generated.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "simulation_results_height_map"
+              "icon": "lucide-file",
+              "title": "cadence_ocean_ipc_parallel_debug_summarygpt generated"
             }
           }
         ],
@@ -240,6 +242,10 @@
   },
   "active": "84c1d703d0a2c5ff",
   "lastOpenFiles": [
+    "cadence_ocean_parallel_ipc_runbook_gptgenerated.md",
+    "0_Results/simulation_results_height_map.png",
+    "cadence_ocean_ipc_parallel_debug_summarygpt generated.md",
+    "Unconfirmed 255141.crdownload",
     "0_Results/1_feedback_notes.md",
     "0_Results/1_2week_results summary..md",
     "0_Results/simulation_results0_3.png",
@@ -248,9 +254,7 @@
     "0_Results/simulation_results0_5_81_401hz.png",
     "0_Results/simulation_results0_5_81_401hz_spike_after_simultaneous_spike.png",
     "0_Results/Untitled.md",
-    "0_Results/simulation_results_height_map.png",
     "0_planning/IT questions for vincent.md",
-    "cadence_ocean_parallel_ipc_runbook_gptgenerated.md",
     "0_planning/1_CIW-report-from-simulations15052026.md",
     "Unconfirmed 964230.crdownload",
     "0_planning/1_to-do.md",
