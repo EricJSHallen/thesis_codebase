@@ -37,6 +37,11 @@ Priority work next week.
 
 
 
+Addition of completed work on 18th and 19th of May:
+- got parallelization working, (required ipcBeginProcess and modification to ocean script.)
+
+
+
 
 
 
