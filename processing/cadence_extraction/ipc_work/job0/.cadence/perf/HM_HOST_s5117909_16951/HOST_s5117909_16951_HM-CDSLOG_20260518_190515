@@ -1,0 +1,172 @@
+\# Program start time:     UTC 2026.05.18 17:05:05.973
+\# Local time: GMT+02:00 (UTC+02:00) 2026.05.18 19:05:05.973
+\o Program:		@(#)$CDS: Virtuoso Studio version IC23.1-64b 05/22/2024 07:43 (cpgbld16) $
+\o Hierarchy:		/projects/bics/cadence/installs/IC231/tools.lnx86/dfII/
+\o Sub version:		sub-version  IC23.1-64b.ISR7.27  (64-bit addresses)
+\# Command line:	/projects/bics/cadence/installs/IC231/tools.lnx86/dfII/bin/64bit/virtuoso -ocean -nographE -restore /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/general_code/pwl_pvt.ocn
+\# Host name (type):	bics02 (x86_64)
+\# Operating system:	Linux 3.10.0-1160.119.1.el7.x86_64 #1 SMP Tue Jun 4 14:43:51 UTC 2024
+\# Linux /etc/issue:	Welcome
+\# X display name (WxH):	:1210 (1024x868)
+\# Available geometry:			TL(0:0) BR(1023:867)
+\# X server:			The X.Org Foundation
+\# Depth of Visual (Root):	24 (24)
+\# Number of Planes Used:	24
+\# X version:		11.0 (vendor release 12004000)
+\# X resource pool:	base 0x400000, mask 0x1fffff (2097151), shift 0
+\# 			current id 0x0, current max 0x1ffffa (2097146)
+\# Max data seg size:	     unlimited
+\# Max process size:	     unlimited
+\# Initial sbrk value:	        745 MB
+\# Available memory:	    106,236 MB
+\# System memory:	    145,157 MB
+\# Maximum memory size:	    144,682 MB
+\# Max mem available:	    106,507 MB
+\# Initial memory used:	        271 MB
+\#        process size:	      1,684 MB
+\# Thread usage limits (effective/default):	maxthreads 4096/4096 maxload 12.00/12.00
+\# Qt version:		5.15.9
+\# Window Manager:	other
+\# User Name:		s5117909
+\o Working Directory:	bics02:/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0
+\# Process Id:		16951
+\o 
+\o COPYRIGHT (C) 1992-2024  CADENCE DESIGN SYSTEMS INC.  ALL RIGHTS RESERVED.
+\o           (C) 1992-2024  UNIX SYSTEMS Laboratories INC.,
+\o                          Reproduced with permission.
+\o 
+\o This Cadence Design Systems program and online documentation are
+\o proprietary/confidential information and may be disclosed/used only
+\o as authorized in a license agreement controlling such use and disclosure.
+\o 
+\o           RESTRICTED RIGHTS NOTICE (SHORT FORM)
+\o Use/reproduction/disclosure is subject to restriction
+\o set forth at FAR 1252.227-19 or its equivalent.
+\o Loading geView.cxt 
+\o Loading menuBuilder.cxt 
+\o Loading im.cxt 
+\o Loading schView.cxt 
+\o Loading selectSv.cxt 
+\o Loading pvsui.cxt
+\o Loading wireEdit.cxt 
+\o Loading pte2.cxt 
+\o Loading xlUI.cxt 
+\o Loading auCore.cxt 
+\o Loading vhdl.cxt 
+\o Loading seismic.cxt 
+\o Loading ci.cxt 
+\o Loading layers.cxt 
+\o Loading drv.cxt 
+\o Loading ams.cxt 
+\o Loading adexlDM.cxt 
+\o Loading cpf.cxt 
+\o Loading cli.cxt 
+\o Loading lp.cxt 
+\o Loading sipLayout.cxt 
+\o Loading diagCenter.cxt 
+\o INFO (ELI-00333) Client process connection mode is NormalChild.
+\# [19:05:05.183713] Configured Lic search path (23.02-s006): 5280@lic009.workspace.rug.nl
+\w *WARNING* LIB sebastian_thesis_pilot from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 2 redefines
+\w LIB sebastian_thesis_pilot from File /home/s5117909/eda_env/xp018/cds.lib
+\w Insert UNDEFINE sebastian_thesis_pilot
+\w before DEFINE sebastian_thesis_pilot
+\w     in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib
+\w Or remove or comment out DEFINE sebastian_thesis_pilot
+\w     in /home/s5117909/eda_env/xp018/cds.lib
+\w to suppress this warning message.
+\w *WARNING* LIB XFABLibs from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 3 redefines
+\w LIB XFABLibs from File /home/s5117909/eda_env/xp018/xp018_combine.lib
+\w Insert UNDEFINE XFABLibs
+\w before DEFINE XFABLibs
+\w     in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib
+\w Or remove or comment out DEFINE XFABLibs
+\w     in /home/s5117909/eda_env/xp018/xp018_combine.lib
+\w to suppress this warning message.
+\# Memory report: using         374 MB, process size 1,791 MB at UTC 2026.05.18 17:05:10.019
+\w *WARNING* The directory: '/projects/bics/designkits/fab/x_all/cadence/xenv/v1_2_52/libs/XFABLibs' does not exist
+\w 	but was defined in libFile '/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib' for Lib 'XFABLibs'.
+\w *WARNING* ddiAddLibToOA: Can't access library 'synopsys' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/SYNOPSYS' in OA 2.2.
+\w OA Exception is: 'Cannot open .oalib file in the library at .'
+\w *WARNING* ddiAddLibToOA: Can't access library 'ambit' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/AMBIT' in OA 2.2.
+\w OA Exception is: 'Cannot open .oalib file in the library at .'
+\w *WARNING* ddiAddLibToOA: Can't access library 'std' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/STD' in OA 2.2.
+\w OA Exception is: 'Cannot open .oalib file in the library at .'
+\w *WARNING* ddiAddLibToOA: Can't access library 'ieee' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/IEEE' in OA 2.2.
+\w OA Exception is: 'Cannot open .oalib file in the library at .'
+\o Loading oasis.cxt 
+\o Loading dal.cxt 
+\o Loading awv.cxt 
+\o Loading vdsil.cxt 
+\o Loading analog.cxt 
+\o Loading asimenv.cxt 
+\o Loading spectrei.cxt 
+\o Loading adexlCore.cxt 
+\# Memory report: using         515 MB, process size 1,975 MB at UTC 2026.05.18 17:05:13.306
+\o Loading socket.cxt 
+\o Loading par.cxt 
+\o Loading alvs.cxt 
+\o Loading caa.cxt 
+\o Loading amps.cxt 
+\o Loading adexl.cxt 
+\o Loading lx.cxt 
+\o Loading pe.cxt 
+\o Loading lce.cxt 
+\o Loading le.cxt 
+\o Loading drdEdit.cxt 
+\o Loading rte.cxt 
+\o Loading te.cxt 
+\o Loading schHDL.cxt 
+\o Loading devCheck.cxt 
+\o Loading relXpert.cxt 
+\o Loading simui.cxt 
+\w *WARNING* LIB sebastian_thesis_pilot from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 2 redefines
+\w LIB sebastian_thesis_pilot from File /home/s5117909/eda_env/xp018/cds.lib
+\w Insert UNDEFINE sebastian_thesis_pilot
+\w before DEFINE sebastian_thesis_pilot
+\w     in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib
+\w Or remove or comment out DEFINE sebastian_thesis_pilot
+\w     in /home/s5117909/eda_env/xp018/cds.lib
+\w to suppress this warning message.
+\w *WARNING* LIB XFABLibs from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 3 redefines
+\w LIB XFABLibs from File /home/s5117909/eda_env/xp018/xp018_combine.lib
+\w Insert UNDEFINE XFABLibs
+\w before DEFINE XFABLibs
+\w     in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib
+\w Or remove or comment out DEFINE XFABLibs
+\w     in /home/s5117909/eda_env/xp018/xp018_combine.lib
+\w to suppress this warning message.
+\w *WARNING* The directory: '/projects/bics/designkits/fab/x_all/cadence/xenv/v1_2_52/libs/XFABLibs' does not exist
+\w 	but was defined in libFile '/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib' for Lib 'XFABLibs'.
+\w *WARNING* ddiAddLibToOA: Can't access library 'synopsys' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/SYNOPSYS' in OA 2.2.
+\w OA Exception is: 'Cannot open .oalib file in the library at .'
+\w *WARNING* ddiAddLibToOA: Can't access library 'ambit' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/AMBIT' in OA 2.2.
+\w OA Exception is: 'Cannot open .oalib file in the library at .'
+\w *WARNING* ddiAddLibToOA: Can't access library 'std' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/STD' in OA 2.2.
+\w OA Exception is: 'Cannot open .oalib file in the library at .'
+\w *WARNING* ddiAddLibToOA: Can't access library 'ieee' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/IEEE' in OA 2.2.
+\w OA Exception is: 'Cannot open .oalib file in the library at .'
+\o ** Info: PDK loadpath is "/projects/bics/designkits/xfab/xp018/cadence/v8_0/PDK/IC61/v8_0_2"
+\o Loading XfSktTools.cxt
+\o Loading XfMenu.cxt
+\o Loading XfTechXp018.cxt
+\o Loading XfPcellCore.cxt
+\o function ansiSpicePrintProperties_subcircuit redefined
+\o Loading XfSkillExt.cxt
+\o Initializing library.
+\o Finished Initializing Library .
+\o     Generic PcellKit: 'production' loaded.
+\o     Generic Pcell Skill Tools: 'production' loaded.
+\e *Error* Cannot find PDK/Spectre model file: /home/s5117909/eda_env/xp018/pvtch.lib
+\e 
+\e *Error* load: error while loading file - "/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/general_code/pwl_pvt.ocn" at line 30
+\p > 
+\o Loading tilp.cxt 
+\o Loading validator.cxt 
+\o Loading vrf.cxt 
+\o Loading multiTechPlugin.cxt 
+\o Loading exportDie.cxt 
+\# Loading perfDiag...
+\# (PerfDiag): Set GDB path to environment variable 'gdbPath' (gdb).
+\# The Health Monitor tool is installed. You can access it from CIW - Tools - Diagnostic Center or use the shell command 'cdsPerfDiag -p 16951' to open it when Virtuoso freezes.
+\# Memory report: using         626 MB, process size 2,086 MB at UTC 2026.05.18 17:05:15.058
+\# (PerfDiag): Use backtrace from GLIBC.

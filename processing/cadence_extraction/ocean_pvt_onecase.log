@@ -1,0 +1,156 @@
+*WARNING* file /home/s5117909/CDS.log File is already locked by some other process.
+*WARNING* file /home/s5117909/CDS.log.1 File is already locked by some other process.
+*WARNING* file /home/s5117909/CDS.log.2 File is already locked by some other process.
+COPYRIGHT (C) 1992-2024  CADENCE DESIGN SYSTEMS INC.  ALL RIGHTS RESERVED.
+          (C) 1992-2024  UNIX SYSTEMS Laboratories INC.,
+                         Reproduced with permission.
+
+This Cadence Design Systems program and online documentation are
+proprietary/confidential information and may be disclosed/used only
+as authorized in a license agreement controlling such use and disclosure.
+
+          RESTRICTED RIGHTS NOTICE (SHORT FORM)
+Use/reproduction/disclosure is subject to restriction
+set forth at FAR 1252.227-19 or its equivalent.
+Loading geView.cxt 
+Loading menuBuilder.cxt 
+Loading im.cxt 
+Loading schView.cxt 
+Loading selectSv.cxt 
+Loading pvsui.cxt
+Loading wireEdit.cxt 
+Loading pte2.cxt 
+Loading xlUI.cxt 
+Loading auCore.cxt 
+Loading vhdl.cxt 
+Loading seismic.cxt 
+Loading ci.cxt 
+Loading layers.cxt 
+Loading drv.cxt 
+Loading ams.cxt 
+Loading adexlDM.cxt 
+Loading cpf.cxt 
+Loading cli.cxt 
+Loading lp.cxt 
+Loading sipLayout.cxt 
+Loading diagCenter.cxt 
+INFO (ELI-00333) Client process connection mode is NormalChild.
+*WARNING* LIB sebastian_thesis_pilot from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 2 redefines
+LIB sebastian_thesis_pilot from File /home/s5117909/eda_env/xp018/cds.lib
+Insert UNDEFINE sebastian_thesis_pilot
+before DEFINE sebastian_thesis_pilot
+    in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib
+Or remove or comment out DEFINE sebastian_thesis_pilot
+    in /home/s5117909/eda_env/xp018/cds.lib
+to suppress this warning message.
+*WARNING* LIB XFABLibs from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 3 redefines
+LIB XFABLibs from File /home/s5117909/eda_env/xp018/xp018_combine.lib
+Insert UNDEFINE XFABLibs
+before DEFINE XFABLibs
+    in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib
+Or remove or comment out DEFINE XFABLibs
+    in /home/s5117909/eda_env/xp018/xp018_combine.lib
+to suppress this warning message.
+*WARNING* The directory: '/projects/bics/designkits/fab/x_all/cadence/xenv/v1_2_52/libs/XFABLibs' does not exist
+	but was defined in libFile '/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib' for Lib 'XFABLibs'.
+*WARNING* ddiAddLibToOA: Can't access library 'synopsys' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/SYNOPSYS' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'ambit' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/AMBIT' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'std' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/STD' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'ieee' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/IEEE' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+Loading oasis.cxt 
+Loading dal.cxt 
+Loading awv.cxt 
+Loading vdsil.cxt 
+Loading analog.cxt 
+Loading asimenv.cxt 
+Loading spectrei.cxt 
+Loading adexlCore.cxt 
+Loading socket.cxt 
+Loading par.cxt 
+Loading alvs.cxt 
+Loading caa.cxt 
+Loading amps.cxt 
+Loading adexl.cxt 
+Loading lx.cxt 
+Loading pe.cxt 
+Loading lce.cxt 
+Loading le.cxt 
+Loading drdEdit.cxt 
+Loading rte.cxt 
+Loading te.cxt 
+Loading schHDL.cxt 
+Loading devCheck.cxt 
+Loading relXpert.cxt 
+Loading simui.cxt 
+*WARNING* LIB sebastian_thesis_pilot from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 2 redefines
+LIB sebastian_thesis_pilot from File /home/s5117909/eda_env/xp018/cds.lib
+Insert UNDEFINE sebastian_thesis_pilot
+before DEFINE sebastian_thesis_pilot
+    in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib
+Or remove or comment out DEFINE sebastian_thesis_pilot
+    in /home/s5117909/eda_env/xp018/cds.lib
+to suppress this warning message.
+*WARNING* LIB XFABLibs from File /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib Line 3 redefines
+LIB XFABLibs from File /home/s5117909/eda_env/xp018/xp018_combine.lib
+Insert UNDEFINE XFABLibs
+before DEFINE XFABLibs
+    in /home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib
+Or remove or comment out DEFINE XFABLibs
+    in /home/s5117909/eda_env/xp018/xp018_combine.lib
+to suppress this warning message.
+*WARNING* The directory: '/projects/bics/designkits/fab/x_all/cadence/xenv/v1_2_52/libs/XFABLibs' does not exist
+	but was defined in libFile '/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/ipc_work/job0/cds.lib' for Lib 'XFABLibs'.
+*WARNING* ddiAddLibToOA: Can't access library 'synopsys' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/SYNOPSYS' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'ambit' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/AMBIT' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'std' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/STD' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+*WARNING* ddiAddLibToOA: Can't access library 'ieee' at path '/projects/bics/cadence/installs/XCELIUM2309/tools.lnx86/inca/files/IEEE' in OA 2.2.
+OA Exception is: 'Cannot open .oalib file in the library at .'
+** Info: PDK loadpath is "/projects/bics/designkits/xfab/xp018/cadence/v8_0/PDK/IC61/v8_0_2"
+Loading XfSktTools.cxt
+Loading XfMenu.cxt
+Loading XfTechXp018.cxt
+Loading XfPcellCore.cxt
+function ansiSpicePrintProperties_subcircuit redefined
+Loading XfSkillExt.cxt
+Initializing library.
+Finished Initializing Library .
+    Generic PcellKit: 'production' loaded.
+    Generic Pcell Skill Tools: 'production' loaded.
+*Error* Cannot find PDK/Spectre model file: /home/s5117909/eda_env/xp018/pvtch.lib
+
+*Error* load: error while loading file - "/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/general_code/pwl_pvt.ocn" at line 30
+> Loading tilp.cxt 
+Loading validator.cxt 
+Loading vrf.cxt 
+Loading multiTechPlugin.cxt 
+Loading exportDie.cxt 
+
+A panic file has been created for cellview 'sebastian_thesis_pilot/synapsedualinputtb/schematic' at:
+    (/home/s5117909/Desktop/cadence_lib/sebastian_thesis_pilot/synapsedualinputtb/schematic/sch.oa-)
+To open the cellview with the recovered data:
+    cellview = dbOpenPanicCellView("sebastian_thesis_pilot" "synapsedualinputtb" "schematic")
+
+Panic files have been created for cellviews that were opened in edit mode.
+For details on these panic files, see
+    '/home/s5117909/panic.log.bics02.service.rug.nl.16951'
+INFO (DB-120006): 'virtuoso' exited unexpectedly. Panic files have been created for the cellviews that 
+were opened in edit mode. For the list of these panic files, see the panic log:
+/home/s5117909/panic.log.bics02.service.rug.nl.16951
+To restore a cellview using its panic file:
+1. Open the cellview with the recovered data using 'dbOpenPanicCellView'.
+   Example: 'cellview = dbOpenPanicCellView("lib" "cell" "view")'.
+   The cellview opens in read-only mode.
+2. Reopen the cellview in append mode using 'dbReopen(cellview "a")'.
+3. Restore the recovered data to the cellview using 'dbSave(cellview)'.
+   To save the recovered data to a different cellview, use
+   'dbSave(cellview "otherlib" "cell" "view")' with the desired
+   library, cell, and view information.
+4. Remove the cellview from virtual memory using 'dbPurge(cellview)'.
+   You can now open the restored cellview.
