@@ -40,7 +40,6 @@ modelFileList = list(
     list(modelDio    "tm")
     list(modelMos    "tm")
     list(modelRes    "tm")
-    list(modelXp018  "mc_g")
 )
 
 apply('modelFile modelFileList)
