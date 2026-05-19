@@ -1,2 +1,0 @@
-run_name,st1_frequency,st2_frequency,trial_file,st1_file,st2_file,run_dir
-st1_81_hz__st2_81_hz__trial_1,81_hz,81_hz,trial_1.pwl,/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/general_code/spike_train_output/st_1/81_hz/trial_1.pwl,/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/general_code/spike_train_output/st_2/81_hz/trial_1.pwl,/home/s5117909/Documents/thesis/sebastian_thesis_repo/processing/cadence_extraction/output_single_data/st1_81_hz__st2_81_hz__trial_1

@@ -67,12 +67,14 @@
             "id": "84c1d703d0a2c5ff",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "0_Results/simulation_results_height_map.png"
+                "file": "0_planning/1_to-do.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "simulation_results_height_map"
+              "icon": "lucide-file",
+              "title": "1_to-do"
             }
           }
         ],
@@ -240,11 +242,19 @@
   },
   "active": "84c1d703d0a2c5ff",
   "lastOpenFiles": [
+    "0_Results/1_2week_results summary..md",
+    "0_Results/simulation_results_height_map.png",
+    "0_planning/1_to-do.md",
+    "0_Results/simulation_results0_1.png",
+    "0_Results/simulation_results0_2.png",
     "0_Results/simulation_results0_4.png",
+    "0_Results/simulation_results0_3.png",
+    "0_Results/1_feedback_notes.md",
+    "0_Results/simulation_results0.png",
     "0_Results/simulation_results0_5_81_401hz_spike_after_simultaneous_spike.png",
     "0_Results/simulation_results0_5_81_401hz.png",
-    "0_Results/1_2week_results summary..md",
-    "0_planning/1_to-do.md",
+    "0_planning/1_CIW-report-from-simulations15052026.md",
+    "0_Results/Untitled.md",
     "runbooks/cadence_ocean_parallel_ipc_runbook_v3.md",
     "runbooks/cadence_ocean_parallel_ipc_chatgpt_handoff.md",
     "runbooks",
@@ -254,19 +264,11 @@
     "runbooks/cadence_ocean_ipc_parallel_debug_summarygpt generated.md",
     "runbooks/cadence_ocean_parallel_ipc_runbook_gptgenerated.md",
     "Unconfirmed 801433.crdownload",
-    "0_Results/simulation_results_height_map.png",
     "Unconfirmed 255141.crdownload",
-    "0_Results/1_feedback_notes.md",
-    "0_Results/simulation_results0_3.png",
-    "0_Results/simulation_results0_2.png",
-    "0_Results/Untitled.md",
     "0_planning/IT questions for vincent.md",
-    "0_planning/1_CIW-report-from-simulations15052026.md",
     "Unconfirmed 964230.crdownload",
     "0_notetaking/1_coding_learning_and_questions.md",
     "0_notetaking/1_vocab_and_terminology.md",
-    "0_Results/simulation_results0.png",
-    "0_Results/simulation_results0_1.png",
     "0_papers",
     "0_notetaking",
     "0_Results",

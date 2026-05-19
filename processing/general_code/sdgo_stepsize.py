@@ -17,8 +17,8 @@ output_root = Path(__file__).resolve().parent / "spike_train_output"
 
 num_spike_train_sets = 2      # Creates st_1, st_2, ..., st_n
 max_frequency_hz = 600         # Highest frequency directory to create, e.g. up to 600_hz
-step_size = 80                 # Frequency step size: 1 -> 1,2,3,...; 2 -> 1,3,5,...; 3 -> 1,4,7,...
-trials_per_frequency = 1       # Creates trial_1.pwl, ..., trial_j.pwl
+step_size = 16                 # Frequency step size: 1 -> 1,2,3,...; 2 -> 1,3,5,...; 3 -> 1,4,7,...
+trials_per_frequency = 2       # Creates trial_1.pwl, ..., trial_j.pwl
 
 total_time = 0.5              # seconds; use 1.0 s if you want exactly i spikes for i Hz
 pulse_height = 1.8            # volts
@@ -27,7 +27,7 @@ pulse_width = 10e-6          # seconds; width of each spike pulse
 rise_time = 1e-8              # seconds; finite rising edge for simulator-friendly pulses
 fall_time = 1e-8              # seconds; finite falling edge for simulator-friendly pulses
 
-random_seed = None            # Set to an integer, e.g. 12345, for reproducible output
+random_seed = 12345            # Set to an integer, e.g. 12345, for reproducible output
 overwrite_output_directory = True  # If True, delete and recreate output_root on every run
 
 
