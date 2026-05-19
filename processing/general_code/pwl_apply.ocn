@@ -3,6 +3,7 @@
 
 simulator('spectre)
 envOption('userCmdLineOption "++aps +mt=4")
+envOption('redefinedparams "warning")
 
 design("sebastian_thesis_pilot" "synapsedualinputtb" "schematic")
 
