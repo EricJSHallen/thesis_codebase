@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "0_planning/1_to-do.md",
+                "file": "0_Results/1_feedback_notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1_to-do"
+              "title": "1_feedback_notes"
             }
           }
         ],
@@ -242,9 +242,14 @@
   },
   "active": "84c1d703d0a2c5ff",
   "lastOpenFiles": [
+    "runbooks/cadence_ocean_parallel_clean_run_runbook_v4.md",
+    "runbooks/cadence_ocean_parallel_ipc_chatgpt_handoff.md",
+    "runbooks/cadence_ocean_parallel_ipc_runbook_gptgenerated.md",
+    "runbooks/cadence_ocean_parallel_ipc_runbook_v3.md",
+    "0_planning/1_to-do.md",
+    "runbooks/Unconfirmed 990826.crdownload",
     "0_Results/1_2week_results summary..md",
     "0_Results/simulation_results_height_map.png",
-    "0_planning/1_to-do.md",
     "0_Results/simulation_results0_1.png",
     "0_Results/simulation_results0_2.png",
     "0_Results/simulation_results0_4.png",
@@ -255,14 +260,11 @@
     "0_Results/simulation_results0_5_81_401hz.png",
     "0_planning/1_CIW-report-from-simulations15052026.md",
     "0_Results/Untitled.md",
-    "runbooks/cadence_ocean_parallel_ipc_runbook_v3.md",
-    "runbooks/cadence_ocean_parallel_ipc_chatgpt_handoff.md",
     "runbooks",
     "Unconfirmed 334450.crdownload",
     "runbooks/cadence_ocean_ipc_debugging_runbook_v2.md",
     "Unconfirmed 701679.crdownload",
     "runbooks/cadence_ocean_ipc_parallel_debug_summarygpt generated.md",
-    "runbooks/cadence_ocean_parallel_ipc_runbook_gptgenerated.md",
     "Unconfirmed 801433.crdownload",
     "Unconfirmed 255141.crdownload",
     "0_planning/IT questions for vincent.md",
@@ -273,7 +275,6 @@
     "0_notetaking",
     "0_Results",
     "README.md",
-    "Welcome.md",
-    "0_planning"
+    "Welcome.md"
   ]
 }

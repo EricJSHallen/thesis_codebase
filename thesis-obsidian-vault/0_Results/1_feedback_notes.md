@@ -1,1 +1,1 @@
-
+is it possible to have the cadence key expiry time change depending on what day of the week it is? i.e. make it be 60h or 48h instead of 24h if its on friday saturday or sunday? so that people can start simulations on fridays and leave it for the weekend? 
