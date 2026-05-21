@@ -1,0 +1,29 @@
+HEADER
+"PSFversion" "1.00"
+"Time Stamp" "May 20 17:58:49 2026"
+TYPE
+"variable" STRUCT(
+"value" FLOAT DOUBLE
+) PROP( "key" "element" )
+VALUE
+"m2l" "variable" ( 200e-9 ) PROP( )
+"m2ltb" "variable" ( 1.05e-6 ) PROP( )
+"m2w" "variable" ( 3e-6 ) PROP( )
+"m2wtb" "variable" ( 2.1e-6 ) PROP( )
+"m3l" "variable" ( 4e-6 ) PROP( )
+"m3w" "variable" ( 2.1e-6 ) PROP( )
+"m4l" "variable" ( 1.05e-6 ) PROP( )
+"m4ltb" "variable" ( 1.05e-6 ) PROP( )
+"m4w" "variable" ( 2.1e-6 ) PROP( )
+"m4wtb" "variable" ( 2.1e-6 ) PROP( )
+"m5l" "variable" ( 1.05e-6 ) PROP( )
+"m5w" "variable" ( 2.1e-6 ) PROP( )
+"pw" "variable" ( 100e-6 ) PROP( )
+"T" "variable" ( 1e-3 ) PROP( )
+"Vin" "variable" ( 0 ) PROP( )
+"Vtau" "variable" ( 1.6 ) PROP( )
+"Vthr" "variable" ( 900e-3 ) PROP( )
+"Vw" "variable" ( 500e-3 ) PROP( )
+"vmax" "variable" ( 1.8 ) PROP( )
+"temp" "variable" ( 27 ) PROP( )
+END
