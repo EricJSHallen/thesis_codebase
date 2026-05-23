@@ -1,3 +1,0 @@
-INCLUDE /home/s5117909/eda_env/xp018/cds.lib
-DEFINE sebastian_thesis_pilot /home/s5117909/Desktop/cadence_lib/sebastian_thesis_pilot
-DEFINE XFABLibs /projects/bics/designkits/fab/x_all/cadence/xenv/v1_2_52/libs/XFABLibs
