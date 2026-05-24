@@ -45,4 +45,5 @@ build/
 *.ps
 
 # Local database files
-thesis_database/
+thesis_database/*
+!thesis_database/.gitkeep
