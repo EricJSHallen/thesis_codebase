@@ -1,0 +1,48 @@
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+
+# Bibliography / citation tooling
+*.nav
+*.snm
+*.vrb
+
+# Glossaries / nomenclature / indexing
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+*.nlg
+*.nlo
+*.nls
+
+# minted / pygments
+_minted-*/
+*.pyg
+
+# latexmk output directories
+build/
+*.dvi
+*.ps
+
+# Local database files
+thesis_database/
