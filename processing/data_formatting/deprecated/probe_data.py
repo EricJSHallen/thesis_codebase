@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
+#I believe this is a script just for probing the data and doesnt actually do much else
 # ---------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------

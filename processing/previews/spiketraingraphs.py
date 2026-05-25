@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import re
 
-
+#this is a script that will output all the important graphs for a the output current spikes outputed by the simulation. it has the most relevant stuff.
 
 
 

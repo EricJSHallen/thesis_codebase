@@ -7,7 +7,7 @@ import re
 from scipy.interpolate import griddata
 from mpl_toolkits.mplot3d import Axes3D
 
-
+#this script makes a heat map based off of which frequency combinations result in large spike overlap.
 
 def align_on_union_time(df1, df2, time_col="time_s"):
     """

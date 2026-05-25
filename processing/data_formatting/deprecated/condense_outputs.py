@@ -3,6 +3,8 @@ import re
 import csv
 import shutil
 
+##this script is for condensing output data txt's into a csv
+
 
 # ---------------------------------------------------------------------
 # Configuration

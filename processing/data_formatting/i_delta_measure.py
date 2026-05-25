@@ -5,6 +5,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+
+##I dont quite remember what this is for but I think its for measuring the difference in current. but in what scenario I am not sure
 # ---------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------

@@ -49,7 +49,7 @@ apply('modelFile modelFileList)
 
 ; Base directories
 
-baseRepoDir = "/home/s5117909/Documents/thesis/sebastian_thesis_repo"
+baseRepoDir = "/home/s5117909/Documents/thesis/thesis_codebase"
 pwlBaseDir = strcat(baseRepoDir "/processing/general_code/spike_train_output")
 st1BaseDir = strcat(pwlBaseDir "/st_1")
 st2BaseDir = strcat(pwlBaseDir "/st_2")
