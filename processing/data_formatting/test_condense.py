@@ -2,6 +2,9 @@ from pathlib import Path
 import re
 import csv
 
+
+
+#I believe that this is a test script for condensing graphs and is not very useful anymore
 # ---------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------
