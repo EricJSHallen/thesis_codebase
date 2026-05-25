@@ -16,10 +16,10 @@ import numpy as np
 output_root = Path(__file__).resolve().parent / "spike_train_output"
 csv_output_root = Path(__file__).resolve().parent / "spike_train_output_csv"
 
-num_spike_train_sets = 64      # Creates st_1, st_2, ..., st_n
+num_spike_train_sets = 4  # Creates st_1, st_2, ..., st_n
 max_frequency_hz = 600         # Highest frequency directory to create, e.g. up to 600_hz
-step_size = 16                 # Frequency step size: 1 -> 1,2,3,...; 2 -> 1,3,5,...; 3 -> 1,4,7,...
-trials_per_frequency = 2       # Creates trial_1.pwl, ..., trial_j.pwl
+step_size = 30               # Frequency step size: 1 -> 1,2,3,...; 2 -> 1,3,5,...; 3 -> 1,4,7,...
+trials_per_frequency = 5 # Creates trial_1.pwl, ..., trial_j.pwl
 
 total_time = 0.5              # seconds; use 1.0 s if you want exactly i spikes for i Hz
 pulse_height = 1.8            # volts
