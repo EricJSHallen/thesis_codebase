@@ -8,7 +8,7 @@ REPO="${REPO:-/home/s5117909/Documents/thesis/thesis_codebase}"
 CODE_DIR="${CODE_DIR:-$REPO/processing/sim_run_code}"
 DATABASE_DIR="${DATABASE_DIR:-$REPO/thesis_database}"
 
-SRC_OCN="${SRC_OCN:-$CODE_DIR/ocn_scripts/pwl_1syn.ocn}"
+SRC_OCN="${SRC_OCN:-$CODE_DIR/ocn_scripts/pwl_1synv3.ocn}"
 SPIKE_ROOT="${SPIKE_ROOT:-$CODE_DIR/spike_train_output}"
 RUN_LABEL="${RUN_LABEL:-2channel_1syn}"
 RUN_LABEL_SAFE="$(printf '%s' "$RUN_LABEL" | tr -cs 'A-Za-z0-9._-' '_' | sed 's/^_//;s/_$//')"
@@ -92,7 +92,7 @@ compute_total_cases() {
 }
 
 print_process_check() {
-    ps -fu "$USER" | grep -E "CAD_JOB_INDEX|ocean_apply_job|pwl_1syn|pwl_apply|pwl_apply_duo|spectre input.scs|spectre_encrypt|runSimulation|cdsXvfb-run|virtuoso -ocean|tail -f .*ocean" | grep -v grep || true
+    ps -fu "$USER" | grep -E "CAD_JOB_INDEX|ocean_apply_job|pwl_1syn|pwl_1synv3||pwl_apply|pwl_apply_duo|spectre input.scs|spectre_encrypt|runSimulation|cdsXvfb-run|virtuoso -ocean|tail -f .*ocean" | grep -v grep || true
 }
 
 echo "=== Cadence/OCEAN run setup ==="

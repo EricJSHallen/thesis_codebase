@@ -46,10 +46,10 @@ import numpy as np
 # -----------------------------------------------------------------------------
 
 # Keep these folders beside this script, as in the reference repo structure.
-output_root = Path(__file__).resolve().parent / "spike_train_output"
-csv_output_root = Path(__file__).resolve().parent / "spike_train_output_csv"
+output_root = Path(__file__).resolve().parent / "st_ps_output"
+csv_output_root = Path(__file__).resolve().parent / "st_ps_output_csv"
 
-num_spike_train_sets = 4          # Creates st_1, st_2, ..., st_n
+num_spike_train_sets = 2          # Creates st_1, st_2, ..., st_n
 max_frequency_hz = 600            # Highest frequency directory to create
 step_size = 30                    # 1, 31, 61, ... if step_size = 30
 trials_per_frequency = 5          # Creates trial_1.pwl, ..., trial_j.pwl
