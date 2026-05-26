@@ -16,7 +16,7 @@ import numpy as np
 output_root = Path(__file__).resolve().parent / "spike_train_output"
 csv_output_root = Path(__file__).resolve().parent / "spike_train_output_csv"
 
-num_spike_train_sets = 4  # Creates st_1, st_2, ..., st_n
+num_spike_train_sets = 2  # Creates st_1, st_2, ..., st_n
 max_frequency_hz = 600         # Highest frequency directory to create, e.g. up to 600_hz
 step_size = 30               # Frequency step size: 1 -> 1,2,3,...; 2 -> 1,3,5,...; 3 -> 1,4,7,...
 trials_per_frequency = 5 # Creates trial_1.pwl, ..., trial_j.pwl
