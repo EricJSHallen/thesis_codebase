@@ -142,6 +142,7 @@ when(cadRunDir
 
 cadProjectDir = getShellEnvVar("CAD_PROJECT_DIR")
 when(cadProjectDir
+  system(strcat("mkdir -p \"" cadProjectDir "\""))
   projectDir(cadProjectDir)
   printf("Using isolated Cadence projectDir: %s\\n" cadProjectDir)
 )
