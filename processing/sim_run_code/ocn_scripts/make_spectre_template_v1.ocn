@@ -1,0 +1,145 @@
+; make_spectre_template_v1.ocn
+; Purpose:
+;   Run ONE OCEAN/Virtuoso netlisting pass to create a clean Spectre netlist.
+;   This script must NOT be run in parallel. It exists only to produce the
+;   netlist directory that the shell workers later copy and run with plain Spectre.
+;
+; Required/optional environment variables:
+;   CAD_REPO_DIR       /home/s5117909/Documents/thesis/thesis_codebase by default
+;   CAD_SPIKE_DIR      $CAD_REPO_DIR/processing/sim_run_code/spike_train_output by default
+;   CAD_TEMPLATE_DIR   where to put the one-shot OCEAN result marker/output
+;   CAD_PROJECT_DIR    optional Cadence project dir for this one OCEAN process
+;   CAD_BATCH_EXIT     set to 1 to exit at end
+
+simulator('spectre)
+
+; Keep this single-process OCEAN run fairly conservative.
+envOption('userCmdLineOption "+aps +mt=4")
+option('redefinedparams "warning")
+
+; Optional isolated project dir. This is set before design().
+cadProjectDir = getShellEnvVar("CAD_PROJECT_DIR")
+when(cadProjectDir
+  envSetVal("asimenv.startup" "projectDir" 'string cadProjectDir)
+  printf("Using isolated Cadence projectDir for template generation: %s\n" cadProjectDir)
+)
+
+; Open design once only. Do not run this script concurrently.
+design("sebastian_thesis_pilot" "synapsedualinputtb" "schematic")
+
+; Spectre model-library setup copied from the working batch script.
+modelConfig = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/config.scs"
+modelParam  = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/param.scs"
+modelBip    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/bip.scs"
+modelCap    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/cap.scs"
+modelDio    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/dio.scs"
+modelMos    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/mos.scs"
+modelRes    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/res.scs"
+
+foreach(modelPath list(modelConfig modelParam modelBip modelCap modelDio modelMos modelRes)
+  unless(isFile(modelPath)
+    error("Cannot find Spectre model file: %s\n" modelPath)
+  )
+)
+modelFileList = list(
+  list(modelConfig "default")
+  list(modelParam  "3s")
+  list(modelBip    "tm")
+  list(modelCap    "tm")
+  list(modelDio    "tm")
+  list(modelMos    "tm")
+  list(modelRes    "tm")
+)
+apply('modelFile modelFileList)
+printf("Using ADE Spectre model libraries from XP018 lp5mos via apply(modelFile ...).\n")
+
+repoDir = getShellEnvVar("CAD_REPO_DIR")
+unless(repoDir repoDir = "/home/s5117909/Documents/thesis/thesis_codebase")
+
+spikeDir = getShellEnvVar("CAD_SPIKE_DIR")
+unless(spikeDir spikeDir = strcat(repoDir "/processing/sim_run_code/spike_train_output"))
+st1BaseDir = strcat(spikeDir "/st_1")
+st2BaseDir = strcat(spikeDir "/st_2")
+
+templateDir = getShellEnvVar("CAD_TEMPLATE_DIR")
+unless(templateDir templateDir = strcat(repoDir "/thesis_database/manual_template_ocean_result"))
+unless(isDir(templateDir) system(strcat("mkdir -p \"" templateDir "\"")))
+
+; Analysis and design variables. These must match the real sweep setup.
+analysis('tran ?stop "0.5s")
+desVar("m2l" 200n)
+desVar("m2ltb" 1.05u)
+desVar("m2w" 3u)
+desVar("m2wtb" 2.1u)
+desVar("m3l" 4u)
+desVar("m3w" 2.1u)
+desVar("m4l" 1.05u)
+desVar("m4ltb" 1.05u)
+desVar("m4w" 2.1u)
+desVar("m4wtb" 2.1u)
+desVar("m5l" 1.05u)
+desVar("m5w" 2.1u)
+desVar("pw" 100u)
+desVar("T" 1m)
+desVar("Vin" 0)
+desVar("Vtau" 1.6)
+desVar("Vthr" 0.9)
+desVar("Vw" 0.5)
+desVar("vmax" 1.8)
+save('i "/I56/Iout")
+save('v "/vpre")
+save('v "/vpre1")
+
+unless(isDir(st1BaseDir) error("Cannot find st_1 directory: %s\n" st1BaseDir))
+unless(isDir(st2BaseDir) error("Cannot find st_2 directory: %s\n" st2BaseDir))
+
+; Pick the first available matching st1/st2 trial only to force netlist creation.
+st1FreqDirs = getDirFiles(st1BaseDir)
+st2FreqDirs = getDirFiles(st2BaseDir)
+foundTemplateCase = nil
+
+foreach(st1FreqDirName st1FreqDirs
+  when(!foundTemplateCase && st1FreqDirName != "." && st1FreqDirName != ".."
+    st1FreqDir = strcat(st1BaseDir "/" st1FreqDirName)
+    when(isDir(st1FreqDir)
+      foreach(st2FreqDirName st2FreqDirs
+        when(!foundTemplateCase && st2FreqDirName != "." && st2FreqDirName != ".."
+          st2FreqDir = strcat(st2BaseDir "/" st2FreqDirName)
+          when(isDir(st2FreqDir)
+            st1TrialFiles = getDirFiles(st1FreqDir)
+            foreach(trialFile st1TrialFiles
+              when(!foundTemplateCase && rexMatchp("\\.pwl$" trialFile)
+                st1File = strcat(st1FreqDir "/" trialFile)
+                st2File = strcat(st2FreqDir "/" trialFile)
+                when(isFile(st1File) && isFile(st2File)
+                  foundTemplateCase = t
+                  printf("Template case st1=%s st2=%s\n" st1File st2File)
+                  resultsDir(templateDir)
+                  desVar("pwlFile_st1" strcat("\"" st1File "\""))
+                  desVar("pwlFile_st2" strcat("\"" st2File "\""))
+                  run()
+                  selectResult('tran)
+                  ; Minimal read to confirm the result is accessible.
+                  vpre = v("/vpre")
+                  ocnPrint(?output strcat(templateDir "/template_probe.txt") ?precision 6 ?numSpaces 1 vpre)
+                  closeResults(templateDir)
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+unless(foundTemplateCase
+  error("Could not find any matching st_1/st_2 trial_N .pwl pair under %s\n" spikeDir)
+)
+
+printf("Template OCEAN run complete. Now copy the generated Spectre netlist into the run template directory.\n")
+batchExitStr = getShellEnvVar("CAD_BATCH_EXIT")
+when(batchExitStr == "1"
+  printf("CAD_BATCH_EXIT=1, exiting OCEAN.\n")
+  exit()
+)

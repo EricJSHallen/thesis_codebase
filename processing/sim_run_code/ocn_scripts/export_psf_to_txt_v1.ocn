@@ -1,0 +1,44 @@
+; export_psf_to_txt_v1.ocn
+; Purpose:
+;   Export PSF results from a completed plain-Spectre case to output_signals.txt.
+;   This script does not call design() and should not touch the schematic OA database.
+;
+; Required environment variables:
+;   CAD_CASE_DIR    Case directory containing psf/ or spectre raw output.
+; Optional:
+;   CAD_BATCH_EXIT=1
+
+caseDir = getShellEnvVar("CAD_CASE_DIR")
+unless(caseDir
+  error("CAD_CASE_DIR is not set.\n")
+)
+
+outputSignalsFile = strcat(caseDir "/output_signals.txt")
+outputSignalsTmp  = strcat(caseDir "/output_signals.txt.tmp")
+
+; Try common Spectre raw-result locations.
+psfDir = strcat(caseDir "/psf")
+unless(isDir(psfDir)
+  psfDir = caseDir
+)
+
+printf("Opening results from: %s\n" psfDir)
+openResults(psfDir)
+selectResult('tran)
+
+iout_56 = i("/I56/Iout")
+vpre    = v("/vpre")
+vpre1   = v("/vpre1")
+
+when(isFile(outputSignalsTmp)
+  system(strcat("rm -f \"" outputSignalsTmp "\""))
+)
+ocnPrint(?output outputSignalsTmp ?precision 10 ?numSpaces 1 iout_56 vpre vpre1)
+system(strcat("mv -f \"" outputSignalsTmp "\" \"" outputSignalsFile "\""))
+
+printf("Exported: %s\n" outputSignalsFile)
+
+batchExitStr = getShellEnvVar("CAD_BATCH_EXIT")
+when(batchExitStr == "1"
+  exit()
+)
