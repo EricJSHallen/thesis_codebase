@@ -59,7 +59,7 @@ trials_per_frequency = 5          # Creates trial_1.pwl, ..., trial_j.pwl
 total_time = 0.5                  # seconds
 
 pulse_height = 1.8                # volts
-pulse_width = 10e-6               # seconds
+pulse_width = 1e-7               # seconds
 rise_time = 1e-8                  # seconds
 fall_time = 1e-8                  # seconds
 
