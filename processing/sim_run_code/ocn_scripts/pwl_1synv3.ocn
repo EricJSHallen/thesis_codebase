@@ -151,6 +151,7 @@ desVar("Vtau" 1.6)
 desVar("Vthr" 0.9)
 desVar("Vw"   0.5)
 desVar("vmax" 1.8)
+desVar("capacitance" 6p)
 
 save('i "/I56/Iout")
 save('v "/vpre")
