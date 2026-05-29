@@ -45,5 +45,11 @@ build/
 *.ps
 
 # Local database files
-thesis_database/*
-!thesis_database/.gitkeep
+database/*
+!database/.gitkeep
+
+
+# Python bytecode/cache files
+__pycache__/
+*.py[cod]
+*$py.class

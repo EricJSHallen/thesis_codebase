@@ -31,3 +31,13 @@ BASH: git clone ...
 version : Commit date : message
 v0.0 (dd/mm/yy) initial commit
 v1.0 (12/04/2026) commit updates made 10/"/" organisation of repo. .gitkeep to maintain strctr, readme.md, and tex tmplt.
+
+
+
+
+
+
+## Project structure
+codebase directory has directory codebase. this directory contains all the experiments performed and the source code for this is meant to be self contained per experiment. 
+
+all output data will be sent to database whose contents will be ignored. recommended rsync for large data dumps. 
