@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -u -o pipefail
+
 JOB_INDEX="${1:?usage: run_spectre_worker.sh JOB_INDEX}"
-RUN_DIR="$(cd "$(dirname "$0")" && pwd)"
+RUN_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 # shellcheck disable=SC1091
 source "$RUN_DIR/RUNINFO.txt"
 # shellcheck disable=SC1091
@@ -16,14 +17,18 @@ mkdir -p "$RUN_DIR/logs" "$RUN_DIR/worker_state"
 {
   echo "worker=$JOB_INDEX start=$(date -Is)"
   echo "SPECTRE_CMD=${SPECTRE_CMD:-unset}"
+  echo "CADENCE_EXPORT_LAUNCHER=${CADENCE_EXPORT_LAUNCHER:-unset}"
   echo "runtime_check:"
   check_spectre_runtime
+  echo "export_runtime_check:"
+  check_export_runtime || true
 } > "$LOG" 2>&1
 
 if ! spectre_runtime_ok; then
   echo "FAILED: Spectre runtime unresolved. Run ./refresh_spectre_runtime.sh and source ./setup_spectre_env.sh." | tee -a "$LOG"
   exit 2
 fi
+
 if [[ ! -f "$TEMPLATE/input.scs" ]]; then
   echo "FAILED: missing template $TEMPLATE/input.scs" | tee -a "$LOG"
   exit 1
@@ -36,12 +41,15 @@ while IFS=$'\t' read -r case_id run_name st1_file st2_file case_dir; do
   {
     echo "========== case_id=$case_id run_name=$run_name =========="
     mkdir -p "$case_dir"
+
     if [[ -f "$case_dir/output_signals.txt" ]]; then
       echo "SKIP existing output_signals.txt"
       continue
     fi
+
     rm -rf "$case_dir/netlist" "$case_dir/psf"
     cp -a "$TEMPLATE" "$case_dir/netlist"
+
     python3 - "$case_dir/netlist" "$st1_file" "$st2_file" <<'PY'
 import pathlib, sys
 root = pathlib.Path(sys.argv[1])
@@ -63,6 +71,7 @@ for p in root.rglob('*'):
         changed += 1
 print(f'patched_files={changed}')
 PY
+
     (
       cd "$case_dir/netlist" || exit 1
       "$SPECTRE_CMD" input.scs +escchars +log "$case_dir/spectre.out" -format psfxl -raw "$case_dir/psf"
@@ -73,6 +82,7 @@ PY
       echo "case_id=$case_id" >> "$RUN_DIR/worker_state/job_${JOB_INDEX}_failed.txt"
       continue
     fi
+
     "$RUN_DIR/run_export_case.sh" "$case_dir"
     rc=$?
     if [[ "$rc" -ne 0 || ! -f "$case_dir/output_signals.txt" ]]; then
@@ -80,8 +90,10 @@ PY
       echo "case_id=$case_id" >> "$RUN_DIR/worker_state/job_${JOB_INDEX}_failed.txt"
       continue
     fi
+
     echo "DONE case_id=$case_id"
     echo "$case_id" >> "$RUN_DIR/worker_state/job_${JOB_INDEX}_done.txt"
   } >> "$LOG" 2>&1
 done < "$ASSIGNED_TSV"
+
 echo "worker=$JOB_INDEX end=$(date -Is)" >> "$LOG"

@@ -1,4 +1,4 @@
-; export_psf_to_txt.ocn
+; export_psf_to_txt_reorg_v3.ocn
 ; Opens one plain-Spectre PSF result directory and writes output_signals.txt.
 
 caseDir = getShellEnvVar("CAD_CASE_DIR")

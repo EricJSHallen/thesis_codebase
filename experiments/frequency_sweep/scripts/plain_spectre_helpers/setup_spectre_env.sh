@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
-RUN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Source this from a prepared plain-Spectre run directory.
+# Also loads cached Spectre and IC/OCEAN runtime paths when available.
+
+RUN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 # shellcheck disable=SC1091
 source "$RUN_DIR/RUNINFO.txt"
+
 : "${CADENCE_INSTALL_ROOT:=/projects/bics/cadence/installs}"
+: "${IC_VERSION:=IC231}"
+: "${IC_ROOT:=$CADENCE_INSTALL_ROOT/$IC_VERSION}"
 
-if [[ -f "$RUN_DIR/support/spectre_runtime.env" ]]; then
-  # shellcheck disable=SC1091
-  source "$RUN_DIR/support/spectre_runtime.env"
-fi
-
-if [[ -z "${SPECTRE_CMD:-}" ]]; then
+choose_spectre_cmd() {
+  local cand
   for cand in \
+    "${SPECTRE_CMD:-}" \
     "$CADENCE_INSTALL_ROOT/SPECTRE231/tools/bin/spectre" \
     "$CADENCE_INSTALL_ROOT/SPECTRE231/bin/spectre" \
     "$CADENCE_INSTALL_ROOT/SPECTRE231/tools.lnx86/bin/spectre" \
@@ -18,24 +21,28 @@ if [[ -z "${SPECTRE_CMD:-}" ]]; then
     "$CADENCE_INSTALL_ROOT/SPECTRE231/tools.lnx86/spectre/bin/64bit/spectre"
   do
     if [[ -n "$cand" && -x "$cand" ]]; then
-      export SPECTRE_CMD="$cand"
-      break
+      printf '%s\n' "$cand"
+      return 0
     fi
   done
-fi
+  return 1
+}
 
-export CADENCE_INSTALL_ROOT SPECTRE_CMD
+export CADENCE_INSTALL_ROOT IC_VERSION IC_ROOT
+export SPECTRE_CMD="$(choose_spectre_cmd || true)"
 [[ -n "${SPECTRE_CMD:-}" ]] && export PATH="$(dirname "$SPECTRE_CMD"):${PATH:-}"
 
-_is_elf_binary() { file "$1" 2>/dev/null | grep -qi 'ELF'; }
+# Load generated runtime exports, if they exist.
+[[ -f "$RUN_DIR/support/spectre_runtime.env" ]] && source "$RUN_DIR/support/spectre_runtime.env"
+[[ -f "$RUN_DIR/support/cadence_ic_runtime.env" ]] && source "$RUN_DIR/support/cadence_ic_runtime.env"
+
+_is_elf_binary() {
+  file "$1" 2>/dev/null | grep -qi 'ELF'
+}
 
 check_spectre_runtime() {
-  if [[ -z "${SPECTRE_CMD:-}" ]]; then
-    echo "SPECTRE_CMD is unset. Run ./refresh_spectre_runtime.sh first."
-    return 1
-  fi
-  if [[ ! -x "$SPECTRE_CMD" ]]; then
-    echo "SPECTRE_CMD not executable: $SPECTRE_CMD"
+  if [[ -z "${SPECTRE_CMD:-}" || ! -x "$SPECTRE_CMD" ]]; then
+    echo "SPECTRE_CMD not executable: ${SPECTRE_CMD:-unset}"
     return 1
   fi
   echo "SPECTRE_CMD=$SPECTRE_CMD"
@@ -56,5 +63,17 @@ spectre_runtime_ok() {
   fi
 }
 
+check_export_runtime() {
+  local launcher="${CADENCE_EXPORT_LAUNCHER:-}"
+  if [[ -z "$launcher" || ! -x "$launcher" ]]; then
+    echo "CADENCE_EXPORT_LAUNCHER not executable: ${launcher:-unset}"
+    return 1
+  fi
+  echo "CADENCE_EXPORT_LAUNCHER=$launcher"
+  file "$launcher" 2>/dev/null || true
+  ldd "$launcher" 2>/dev/null | awk '/not found/{print "  " $1 " => not found"}' || true
+}
+
 export -f check_spectre_runtime 2>/dev/null || true
 export -f spectre_runtime_ok 2>/dev/null || true
+export -f check_export_runtime 2>/dev/null || true
