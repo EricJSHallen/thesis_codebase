@@ -15,7 +15,7 @@ mkdir -p "$CASE_DIR"
   echo "CASE_DIR=$CASE_DIR"; echo "OCN=$OCN"; echo "CADENCE_EXPORT_LAUNCHER=$CADENCE_EXPORT_LAUNCHER"; echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}"; echo "ldd missing before launch:"; ldd "$CADENCE_EXPORT_LAUNCHER" 2>/dev/null | awk '/not found/{print}' || true
 } > "$LOG"
 if ldd "$CADENCE_EXPORT_LAUNCHER" 2>/dev/null | grep -q 'not found'; then echo "ERROR: export launcher still has missing libraries" >> "$LOG"; exit 127; fi
-EXPORT_TIMEOUT_SECONDS="${EXPORT_TIMEOUT_SECONDS:-45}"
+EXPORT_TIMEOUT_SECONDS="${EXPORT_TIMEOUT_SECONDS:-300}"
 CAD_CASE_DIR="$CASE_DIR" CAD_BATCH_EXIT=1 timeout "${EXPORT_TIMEOUT_SECONDS}s" "$CADENCE_EXPORT_LAUNCHER" -nograph -restore "$OCN" < /dev/null >> "$LOG" 2>&1
 rc=$?
 if [[ "$rc" -ne 0 ]]; then
