@@ -80,7 +80,7 @@ unless(isDir(templateDir)
   system(strcat("mkdir -p \"" templateDir "\""))
 )
 
-analysis('tran ?stop "0.5s")
+analysis('tran ?stop "0.05s")
 
 desVar("m2l" 200n)
 desVar("m2ltb" 1.05u)
