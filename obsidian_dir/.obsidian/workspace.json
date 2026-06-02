@@ -97,12 +97,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "runbooks/frequency_sweep_functioning_code_runbook.md",
+                "file": "runbooks/features.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "frequency_sweep_functioning_code_runbook"
+              "title": "features"
             }
           }
         ],
@@ -270,6 +270,7 @@
   },
   "active": "14fc938ae4e2424d",
   "lastOpenFiles": [
+    "runbooks/frequency_sweep_functioning_code_runbook.md",
     "runbooks/frequency_sweep_debug_history_runbook.md",
     "runbooks/features.md",
     "0_notetaking/1_thesis_table of contents and layout sctucture.md",

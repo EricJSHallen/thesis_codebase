@@ -1,5 +1,6 @@
 ; export_psf_to_txt.ocn
-; Opens one plain-Spectre PSF result directory and writes output_signals.txt.
+; Export I56 output current plus vpre and vpre1 from one plain-Spectre PSF case.
+; Requires the Spectre netlist to contain: save vpre vpre1 I56:Iout
 
 caseDir = getShellEnvVar("CAD_CASE_DIR")
 unless(caseDir
@@ -17,19 +18,34 @@ unless(isDir(psfDir)
 openResults(psfDir)
 selectResult('tran)
 
+; Terminal current through the Iout terminal of subcircuit instance I56.
 iout_56 = i("/I56/Iout")
-vpre    = v("/vpre")
-vpre1   = v("/vpre1")
+unless(iout_56
+  error("Could not read i(\"/I56/Iout\"). Confirm the Spectre netlist contains: save I56:Iout, then rerun Spectre.\n")
+)
+
+vpre  = v("/vpre")
+vpre1 = v("/vpre1")
+unless(vpre
+  error("Could not read v(\"/vpre\").\n")
+)
+unless(vpre1
+  error("Could not read v(\"/vpre1\").\n")
+)
 
 when(isFile(outTmp)
   system(strcat("rm -f \"" outTmp "\""))
 )
 
 ocnPrint(?output outTmp ?precision 10 ?numSpaces 1 iout_56 vpre vpre1)
-system(strcat("mv -f \"" outTmp "\" \"" outFile "\""))
 
+unless(isFile(outTmp)
+  error("ocnPrint did not create %s\n" outTmp)
+)
+
+system(strcat("mv -f \"" outTmp "\" \"" outFile "\""))
 closeResults(psfDir)
-printf("Wrote %s\n" outFile)
+printf("Wrote %s with i(/I56/Iout), v(/vpre), v(/vpre1)\n" outFile)
 
 batchExitStr = getShellEnvVar("CAD_BATCH_EXIT")
 when(batchExitStr == "1"
