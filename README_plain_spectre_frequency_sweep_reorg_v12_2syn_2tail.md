@@ -86,3 +86,13 @@ Patch6 only accepts true executable paths for direct commands. For the BICS XP01
 alias case it runs an interactive login shell, executes `xp018`, and then launches
 `xkit -nograph -restore ...` for the OCEAN export. Use this archive only for a new
 run.
+
+
+## Patch7 notes
+
+Patch7 is for fresh runs only. It fixes two setup/export-launcher issues found on the BICS NX environment:
+
+1. `setup_spectre_env.sh` is now safe to source in an interactive shell. It does not enable `errexit`, so a failed/export-runner check will not close a tmux pane.
+2. The export launcher no longer uses `xp018v`. On this system `xp018v` can expand to `xp018 ; xkit&`, which is an alias/background-GUI form, not a safe non-graphical executable. Workers now use an `auto_bics` launcher that runs `xp018` inside a login shell and then tries `ocean`, `virtuoso`, `xkit`, and `v` with `-nograph -restore`.
+
+Use only a new run directory created after installing this archive.

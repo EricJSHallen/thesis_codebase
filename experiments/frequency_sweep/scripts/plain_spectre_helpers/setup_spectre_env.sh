@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Runtime setup for the plain Spectre/OCEAN export workers.
-# Source this file from a generated run directory.
-
-set -euo pipefail
+# Safe to source from an interactive shell: this file deliberately does NOT set
+# `set -e`. Earlier patches enabled errexit when sourced; then a failed
+# check_export_runtime could close the user's tmux/shell pane.
 
 THIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 RUNINFO="$THIS_DIR/RUNINFO.txt"
@@ -36,10 +36,8 @@ _source_optional_bics_setup() {
     "/projects/bics/setup.sh" \
     "/projects/bics/NX/setup.sh"; do
     if [[ -r "$setup" ]]; then
-      set +u
       # shellcheck disable=SC1090
       source "$setup" >/dev/null 2>&1 || true
-      set -u
     fi
   done
 }
@@ -60,34 +58,36 @@ for d in \
   for reald in $d; do
     _add_path_dir "$reald"
   done
-done
+ done
 
 # Return only real executable paths. command -v/type can return alias text such
-# as: alias xp018v='xp018 ; xkit&'. That string is not executable and caused the
-# patch5 immediate export failures.
+# as: alias xp018v='xp018 ; xkit&'. That string is not executable.
 _real_exe() {
   type -P "$1" 2>/dev/null || true
 }
 
 check_spectre_runtime() {
   local cmd="${SPECTRE_CMD:-spectre}"
-  if [[ -z "$(_real_exe "$cmd")" && ! -x "$cmd" ]]; then
+  local p
+  p="$(_real_exe "$cmd")"
+  if [[ -z "$p" && ! -x "$cmd" ]]; then
     echo "ERROR: cannot find Spectre command: $cmd" >&2
     echo "Set SPECTRE_CMD or source the correct Cadence environment." >&2
     return 127
   fi
   "$cmd" -W 2>/dev/null | head -5 || true
+  return 0
 }
 
-_login_shell_has() {
+_login_shell_probe() {
   local probe="$1"
   bash -lic "$probe" >/dev/null 2>&1
 }
 
 find_ocean_runner() {
-  # Explicit override. This must be a true executable or a command name that
-  # resolves to a true executable path. Alias text is rejected deliberately.
-  if [[ -n "${OCEAN_CMD:-}" ]]; then
+  # Explicit override: require a real executable path or executable command name.
+  # Do not accept alias text.
+  if [[ -n "${OCEAN_CMD:-}" && "${OCEAN_CMD}" != "auto_bics" ]]; then
     local explicit_path
     explicit_path="$(_real_exe "$OCEAN_CMD")"
     if [[ -n "$explicit_path" ]]; then
@@ -99,13 +99,12 @@ find_ocean_runner() {
       return 0
     else
       echo "ERROR: OCEAN_CMD is set but is not a real executable: $OCEAN_CMD" >&2
-      echo "Do not set OCEAN_CMD to alias output such as alias xp018v='xp018 ; xkit&'." >&2
+      echo "Use a full path such as /path/to/virtuoso, not an alias expansion." >&2
       return 127
     fi
   fi
 
-  # Direct executables available to non-interactive scripts.
-  local p
+  local name p
   for name in ocean virtuoso xkit; do
     p="$(_real_exe "$name")"
     if [[ -n "$p" ]]; then
@@ -119,45 +118,31 @@ find_ocean_runner() {
     fi
   done
 
-  # Login/interactive shell probes. These are intentionally separate from the
-  # direct executable path because BICS commonly exposes XP018 as aliases.
-  if _login_shell_has 'type -P ocean'; then
-    export OCEAN_CMD="ocean"
-    export OCEAN_RUNNER_MODE="login_ocean"
-    return 0
-  fi
-  if _login_shell_has 'type -P virtuoso'; then
-    export OCEAN_CMD="virtuoso"
-    export OCEAN_RUNNER_MODE="login_virtuoso"
-    return 0
-  fi
-  if _login_shell_has 'type -P xkit'; then
-    export OCEAN_CMD="xkit"
-    export OCEAN_RUNNER_MODE="login_xkit"
+  # BICS/NX environment often exposes commands/aliases only in an interactive
+  # login shell. Do not use xp018v, because it expands to `xp018 ; xkit&` and
+  # can launch a background GUI or return alias text. Instead use an automatic
+  # login-shell launcher that first runs `xp018` if present, then tries real
+  # OCEAN-capable commands/aliases inside that same shell.
+  if _login_shell_probe 'type xp018 >/dev/null 2>&1 || type xkit >/dev/null 2>&1 || type v >/dev/null 2>&1 || type virtuoso >/dev/null 2>&1 || type ocean >/dev/null 2>&1'; then
+    export OCEAN_CMD="auto_bics"
+    export OCEAN_RUNNER_MODE="auto_bics_login"
     return 0
   fi
 
-  # XP018 alias path observed on BICS: xp018v='xp018 ; xkit&'. Do not execute
-  # xp018v with -nograph arguments. Instead run xp018 first, then run xkit with
-  # the OCEAN restore arguments in the same login shell.
-  if _login_shell_has 'type xp018 >/dev/null 2>&1 && type -P xkit >/dev/null 2>&1'; then
-    export OCEAN_CMD="xp018_then_xkit"
-    export OCEAN_RUNNER_MODE="login_xp018_then_xkit"
-    return 0
-  fi
-  if _login_shell_has 'type xp018 >/dev/null 2>&1 && type v >/dev/null 2>&1'; then
-    export OCEAN_CMD="xp018_then_v"
-    export OCEAN_RUNNER_MODE="login_xp018_then_v"
-    return 0
-  fi
-
-  echo "ERROR: cannot find an OCEAN export runner." >&2
-  echo "Tried real executables ocean/virtuoso/xkit and BICS login-shell variants." >&2
-  echo "If needed, set OCEAN_CMD to a full executable path, not to an alias." >&2
-  return 127
+  # Final fallback: allow worker-side export to try auto_bics even if preflight
+  # cannot prove the aliases exist. This prevents setup from blocking a fresh
+  # Spectre run merely because the export launcher is visible only after xp018.
+  export OCEAN_CMD="auto_bics"
+  export OCEAN_RUNNER_MODE="auto_bics_login_unverified"
+  return 0
 }
 
 check_export_runtime() {
-  find_ocean_runner
-  echo "OCEAN export runner: ${OCEAN_RUNNER_MODE:-unknown} via ${OCEAN_CMD:-unknown}"
+  if find_ocean_runner; then
+    echo "OCEAN export runner: ${OCEAN_RUNNER_MODE:-unknown} via ${OCEAN_CMD:-unknown}"
+    return 0
+  fi
+  echo "WARNING: no OCEAN export runner detected at preflight." >&2
+  echo "Workers will still try the auto BICS launcher at export time." >&2
+  return 0
 }

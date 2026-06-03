@@ -16,13 +16,14 @@ export CAD_BATCH_EXIT=1
 # license-server failures. Serialize only the export stage; Spectre simulations
 # still run in parallel.
 #
-# patch6 includes patch2 lock behavior and fixes BICS alias handling:
+# patch7 includes patch2 lock behavior and fixes sourced-shell/export launcher handling:
 #   - do not fail a case merely because another worker holds the export lock;
 #   - release the lock between retry sleeps;
 #   - kill/retry a genuinely hung OCEAN export instead of leaving other workers
 #     blocked behind its lock indefinitely;
 #   - remove stale lock directories left by dead/export-aborted processes;
-#   - never execute alias text such as xp018v='xp018 ; xkit&' as a program.
+#   - never execute alias text such as xp018v='xp018 ; xkit&' as a program;
+#   - use auto_bics_login to run xp018 first and then try ocean/virtuoso/xkit/v.
 lock_dir="$RUN_DIR/worker_state/ocean_export.lock"
 lock_poll_seconds="${OCEAN_LOCK_POLL_SECONDS:-2}"
 lock_report_seconds="${OCEAN_LOCK_REPORT_SECONDS:-60}"
@@ -172,9 +173,31 @@ run_ocean_once() {
     login_xp018_then_v)
       if command -v timeout >/dev/null 2>&1; then
         timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
-          bash -lic 'xp018 >/dev/null 2>&1 || xp018; v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+          bash -lic 'xp018 >/dev/null 2>&1 || true; v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       else
-        bash -lic 'xp018 >/dev/null 2>&1 || xp018; v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+        bash -lic 'xp018 >/dev/null 2>&1 || true; v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      fi
+      ;;
+    auto_bics_login|auto_bics_login_unverified)
+      # Do all launcher selection inside a BICS login shell. This avoids the
+      # broken pattern where `command -v xp018v` returns alias text, and it also
+      # allows `xp018` to populate the Cadence/PDK environment before export.
+      auto_script='shopt -s expand_aliases 2>/dev/null || true
+xp018 >/dev/null 2>&1 || true
+for c in ocean virtuoso xkit v; do
+  if type "$c" >/dev/null 2>&1; then
+    echo "AUTO_BICS_EXPORT_USING=$c"
+    "$c" -nograph -restore "$OCEAN_RESTORE_ARG"
+    exit $?
+  fi
+done
+echo "ERROR: auto_bics could not find ocean/virtuoso/xkit/v after xp018" >&2
+exit 127'
+      if command -v timeout >/dev/null 2>&1; then
+        timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
+          bash -lic "$auto_script" >> "$log_file" 2>&1
+      else
+        bash -lic "$auto_script" >> "$log_file" 2>&1
       fi
       ;;
     *)
