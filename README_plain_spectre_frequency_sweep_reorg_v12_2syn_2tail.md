@@ -74,3 +74,31 @@ cd /home/s5117909/Documents/thesis/thesis_codebase/database/<run_id>
 ```
 
 For a new run, use the normal `prep -> import_template -> refresh_spectre_runtime -> run_all_workers` flow.
+
+## Patch2 notes
+
+Patch2 addresses the failure mode observed in `20260603_152350_2syn_2tail_plain`, where completed Spectre cases were marked failed only because they timed out while waiting for the serialized OCEAN export lock. The Spectre simulations had completed; the missing step was PSF-to-text export.
+
+Changes:
+
+- `run_export_case.sh` no longer treats an export-lock wait as a simulation failure by default.
+- The OCEAN export lock now records owner metadata in `worker_state/ocean_export.lock/`.
+- Stale locks from dead exporter processes are removed automatically.
+- OCEAN export is wrapped in a timeout (`OCEAN_EXPORT_TIMEOUT_SECONDS`, default `1800`) so a hung exporter does not block every later export indefinitely.
+- The lock is released between retry sleeps so other workers are not blocked unnecessarily.
+
+To repair an existing run after installing this archive:
+
+```bash
+cd /home/s5117909/Documents/thesis/thesis_codebase/database/20260603_152350_2syn_2tail_plain
+./extract_missing_outputs.sh
+```
+
+Optional knobs:
+
+```bash
+export OCEAN_EXPORT_TIMEOUT_SECONDS=1800   # max seconds for one OCEAN export attempt
+export OCEAN_LOCK_WAIT_TIMEOUT=0           # 0 = wait indefinitely for lock, default
+export EXPORT_MAX_ATTEMPTS=8
+export EXPORT_RETRY_SLEEP=20
+```

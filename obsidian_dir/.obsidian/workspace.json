@@ -8,105 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "8b3b68d668070937",
+            "id": "eb446852d3770097",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Welcome.md",
+                "file": "0_thesis_writing/Untitled.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Welcome"
-            }
-          },
-          {
-            "id": "28513299e9608dde",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README"
-            }
-          },
-          {
-            "id": "bb2582bbc0a993ea",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "0_planning/1_to-do.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "1_to-do"
-            }
-          },
-          {
-            "id": "12f3e922feeea376",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "0_planning/1_to-do.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "1_to-do"
-            }
-          },
-          {
-            "id": "84c1d703d0a2c5ff",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "0_planning/1_to-do.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "1_to-do"
-            }
-          },
-          {
-            "id": "e7098e3ecce0e292",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "0_planning/1_to_do_tuesday_26th.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "1_to_do_tuesday_26th"
-            }
-          },
-          {
-            "id": "14fc938ae4e2424d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "runbooks/features.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "features"
+              "title": "Untitled"
             }
           }
-        ],
-        "currentTab": 6
+        ]
       }
     ],
     "direction": "vertical"
@@ -268,11 +183,13 @@
       "bases:Create new base": false
     }
   },
-  "active": "14fc938ae4e2424d",
+  "active": "eb446852d3770097",
   "lastOpenFiles": [
+    "runbooks/features.md",
+    "0_thesis_writing/Untitled.md",
+    "0_thesis_writing",
     "runbooks/frequency_sweep_functioning_code_runbook.md",
     "runbooks/frequency_sweep_debug_history_runbook.md",
-    "runbooks/features.md",
     "0_notetaking/1_thesis_table of contents and layout sctucture.md",
     "0_notetaking/1_feedback from presentation..md",
     "0_notetaking/1_coding_learning_and_questions.md",
@@ -309,7 +226,6 @@
     "Unconfirmed 964230.crdownload",
     "0_papers",
     "0_notetaking",
-    "0_Results",
     "Welcome.md"
   ]
 }
