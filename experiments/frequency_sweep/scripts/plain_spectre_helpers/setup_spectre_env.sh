@@ -14,8 +14,6 @@ fi
 export CADENCE_INSTALL_ROOT="${CADENCE_INSTALL_ROOT:-/projects/bics/cadence/installs}"
 
 # Keep user PATH first. Add likely Cadence binary locations only if present.
-# This intentionally uses broad globs because BICS machines may expose different
-# Cadence releases on different nodes.
 for d in \
   "$CADENCE_INSTALL_ROOT/ICADVM*/tools/bin" \
   "$CADENCE_INSTALL_ROOT/ICADVM*/tools.lnx86/bin" \
@@ -46,15 +44,20 @@ check_spectre_runtime() {
   "$cmd" -W 2>/dev/null | head -5 || true
 }
 
+_login_shell_has() {
+  local probe="$1"
+  bash -lic "$probe" >/dev/null 2>&1
+}
+
 find_ocean_runner() {
-  # Preferred: native ocean binary.
+  # Explicit override. Use this if your site exposes a custom wrapper.
   if [[ -n "${OCEAN_CMD:-}" ]]; then
     if command -v "$OCEAN_CMD" >/dev/null 2>&1; then
       export OCEAN_CMD="$(command -v "$OCEAN_CMD")"
-      export OCEAN_RUNNER_MODE="${OCEAN_RUNNER_MODE:-ocean}"
+      export OCEAN_RUNNER_MODE="${OCEAN_RUNNER_MODE:-direct}"
       return 0
     elif [[ -x "$OCEAN_CMD" ]]; then
-      export OCEAN_RUNNER_MODE="${OCEAN_RUNNER_MODE:-ocean}"
+      export OCEAN_RUNNER_MODE="${OCEAN_RUNNER_MODE:-direct}"
       return 0
     else
       echo "ERROR: OCEAN_CMD is set but not executable/found: $OCEAN_CMD" >&2
@@ -62,36 +65,40 @@ find_ocean_runner() {
     fi
   fi
 
+  # Direct executables available to non-interactive scripts.
   if command -v ocean >/dev/null 2>&1; then
     export OCEAN_CMD="$(command -v ocean)"
-    export OCEAN_RUNNER_MODE="ocean"
+    export OCEAN_RUNNER_MODE="direct_ocean"
     return 0
   fi
-
-  # Some BICS/Cadence shells expose Virtuoso but not a standalone ocean command.
-  # OCEAN scripts can be restored through Virtuoso in non-graphical mode.
   if command -v virtuoso >/dev/null 2>&1; then
     export OCEAN_CMD="$(command -v virtuoso)"
-    export OCEAN_RUNNER_MODE="virtuoso"
+    export OCEAN_RUNNER_MODE="direct_virtuoso"
     return 0
   fi
 
-  # The BICS login banner often advertises alias "v => virtuoso". Aliases are not
-  # visible in non-interactive scripts, so probe for a literal v command as a last
-  # resort. This is not preferred, but it gives a clearer diagnostic.
-  if command -v v >/dev/null 2>&1; then
-    export OCEAN_CMD="$(command -v v)"
-    export OCEAN_RUNNER_MODE="virtuoso"
+  # BICS shells can expose Cadence launchers as login/interactive aliases. Those
+  # aliases are usually invisible to a normal non-interactive bash script. Probe
+  # a login interactive shell and, if found, run export through that shell.
+  if _login_shell_has 'command -v ocean'; then
+    export OCEAN_CMD="ocean"
+    export OCEAN_RUNNER_MODE="login_ocean"
+    return 0
+  fi
+  if _login_shell_has 'command -v virtuoso'; then
+    export OCEAN_CMD="virtuoso"
+    export OCEAN_RUNNER_MODE="login_virtuoso"
+    return 0
+  fi
+  if _login_shell_has 'type v'; then
+    export OCEAN_CMD="v"
+    export OCEAN_RUNNER_MODE="login_v_alias"
     return 0
   fi
 
-  echo "ERROR: cannot find an OCEAN export runner in PATH." >&2
-  echo "Tried: ocean, virtuoso, and v." >&2
-  echo "If your Cadence environment uses a different command, run:" >&2
-  echo "  export OCEAN_CMD=/full/path/to/ocean" >&2
-  echo "or, if ocean is unavailable but Virtuoso is present:" >&2
-  echo "  export OCEAN_CMD=/full/path/to/virtuoso" >&2
-  echo "  export OCEAN_RUNNER_MODE=virtuoso" >&2
+  echo "ERROR: cannot find an OCEAN export runner." >&2
+  echo "Tried direct commands ocean/virtuoso and login-shell commands ocean/virtuoso/v." >&2
+  echo "If needed, set OCEAN_CMD to a full executable path before starting the run." >&2
   return 127
 }
 

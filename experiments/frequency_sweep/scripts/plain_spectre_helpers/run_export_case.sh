@@ -117,20 +117,54 @@ run_ocean_once() {
   local timeout_seconds="${OCEAN_EXPORT_TIMEOUT_SECONDS:-1800}"
 
   find_ocean_runner >> "$log_file" 2>&1
-  local mode="${OCEAN_RUNNER_MODE:-ocean}"
+  local mode="${OCEAN_RUNNER_MODE:-direct_ocean}"
   local cmd="${OCEAN_CMD:-ocean}"
-  local restore_arg
-  restore_arg="$RUN_DIR/ocn/export_psf_to_txt.ocn"
+  local restore_arg="$RUN_DIR/ocn/export_psf_to_txt.ocn"
 
-  # Native ocean and Virtuoso both support -nograph -restore for OCEAN scripts
-  # in the Cadence releases used in the BICS environment. The fallback matters
-  # because some shells expose virtuoso but not a standalone ocean binary.
-  if command -v timeout >/dev/null 2>&1; then
-    timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
-      "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
-  else
-    "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
-  fi
+  export CAD_CASE_DIR CAD_BATCH_EXIT
+  export OCEAN_RESTORE_ARG="$restore_arg"
+
+  # Direct mode: normal non-interactive executable path.
+  # Login modes: use an interactive login shell so BICS aliases/functions such
+  # as `v => virtuoso` are loaded before launching the OCEAN restore.
+  case "$mode" in
+    direct|direct_ocean|direct_virtuoso)
+      if command -v timeout >/dev/null 2>&1; then
+        timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
+          "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
+      else
+        "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
+      fi
+      ;;
+    login_ocean)
+      if command -v timeout >/dev/null 2>&1; then
+        timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
+          bash -lic 'ocean -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      else
+        bash -lic 'ocean -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      fi
+      ;;
+    login_virtuoso)
+      if command -v timeout >/dev/null 2>&1; then
+        timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
+          bash -lic 'virtuoso -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      else
+        bash -lic 'virtuoso -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      fi
+      ;;
+    login_v_alias)
+      if command -v timeout >/dev/null 2>&1; then
+        timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
+          bash -lic 'v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      else
+        bash -lic 'v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      fi
+      ;;
+    *)
+      echo "ERROR: unsupported OCEAN_RUNNER_MODE=$mode" >> "$log_file"
+      return 127
+      ;;
+  esac
 }
 
 max_attempts="${EXPORT_MAX_ATTEMPTS:-8}"
