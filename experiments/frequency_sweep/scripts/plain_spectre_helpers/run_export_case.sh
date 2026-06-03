@@ -16,12 +16,13 @@ export CAD_BATCH_EXIT=1
 # license-server failures. Serialize only the export stage; Spectre simulations
 # still run in parallel.
 #
-# patch2 changes vs patch1:
+# patch6 includes patch2 lock behavior and fixes BICS alias handling:
 #   - do not fail a case merely because another worker holds the export lock;
 #   - release the lock between retry sleeps;
 #   - kill/retry a genuinely hung OCEAN export instead of leaving other workers
 #     blocked behind its lock indefinitely;
-#   - remove stale lock directories left by dead/export-aborted processes.
+#   - remove stale lock directories left by dead/export-aborted processes;
+#   - never execute alias text such as xp018v='xp018 ; xkit&' as a program.
 lock_dir="$RUN_DIR/worker_state/ocean_export.lock"
 lock_poll_seconds="${OCEAN_LOCK_POLL_SECONDS:-2}"
 lock_report_seconds="${OCEAN_LOCK_REPORT_SECONDS:-60}"
@@ -128,7 +129,7 @@ run_ocean_once() {
   # Login modes: use an interactive login shell so BICS aliases/functions such
   # as `v => virtuoso` are loaded before launching the OCEAN restore.
   case "$mode" in
-    direct|direct_ocean|direct_virtuoso)
+    direct|direct_ocean|direct_virtuoso|direct_xkit)
       if command -v timeout >/dev/null 2>&1; then
         timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
           "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
@@ -152,28 +153,28 @@ run_ocean_once() {
         bash -lic 'virtuoso -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       fi
       ;;
-    direct_xp018v)
+    login_xkit)
       if command -v timeout >/dev/null 2>&1; then
         timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
-          "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
+          bash -lic 'xkit -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       else
-        "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
+        bash -lic 'xkit -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       fi
       ;;
-    login_xp018v)
+    login_xp018_then_xkit)
       if command -v timeout >/dev/null 2>&1; then
         timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
-          bash -lic 'xp018v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+          bash -lic 'xp018 >/dev/null 2>&1 || xp018; xkit -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       else
-        bash -lic 'xp018v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+        bash -lic 'xp018 >/dev/null 2>&1 || xp018; xkit -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       fi
       ;;
-    login_v_alias)
+    login_xp018_then_v)
       if command -v timeout >/dev/null 2>&1; then
         timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
-          bash -lic 'v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+          bash -lic 'xp018 >/dev/null 2>&1 || xp018; v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       else
-        bash -lic 'v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+        bash -lic 'xp018 >/dev/null 2>&1 || xp018; v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       fi
       ;;
     *)

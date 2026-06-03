@@ -72,3 +72,17 @@ and set `OCEAN_CMD` manually if needed, for example:
 ```bash
 export OCEAN_CMD=/projects/bics/NX/bin/xp018v
 ```
+
+
+## Patch6 note
+
+Patch6 fixes the immediate export failure seen in `20260603_190010_2syn_2tail_plain`.
+The failed run selected `xp018v` through `command -v`, but on BICS this can expand to
+alias text such as `alias xp018v='xp018 ; xkit&'`. That alias string is not an
+executable and cannot be passed to `timeout`, so all workers retried OCEAN export
+immediately.
+
+Patch6 only accepts true executable paths for direct commands. For the BICS XP018
+alias case it runs an interactive login shell, executes `xp018`, and then launches
+`xkit -nograph -restore ...` for the OCEAN export. Use this archive only for a new
+run.
