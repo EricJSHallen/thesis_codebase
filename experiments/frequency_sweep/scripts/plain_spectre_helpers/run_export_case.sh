@@ -152,6 +152,22 @@ run_ocean_once() {
         bash -lic 'virtuoso -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
       fi
       ;;
+    direct_xp018v)
+      if command -v timeout >/dev/null 2>&1; then
+        timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
+          "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
+      else
+        "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
+      fi
+      ;;
+    login_xp018v)
+      if command -v timeout >/dev/null 2>&1; then
+        timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
+          bash -lic 'xp018v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      else
+        bash -lic 'xp018v -nograph -restore "$OCEAN_RESTORE_ARG"' >> "$log_file" 2>&1
+      fi
+      ;;
     login_v_alias)
       if command -v timeout >/dev/null 2>&1; then
         timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \

@@ -1,68 +1,74 @@
-# Plain Spectre frequency sweep reorg v12 — 2syn_2tail patch4
+# Plain Spectre frequency sweep v12, 2syn_2tail, patch5
 
-This bundle prepares a fresh frequency-sweep run for the `dynapsetb1` two-synapse / two-tail circuit and exports four columns:
+This archive is for a **new run only**. Do not apply it to continue a failed run.
+
+## What this flow exports
+
+Each completed case should export four columns:
 
 ```text
 iout_172 iout_56 vpre vpre1
 ```
 
-It keeps the v12 plain-Spectre structure and updates only the runtime/export handling needed for the two-current, two-voltage flow.
+The generated netlist has no transient `strobeperiod` option, so Spectre exports the full adaptive transient output.
 
-## Install
+## Patch5 change
 
-From the repository root:
+Patch5 keeps the patch4 behaviour but fixes the Cadence/OCEAN launcher detection for the RUG BICS environment where:
+
+- `ocean`, `virtuoso`, and `v` may not exist as shell commands;
+- `/projects/bics/NX/bin` is on `PATH`;
+- the XP018 site launcher is normally `xp018v`.
+
+The export runner search order is now:
+
+1. `OCEAN_CMD`, if explicitly set;
+2. direct `ocean`;
+3. direct `virtuoso`;
+4. direct `xp018v`;
+5. login-shell `ocean`;
+6. login-shell `virtuoso`;
+7. login-shell `xp018v`;
+8. login-shell `v` alias/function.
+
+## Install from the repository root
 
 ```bash
 cd /home/s5117909/Documents/thesis/thesis_codebase
-tar -xzf plain_spectre_frequency_sweep_reorg_v12_2syn_2tail_patch4.tar.gz
+tar -xzf plain_spectre_frequency_sweep_reorg_v12_2syn_2tail_patch5.tar.gz
 ```
 
 ## Start a new run
 
 ```bash
 cd /home/s5117909/Documents/thesis/thesis_codebase
-
 NUM_JOBS=4 RUN_LABEL=2syn_2tail_plain \
 ./experiments/frequency_sweep/bin/spectre_sweep_plain_reorg_v12_2syn_2tail.sh prep
 ```
 
-Then use the newly created run directory printed by the prep command:
+Then use the newly printed run directory:
 
 ```bash
 cd /home/s5117909/Documents/thesis/thesis_codebase/database/<new_run_id>
 ./import_template.sh
 ./refresh_spectre_runtime.sh
+```
+
+If `refresh_spectre_runtime.sh` reports an export runner such as `direct_xp018v`, then run:
+
+```bash
 ./run_all_workers.sh
 ```
 
-## What patch4 changes
-
-1. `refresh_spectre_runtime.sh` no longer aborts the setup merely because the standalone `ocean` command is absent. It still checks Spectre and reports whether an export runner can be found.
-2. `setup_spectre_env.sh` detects export runners in both direct non-interactive shells and BICS-style login/interactive shells. It checks, in order:
-   - direct `ocean`
-   - direct `virtuoso`
-   - login-shell `ocean`
-   - login-shell `virtuoso`
-   - login-shell `v` alias
-3. `run_export_case.sh` uses the detected mode. If only the BICS `v => virtuoso` alias exists, export is launched through:
+If no export runner is found, do not start workers. Run:
 
 ```bash
-bash -lic 'v -nograph -restore "$OCEAN_RESTORE_ARG"'
+ls -l /projects/bics/NX/bin | grep -E 'xp018|ocean|virtuoso|^v$'
+type -a xp018v
 ```
 
-4. The simulation output remains full adaptive-output data; no `strobeperiod` is inserted.
-
-## Optional manual override
-
-If Cadence is installed under a non-standard wrapper on the machine, set one of these before `./run_all_workers.sh`:
+and set `OCEAN_CMD` manually if needed, for example:
 
 ```bash
-export OCEAN_CMD=/full/path/to/ocean
-```
-
-or:
-
-```bash
-export OCEAN_CMD=/full/path/to/virtuoso
-export OCEAN_RUNNER_MODE=direct_virtuoso
+export OCEAN_CMD=/projects/bics/NX/bin/xp018v
 ```

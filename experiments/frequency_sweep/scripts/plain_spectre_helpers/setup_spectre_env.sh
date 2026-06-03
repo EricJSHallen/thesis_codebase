@@ -13,6 +13,41 @@ fi
 
 export CADENCE_INSTALL_ROOT="${CADENCE_INSTALL_ROOT:-/projects/bics/cadence/installs}"
 
+_add_path_dir() {
+  local d="$1"
+  [[ -d "$d" ]] || return 0
+  case ":$PATH:" in
+    *":$d:"*) ;;
+    *) export PATH="$d:$PATH" ;;
+  esac
+}
+
+# BICS exposes site launchers such as xp018v from /projects/bics/NX/bin.
+# Keep these before Cadence install paths because they usually set the PDK and
+# site environment correctly.
+_add_path_dir "/projects/bics/NX/bin"
+_add_path_dir "/projects/bics/bin"
+
+# Source a site setup script if it exists. These names have varied between BICS
+# environments, so every candidate is optional and failure is non-fatal.
+_source_optional_bics_setup() {
+  local setup
+  for setup in \
+    "/projects/bics/setup_centos_only.sh" \
+    "/projects/bics/setup-centos-only.sh" \
+    "/projects/bics/setup_centos.sh" \
+    "/projects/bics/setup.sh" \
+    "/projects/bics/NX/setup.sh"; do
+    if [[ -r "$setup" ]]; then
+      set +u
+      # shellcheck disable=SC1090
+      source "$setup" >/dev/null 2>&1 || true
+      set -u
+    fi
+  done
+}
+_source_optional_bics_setup
+
 # Keep user PATH first. Add likely Cadence binary locations only if present.
 for d in \
   "$CADENCE_INSTALL_ROOT/ICADVM*/tools/bin" \
@@ -26,11 +61,7 @@ for d in \
   "$CADENCE_INSTALL_ROOT/EXT*/tools/bin" \
   "$CADENCE_INSTALL_ROOT/EXT*/tools.lnx86/bin"; do
   for reald in $d; do
-    [[ -d "$reald" ]] || continue
-    case ":$PATH:" in
-      *":$reald:"*) ;;
-      *) export PATH="$reald:$PATH" ;;
-    esac
+    _add_path_dir "$reald"
   done
 done
 
@@ -77,9 +108,18 @@ find_ocean_runner() {
     return 0
   fi
 
-  # BICS shells can expose Cadence launchers as login/interactive aliases. Those
-  # aliases are usually invisible to a normal non-interactive bash script. Probe
-  # a login interactive shell and, if found, run export through that shell.
+  # BICS/XP018 wrapper. On some RUG BICS terminals the generic v/virtuoso/ocean
+  # names are not commands, but xp018v is the stable site launcher in
+  # /projects/bics/NX/bin. It is tried before login-shell aliases.
+  if command -v xp018v >/dev/null 2>&1; then
+    export OCEAN_CMD="$(command -v xp018v)"
+    export OCEAN_RUNNER_MODE="direct_xp018v"
+    return 0
+  fi
+
+  # BICS shells can expose launchers as login/interactive aliases. Those aliases
+  # are usually invisible to a normal non-interactive bash script. Probe a login
+  # interactive shell and, if found, run export through that shell.
   if _login_shell_has 'command -v ocean'; then
     export OCEAN_CMD="ocean"
     export OCEAN_RUNNER_MODE="login_ocean"
@@ -90,6 +130,11 @@ find_ocean_runner() {
     export OCEAN_RUNNER_MODE="login_virtuoso"
     return 0
   fi
+  if _login_shell_has 'command -v xp018v'; then
+    export OCEAN_CMD="xp018v"
+    export OCEAN_RUNNER_MODE="login_xp018v"
+    return 0
+  fi
   if _login_shell_has 'type v'; then
     export OCEAN_CMD="v"
     export OCEAN_RUNNER_MODE="login_v_alias"
@@ -97,7 +142,7 @@ find_ocean_runner() {
   fi
 
   echo "ERROR: cannot find an OCEAN export runner." >&2
-  echo "Tried direct commands ocean/virtuoso and login-shell commands ocean/virtuoso/v." >&2
+  echo "Tried ocean, virtuoso, xp018v, and login-shell variants." >&2
   echo "If needed, set OCEAN_CMD to a full executable path before starting the run." >&2
   return 127
 }
