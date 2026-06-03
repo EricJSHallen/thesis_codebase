@@ -128,7 +128,7 @@ unless(isDir(outputBaseDir)
 
 ; Analysis
 
-analysis('tran ?stop "0.5s")
+analysis('tran ?stop "0.1s")
 
 ; Define ordinary design variables
 
