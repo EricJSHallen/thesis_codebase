@@ -102,3 +102,36 @@ export OCEAN_LOCK_WAIT_TIMEOUT=0           # 0 = wait indefinitely for lock, def
 export EXPORT_MAX_ATTEMPTS=8
 export EXPORT_RETRY_SLEEP=20
 ```
+
+
+## Patch3 notes: `ocean` missing but `virtuoso` available
+
+Patch3 addresses the earlier setup-stage failure:
+
+```text
+ERROR: cannot find ocean in PATH.
+```
+
+The previous runtime check required a standalone `ocean` executable. On some BICS Cadence sessions, `virtuoso` is available while `ocean` is not exported as a separate command. Patch3 therefore resolves the export runner in this order:
+
+1. `OCEAN_CMD`, if explicitly set.
+2. `ocean`, if found.
+3. `virtuoso`, using `virtuoso -nograph -restore <script.ocn>`.
+4. `v`, as a final compatibility fallback when available as a real command.
+
+The worker export script now sources `setup_spectre_env.sh` directly, so `extract_missing_outputs.sh` and worker-launched exports use the same runner resolution logic.
+
+Useful manual checks from a generated run directory:
+
+```bash
+source ./setup_spectre_env.sh
+check_spectre_runtime
+check_export_runtime
+```
+
+To force a specific executable:
+
+```bash
+export OCEAN_CMD=/full/path/to/virtuoso
+export OCEAN_RUNNER_MODE=virtuoso
+```

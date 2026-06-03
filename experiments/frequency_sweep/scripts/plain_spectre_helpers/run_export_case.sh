@@ -5,6 +5,8 @@ case_dir="${1:?usage: run_export_case.sh CASE_DIR}"
 RUN_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 # shellcheck disable=SC1090
 source "$RUN_DIR/RUNINFO.txt"
+# shellcheck disable=SC1090
+source "$RUN_DIR/setup_spectre_env.sh"
 
 export CAD_CASE_DIR="$case_dir"
 export CAD_BATCH_EXIT=1
@@ -107,18 +109,27 @@ release_lock() {
 
 is_retryable_export_failure() {
   local log_file="$1"
-  grep -qiE 'LMF-|FLEXnet|license.*failed|Cannot connect to license server|CDS\.log.*locked|ADE-6015|ELI-00111|timed out|timeout|killed' "$log_file" 2>/dev/null
+  grep -qiE 'LMF-|FLEXnet|license.*failed|Cannot connect to license server|CDS\.log.*locked|ADE-6015|ELI-00111|timed out|timeout|killed|cannot find an OCEAN export runner|command not found' "$log_file" 2>/dev/null
 }
 
 run_ocean_once() {
   local log_file="$1"
   local timeout_seconds="${OCEAN_EXPORT_TIMEOUT_SECONDS:-1800}"
 
+  find_ocean_runner >> "$log_file" 2>&1
+  local mode="${OCEAN_RUNNER_MODE:-ocean}"
+  local cmd="${OCEAN_CMD:-ocean}"
+  local restore_arg
+  restore_arg="$RUN_DIR/ocn/export_psf_to_txt.ocn"
+
+  # Native ocean and Virtuoso both support -nograph -restore for OCEAN scripts
+  # in the Cadence releases used in the BICS environment. The fallback matters
+  # because some shells expose virtuoso but not a standalone ocean binary.
   if command -v timeout >/dev/null 2>&1; then
     timeout --preserve-status --kill-after=30s "${timeout_seconds}s" \
-      ocean -nograph -restore "$RUN_DIR/ocn/export_psf_to_txt.ocn" >> "$log_file" 2>&1
+      "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
   else
-    ocean -nograph -restore "$RUN_DIR/ocn/export_psf_to_txt.ocn" >> "$log_file" 2>&1
+    "$cmd" -nograph -restore "$restore_arg" >> "$log_file" 2>&1
   fi
 }
 
