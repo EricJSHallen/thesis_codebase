@@ -185,8 +185,12 @@ probe_specs = [
 for inst, sense, node in probe_specs:
     if sense in ns:
         continue
-    pat = rf'\b{inst}\s+\(\s*0\s+Vdd\s+Vin\s+Vtau\s+Vthr\s*\)\s+dynapse1\b'
-    repl = f'{sense} ({node} 0) vsource dc=0 type=dc\n{inst} ({node} Vdd Vin Vtau Vthr) dynapse1'
+    # Preserve every original terminal after the Iout terminal. This handles the
+    # two-synapse testbench where I56 uses Vin but I172 uses Vin1:
+    #   I56  (0 Vdd Vin  Vtau Vthr) dynapse1
+    #   I172 (0 Vdd Vin1 Vtau Vthr) dynapse1
+    pat = rf'\b{inst}\s+\(\s*0\s+([^)]*?)\)\s+dynapse1\b'
+    repl = rf'{sense} ({node} 0) vsource dc=0 type=dc\n{inst} ({node} \1) dynapse1'
     ns, changed = re.subn(pat, repl, ns, count=1)
     if changed == 0:
         print(f'WARNING: could not insert {sense}; exporter will try original {inst}/Iout current names.')
@@ -213,7 +217,11 @@ combined = '\n'.join(p.read_text(errors='ignore') for p in root.rglob('*') if p.
 if '__ST1_PWL__' not in combined or '__ST2_PWL__' not in combined:
     raise SystemExit('ERROR: PWL placeholders missing after parameter patch')
 print(f'patched parameters in {input_scs}')
+for required_probe in ('VSENSE_I172', 'VSENSE_I56'):
+    if required_probe not in ns:
+        raise SystemExit(f'ERROR: required ideal current probe missing after patch: {required_probe}')
 print('verified saveOptions options save=allpub currents=all')
+print('verified ideal current probes: VSENSE_I172 VSENSE_I56')
 print('verified output columns: iout_172 iout_56 vpre vpre1')
 print('verified no transient strobeperiod: full adaptive-output data will be exported')
 PY

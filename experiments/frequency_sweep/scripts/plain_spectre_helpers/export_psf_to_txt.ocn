@@ -37,10 +37,13 @@ foreach(sig list(
   when(iout_172 == nil
     fprintf(diagPort "trying I172 i(%s)\n" sig)
     tmp = errset(i(sig) nil)
-    when(tmp
+    when(tmp && car(tmp)
       iout_172 = car(tmp)
       chosenCurrentName172 = strcat("i(" sig ")")
       fprintf(diagPort "success I172 %s\n" chosenCurrentName172)
+    )
+    unless(tmp && car(tmp)
+      fprintf(diagPort "no data I172 i(%s)\n" sig)
     )
   )
 )
@@ -53,10 +56,13 @@ foreach(sig list(
   when(iout_172 == nil
     fprintf(diagPort "trying I172 getData(%s)\n" sig)
     tmp = errset(getData(sig) nil)
-    when(tmp
+    when(tmp && car(tmp)
       iout_172 = car(tmp)
       chosenCurrentName172 = strcat("getData(" sig ")")
       fprintf(diagPort "success I172 %s\n" chosenCurrentName172)
+    )
+    unless(tmp && car(tmp)
+      fprintf(diagPort "no data I172 getData(%s)\n" sig)
     )
   )
 )
@@ -70,10 +76,13 @@ foreach(sig list(
   when(iout_56 == nil
     fprintf(diagPort "trying I56 i(%s)\n" sig)
     tmp = errset(i(sig) nil)
-    when(tmp
+    when(tmp && car(tmp)
       iout_56 = car(tmp)
       chosenCurrentName56 = strcat("i(" sig ")")
       fprintf(diagPort "success I56 %s\n" chosenCurrentName56)
+    )
+    unless(tmp && car(tmp)
+      fprintf(diagPort "no data I56 i(%s)\n" sig)
     )
   )
 )
@@ -86,10 +95,13 @@ foreach(sig list(
   when(iout_56 == nil
     fprintf(diagPort "trying I56 getData(%s)\n" sig)
     tmp = errset(getData(sig) nil)
-    when(tmp
+    when(tmp && car(tmp)
       iout_56 = car(tmp)
       chosenCurrentName56 = strcat("getData(" sig ")")
       fprintf(diagPort "success I56 %s\n" chosenCurrentName56)
+    )
+    unless(tmp && car(tmp)
+      fprintf(diagPort "no data I56 getData(%s)\n" sig)
     )
   )
 )

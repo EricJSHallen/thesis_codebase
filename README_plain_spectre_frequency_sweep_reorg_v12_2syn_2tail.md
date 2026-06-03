@@ -58,3 +58,19 @@ ADE_E_SOURCE=/home/s5117909/simulation/dynapsetb1/spectre/schematic/netlist/ade_
 Override those variables when running the prep script if your Cadence simulation directory differs.
 
 The flow deliberately does not add `strobeperiod`.
+
+## Patch: serialized/retried OCEAN export and robust I172 probe insertion
+
+This archive includes two fixes for the observed failure after partial completion:
+
+1. `import_template.sh` now inserts both ideal zero-volt current probes generically. This preserves the original terminals after the `Iout` terminal, so `I172 (0 Vdd Vin1 Vtau Vthr) dynapse1` is patched correctly as well as `I56 (0 Vdd Vin Vtau Vthr) dynapse1`.
+2. `run_export_case.sh` serializes the OCEAN export stage with `worker_state/ocean_export.lock` and retries transient Cadence/ADE/FLEXnet/CDS.log failures. Spectre simulations remain parallel; only PSF-to-text export is serialized.
+
+For an interrupted run that already has PSF directories, run:
+
+```bash
+cd /home/s5117909/Documents/thesis/thesis_codebase/database/<run_id>
+./extract_missing_outputs.sh
+```
+
+For a new run, use the normal `prep -> import_template -> refresh_spectre_runtime -> run_all_workers` flow.
