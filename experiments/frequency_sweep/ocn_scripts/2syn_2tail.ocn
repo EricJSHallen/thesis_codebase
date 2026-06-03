@@ -1,0 +1,277 @@
+; Batch OCEAN script based on pwl_1synv3.ocn, adapted for the two-synapse
+; testbench circuit used by pwl_2syn.ocn.
+; It saves and exports both /I172/Iout and /I56/Iout, matching pwl_2syn.ocn.
+
+simulator('spectre)
+envOption('userCmdLineOption "++aps +mt=4")
+option('redefinedparams "warning")
+
+design("sebastian_thesis_pilot" "dynapsetb1" "schematic")
+
+; -----------------------------------------------------------------------------
+; Spectre model-library setup
+; -----------------------------------------------------------------------------
+modelConfig = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/config.scs"
+modelParam  = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/param.scs"
+modelBip    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/bip.scs"
+modelCap    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/cap.scs"
+modelDio    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/dio.scs"
+modelMos    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/mos.scs"
+modelRes    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/res.scs"
+modelXp018  = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/xp018.scs"
+
+foreach(modelPath list(modelConfig modelParam modelBip modelCap modelDio modelMos modelRes)
+  unless(isFile(modelPath)
+    error("Cannot find Spectre model file: %s\n" modelPath)
+  )
+)
+
+printf("Using ADE Spectre model libraries from XP018 lp5mos via apply(modelFile ...).\n")
+
+modelFileList = list(
+  list(modelConfig "default")
+  list(modelParam  "3s")
+  list(modelBip    "tm")
+  list(modelCap    "tm")
+  list(modelDio    "tm")
+  list(modelMos    "tm")
+  list(modelRes    "tm")
+)
+apply('modelFile modelFileList)
+
+; -----------------------------------------------------------------------------
+; User options / repository paths
+; -----------------------------------------------------------------------------
+baseRepoDir = "/home/s5117909/Documents/thesis/thesis_codebase"
+
+; Use the same spike-train input root as pwl_2syn.ocn.
+; Change this one line if your cleaned repo now stores spike trains under
+; experiments/frequency_sweep/input_data/spike_train_output.
+pwlBaseDir = strcat(baseRepoDir "/experiments/frequency_sweep/input_data/spike_train_output")
+st1BaseDir = strcat(pwlBaseDir "/st_1")
+st2BaseDir = strcat(pwlBaseDir "/st_2")
+
+; Default output directory for direct/manual runs. Your setup shell script may
+; patch this line after copying the OCEAN file into a run directory.
+outputBaseDir = strcat(baseRepoDir "/database/2syn_2tail_ocean_output")
+
+; -----------------------------------------------------------------------------
+; Parallel batch splitting options
+; -----------------------------------------------------------------------------
+numJobsStr = getShellEnvVar("CAD_NUM_JOBS")
+numJobs = if(numJobsStr then atoi(numJobsStr) else 1)
+
+jobIndexStr = getShellEnvVar("CAD_JOB_INDEX")
+jobIndex = if(jobIndexStr then atoi(jobIndexStr) else 0)
+
+when(numJobs < 1
+  error("numJobs must be >= 1. Check CAD_NUM_JOBS.\n")
+)
+
+when(jobIndex < 0 || jobIndex >= numJobs
+  error("CAD_JOB_INDEX must satisfy 0 <= CAD_JOB_INDEX < CAD_NUM_JOBS.\n")
+)
+
+runSerial = 0
+assignedRunCount = 0
+skippedRunCount = 0
+alreadyDoneCount = 0
+failedOrRunCount = 0
+
+printf("Parallel split: job %d of %d\n" jobIndex numJobs)
+
+unless(isDir(outputBaseDir)
+  system(strcat("mkdir -p \"" outputBaseDir "\""))
+)
+
+; -----------------------------------------------------------------------------
+; Analysis and design variables
+; -----------------------------------------------------------------------------
+analysis('tran ?stop "0.5s")
+
+desVar("m2l" 200n)
+desVar("m2ltb" 1.05u)
+desVar("m2w" 3u)
+desVar("m2wtb" 2.1u)
+desVar("m3l" 4u)
+desVar("m3w" 2.1u)
+desVar("m4l" 1.05u)
+desVar("m4ltb" 1.05u)
+desVar("m4w" 2.1u)
+desVar("m4wtb" 2.1u)
+desVar("m5l" 1.05u)
+desVar("m5w" 2.1u)
+desVar("pw" 100u)
+desVar("T" 1m)
+desVar("Vin" 0)
+desVar("Vtau" 1.6)
+desVar("Vthr" 0.9)
+desVar("Vw" 0.5)
+desVar("vmax" 1.8)
+desVar("capacitance" 6p)
+
+; Save the two current probes used by the dynapsetb1 circuit in pwl_2syn.ocn.
+save('i "/I172/Iout")
+save('i "/I56/Iout")
+save('v "/vpre")
+save('v "/vpre1")
+
+; -----------------------------------------------------------------------------
+; Sanity checks and batch setup
+; -----------------------------------------------------------------------------
+unless(isDir(st1BaseDir)
+  error("Cannot find st_1 directory: %s\n" st1BaseDir)
+)
+
+unless(isDir(st2BaseDir)
+  error("Cannot find st_2 directory: %s\n" st2BaseDir)
+)
+
+st1FreqDirs = getDirFiles(st1BaseDir)
+st2FreqDirs = getDirFiles(st2BaseDir)
+
+printf("Frequency mixing: enabled\n")
+printf("Trial mixing: disabled; only matching trial_N files are paired\n")
+
+manifestPath = strcat(
+  outputBaseDir
+  "/run_manifest_job_"
+  sprintf(nil "%d" jobIndex)
+  "_of_"
+  sprintf(nil "%d" numJobs)
+  ".csv"
+)
+manifestPort = outfile(manifestPath "w")
+
+fprintf(
+  manifestPort
+  "run_name,st1_frequency,st2_frequency,trial_file,st1_file,st2_file,run_dir\n"
+)
+
+; -----------------------------------------------------------------------------
+; Main batch loop
+; -----------------------------------------------------------------------------
+foreach(st1FreqDirName st1FreqDirs
+  when(st1FreqDirName != "." && st1FreqDirName != ".."
+    st1FreqDir = strcat(st1BaseDir "/" st1FreqDirName)
+
+    when(isDir(st1FreqDir)
+      foreach(st2FreqDirName st2FreqDirs
+        when(st2FreqDirName != "." && st2FreqDirName != ".."
+          st2FreqDir = strcat(st2BaseDir "/" st2FreqDirName)
+
+          when(isDir(st2FreqDir)
+            st1TrialFiles = getDirFiles(st1FreqDir)
+
+            foreach(trialFile st1TrialFiles
+              when(rexMatchp("\\.pwl$" trialFile)
+                st1File = strcat(st1FreqDir "/" trialFile)
+                st2File = strcat(st2FreqDir "/" trialFile)
+
+                if(isFile(st1File) && isFile(st2File) then
+                  ; Remove ".pwl" from trial filename.
+                  trialStem = substring(trialFile 1 difference(strlen(trialFile) 4))
+
+                  runName = strcat(
+                    "st1_" st1FreqDirName
+                    "__st2_" st2FreqDirName
+                    "__" trialStem
+                  )
+                  runDir = strcat(outputBaseDir "/" runName)
+
+                  thisRunSerial = runSerial
+                  runSerial = plus(runSerial 1)
+
+                  if(mod(thisRunSerial numJobs) == jobIndex then
+                    assignedRunCount = plus(assignedRunCount 1)
+
+                    unless(isDir(runDir)
+                      system(strcat("mkdir -p \"" runDir "\""))
+                    )
+
+                    outputSignalsFile = strcat(runDir "/output_signals.txt")
+                    outputSignalsTmp  = strcat(runDir "/output_signals.txt.tmp")
+
+                    if(isFile(outputSignalsFile) then
+                      alreadyDoneCount = plus(alreadyDoneCount 1)
+                      printf("Skipping existing completed output: %s\n" runName)
+                    else
+                      failedOrRunCount = plus(failedOrRunCount 1)
+
+                      fprintf(
+                        manifestPort
+                        "%s,%s,%s,%s,%s,%s,%s\n"
+                        runName st1FreqDirName st2FreqDirName trialFile st1File st2File runDir
+                      )
+
+                      currentResultsDir = runDir
+                      resultsDir(currentResultsDir)
+
+                      ; File paths need embedded quotation marks so Spectre
+                      ; receives them as string parameters.
+                      desVar("pwlFile_st1" strcat("\"" st1File "\""))
+                      desVar("pwlFile_st2" strcat("\"" st2File "\""))
+
+                      run()
+
+                      ; Export current and voltage waveforms.
+                      selectResult('tran)
+                      iout_172 = i("/I172/Iout")
+                      iout_56  = i("/I56/Iout")
+                      vpre     = v("/vpre")
+                      vpre1    = v("/vpre1")
+
+                      ; Atomic-ish export for resume safety.
+                      when(isFile(outputSignalsTmp)
+                        system(strcat("rm -f \"" outputSignalsTmp "\""))
+                      )
+
+                      ocnPrint(
+                        ?output outputSignalsTmp
+                        ?precision 10
+                        ?numSpaces 1
+                        iout_172 iout_56 vpre vpre1
+                      )
+
+                      system(strcat("mv -f \"" outputSignalsTmp "\" \"" outputSignalsFile "\""))
+
+                      ; This Cadence/OCEAN version requires one argument.
+                      closeResults(currentResultsDir)
+                      printf("Finished: %s\n" runName)
+                    )
+                  else
+                    skippedRunCount = plus(skippedRunCount 1)
+                  )
+                else
+                  when(isFile(st1File) && !isFile(st2File)
+                    warn(
+                      "Skipping st1=%s with st2 frequency=%s because matching trial is missing: %s\n"
+                      st1File st2FreqDirName st2File
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+close(manifestPort)
+
+printf("Finished assigned simulations for job %d of %d.\n" jobIndex numJobs)
+printf("Total valid cases seen by this process: %d\n" runSerial)
+printf("Cases assigned to this process: %d\n" assignedRunCount)
+printf("Cases skipped by this process: %d\n" skippedRunCount)
+printf("Cases already completed and skipped by resume mode: %d\n" alreadyDoneCount)
+printf("Cases newly attempted by this process: %d\n" failedOrRunCount)
+printf("Manifest written to: %s\n" manifestPath)
+printf("Output base directory: %s\n" outputBaseDir)
+
+batchExitStr = getShellEnvVar("CAD_BATCH_EXIT")
+when(batchExitStr == "1"
+  printf("CAD_BATCH_EXIT=1, exiting OCEAN.\n")
+  exit()
+)

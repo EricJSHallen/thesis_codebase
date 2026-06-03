@@ -1,32 +1,49 @@
 #!/usr/bin/env bash
-# Source from a prepared run directory.
-RUN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-# shellcheck disable=SC1091
-source "$RUN_DIR/RUNINFO.txt"
-: "${CADENCE_INSTALL_ROOT:=/projects/bics/cadence/installs}"
-: "${IC_VERSION:=IC231}"
-: "${IC_ROOT:=$CADENCE_INSTALL_ROOT/$IC_VERSION}"
-[[ -f "$RUN_DIR/support/spectre_runtime.env" ]] && source "$RUN_DIR/support/spectre_runtime.env"
-[[ -f "$RUN_DIR/support/cadence_ic_runtime.env" ]] && source "$RUN_DIR/support/cadence_ic_runtime.env"
-choose_spectre_cmd() {
-  for cand in "${SPECTRE_CMD:-}" "$CADENCE_INSTALL_ROOT/SPECTRE231/tools/bin/spectre" "$CADENCE_INSTALL_ROOT/SPECTRE231/bin/spectre" "$(command -v spectre 2>/dev/null || true)"; do
-    [[ -n "$cand" && -x "$cand" ]] && { printf '%s\n' "$cand"; return 0; }
+# Runtime setup for the plain Spectre/OCEAN export workers.
+# Source this file from a generated run directory.
+
+set -euo pipefail
+
+THIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+RUNINFO="$THIS_DIR/RUNINFO.txt"
+if [[ -f "$RUNINFO" ]]; then
+  # shellcheck disable=SC1090
+  source "$RUNINFO"
+fi
+
+export CADENCE_INSTALL_ROOT="${CADENCE_INSTALL_ROOT:-/projects/bics/cadence/installs}"
+
+# Keep user PATH first. Add likely Cadence binary locations only if present.
+for d in \
+  "$CADENCE_INSTALL_ROOT/ICADVM*/tools/bin" \
+  "$CADENCE_INSTALL_ROOT/IC*/tools/bin" \
+  "$CADENCE_INSTALL_ROOT/SPECTRE*/tools/bin" \
+  "$CADENCE_INSTALL_ROOT/MMSIM*/tools/bin" \
+  "$CADENCE_INSTALL_ROOT/EXT*/tools/bin"; do
+  for reald in $d; do
+    [[ -d "$reald" ]] || continue
+    case ":$PATH:" in
+      *":$reald:"*) ;;
+      *) export PATH="$reald:$PATH" ;;
+    esac
   done
-  return 1
-}
-[[ -z "${SPECTRE_CMD:-}" ]] && SPECTRE_CMD="$(choose_spectre_cmd || true)"
-export CADENCE_INSTALL_ROOT IC_VERSION IC_ROOT SPECTRE_CMD
-[[ -n "${SPECTRE_CMD:-}" ]] && export PATH="$(dirname "$SPECTRE_CMD"):${PATH:-}"
-_is_elf_binary() { file "$1" 2>/dev/null | grep -qi 'ELF'; }
+done
+
 check_spectre_runtime() {
-  [[ -n "${SPECTRE_CMD:-}" && -x "$SPECTRE_CMD" ]] || { echo "SPECTRE_CMD not executable: ${SPECTRE_CMD:-unset}"; return 1; }
-  echo "SPECTRE_CMD=$SPECTRE_CMD"; file "$SPECTRE_CMD" 2>/dev/null || true
-  if _is_elf_binary "$SPECTRE_CMD"; then ldd "$SPECTRE_CMD" 2>/dev/null | awk '/not found/{print "  " $1 " => not found"}'; else echo "Using wrapper/script launcher; skipping ldd on wrapper."; fi
+  local cmd="${SPECTRE_CMD:-spectre}"
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "ERROR: cannot find Spectre command: $cmd" >&2
+    echo "Set SPECTRE_CMD or source the correct Cadence environment." >&2
+    return 127
+  fi
+  "$cmd" -W 2>/dev/null | head -5 || true
 }
-spectre_runtime_ok() { [[ -n "${SPECTRE_CMD:-}" && -x "$SPECTRE_CMD" ]] || return 1; _is_elf_binary "$SPECTRE_CMD" && ! ldd "$SPECTRE_CMD" 2>/dev/null | grep -q 'not found' || return 0; }
+
 check_export_runtime() {
-  local launcher="${CADENCE_EXPORT_LAUNCHER:-}"
-  [[ -n "$launcher" && -x "$launcher" ]] || { echo "CADENCE_EXPORT_LAUNCHER not executable: ${launcher:-unset}"; return 1; }
-  echo "CADENCE_EXPORT_LAUNCHER=$launcher"; file "$launcher" 2>/dev/null || true; ldd "$launcher" 2>/dev/null | awk '/not found/{print "  " $1 " => not found"}' || true
+  if ! command -v ocean >/dev/null 2>&1; then
+    echo "ERROR: cannot find ocean in PATH." >&2
+    echo "Source the correct Cadence environment before exporting PSF results." >&2
+    return 127
+  fi
+  echo "ocean found: $(command -v ocean)"
 }
-export -f check_spectre_runtime spectre_runtime_ok check_export_runtime 2>/dev/null || true

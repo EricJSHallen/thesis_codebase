@@ -1,25 +1,15 @@
-; export_psf_to_txt.ocn - v12
-; Exports I56 output current plus vpre/vpre1 from a plain-Spectre PSF directory.
-;
-; v12 expects input.scs to contain an ideal 0 V current probe:
-;   VSENSE_I56 (i56_iout 0) vsource dc=0 type=dc
-;   I56 (i56_iout Vdd Vin Vtau Vthr) dynapse1
-;   saveOptions options save=allpub currents=all
-;   save vpre vpre1 VSENSE_I56:p VSENSE_I56:n
-;
-; The v5/v6 failure was caused by invalid OCEAN/SKILL syntax:
-;   errset(outfile(...) outputs() close(...) t)
-; errset accepts one expression plus an optional print flag. v12 avoids that
-; construct entirely and catches only single waveform lookup expressions.
+; export_psf_to_txt.ocn - v12_2syn_2tail
+; Exports two currents and two voltages from a plain-Spectre PSF directory.
+; Column order: iout_172 iout_56 vpre vpre1
 
 caseDir = getShellEnvVar("CAD_CASE_DIR")
 unless(caseDir
   error("CAD_CASE_DIR is not set.\n")
 )
 
-psfDir  = strcat(caseDir "/psf")
-outTmp  = strcat(caseDir "/output_signals.txt.tmp")
-outFile = strcat(caseDir "/output_signals.txt")
+psfDir   = strcat(caseDir "/psf")
+outTmp   = strcat(caseDir "/output_signals.txt.tmp")
+outFile  = strcat(caseDir "/output_signals.txt")
 diagFile = strcat(caseDir "/current_probe_export_diagnostics.txt")
 
 unless(isDir(psfDir)
@@ -29,110 +19,95 @@ unless(isDir(psfDir)
 openResults(psfDir)
 selectResult('tran)
 
-; Open a small diagnostic file. Do not wrap multiple statements inside errset.
 diagPort = outfile(diagFile)
 fprintf(diagPort "caseDir=%s\n" caseDir)
 fprintf(diagPort "psfDir=%s\n" psfDir)
 
-iout_56 = nil
-chosenCurrentName = nil
+iout_172 = nil
+iout_56  = nil
+chosenCurrentName172 = nil
+chosenCurrentName56  = nil
 
-; Helper pattern written inline because older OCEAN/SKILL installations can be
-; sensitive to local procedure definitions in batch-loaded files.
+; --- I172 candidates ---------------------------------------------------------
 foreach(sig list(
-    "VSENSE_I56:p"
-    "VSENSE_I56:n"
-    "VSENSE_I56:PLUS"
-    "VSENSE_I56:MINUS"
-    "VSENSE_I56:1"
-    "VSENSE_I56:2"
-    "/VSENSE_I56/p"
-    "/VSENSE_I56/n"
-    "/VSENSE_I56/PLUS"
-    "/VSENSE_I56/MINUS"
-    "/VSENSE_I56/1"
-    "/VSENSE_I56/2"
+    "VSENSE_I172:p" "VSENSE_I172:n" "VSENSE_I172:PLUS" "VSENSE_I172:MINUS" "VSENSE_I172:1" "VSENSE_I172:2"
+    "/VSENSE_I172/p" "/VSENSE_I172/n" "/VSENSE_I172/PLUS" "/VSENSE_I172/MINUS" "/VSENSE_I172/1" "/VSENSE_I172/2"
+    "/I172/Iout" "/I172/iout" "/I172/1" "I172:Iout" "I172:iout" "I172:1"
   )
-  when(iout_56 == nil
-    fprintf(diagPort "trying i(%s)\n" sig)
+  when(iout_172 == nil
+    fprintf(diagPort "trying I172 i(%s)\n" sig)
     tmp = errset(i(sig) nil)
     when(tmp
-      iout_56 = car(tmp)
-      chosenCurrentName = strcat("i(" sig ")")
-      fprintf(diagPort "success %s\n" chosenCurrentName)
+      iout_172 = car(tmp)
+      chosenCurrentName172 = strcat("i(" sig ")")
+      fprintf(diagPort "success I172 %s\n" chosenCurrentName172)
+    )
+  )
+)
+foreach(sig list(
+    "VSENSE_I172:p" "VSENSE_I172:n" "VSENSE_I172:PLUS" "VSENSE_I172:MINUS" "VSENSE_I172:1" "VSENSE_I172:2"
+    "/VSENSE_I172/p" "/VSENSE_I172/n" "/VSENSE_I172/PLUS" "/VSENSE_I172/MINUS" "/VSENSE_I172/1" "/VSENSE_I172/2"
+    "I(VSENSE_I172:p)" "I(VSENSE_I172:n)" "i(VSENSE_I172:p)" "i(VSENSE_I172:n)"
+    "/I172/Iout" "/I172/iout" "/I172/1" "I172:Iout" "I172:iout" "I172:1"
+  )
+  when(iout_172 == nil
+    fprintf(diagPort "trying I172 getData(%s)\n" sig)
+    tmp = errset(getData(sig) nil)
+    when(tmp
+      iout_172 = car(tmp)
+      chosenCurrentName172 = strcat("getData(" sig ")")
+      fprintf(diagPort "success I172 %s\n" chosenCurrentName172)
     )
   )
 )
 
-; Some PSF/OCEAN combinations expose branch currents as named data instead of
-; through i(). Try getData as a second route.
+; --- I56 candidates ----------------------------------------------------------
 foreach(sig list(
-    "VSENSE_I56:p"
-    "VSENSE_I56:n"
-    "VSENSE_I56:PLUS"
-    "VSENSE_I56:MINUS"
-    "VSENSE_I56:1"
-    "VSENSE_I56:2"
-    "/VSENSE_I56/p"
-    "/VSENSE_I56/n"
-    "/VSENSE_I56/PLUS"
-    "/VSENSE_I56/MINUS"
-    "/VSENSE_I56/1"
-    "/VSENSE_I56/2"
-    "I(VSENSE_I56:p)"
-    "I(VSENSE_I56:n)"
-    "i(VSENSE_I56:p)"
-    "i(VSENSE_I56:n)"
+    "VSENSE_I56:p" "VSENSE_I56:n" "VSENSE_I56:PLUS" "VSENSE_I56:MINUS" "VSENSE_I56:1" "VSENSE_I56:2"
+    "/VSENSE_I56/p" "/VSENSE_I56/n" "/VSENSE_I56/PLUS" "/VSENSE_I56/MINUS" "/VSENSE_I56/1" "/VSENSE_I56/2"
+    "/I56/Iout" "/I56/iout" "/I56/1" "I56:Iout" "I56:iout" "I56:1"
   )
   when(iout_56 == nil
-    fprintf(diagPort "trying getData(%s)\n" sig)
+    fprintf(diagPort "trying I56 i(%s)\n" sig)
+    tmp = errset(i(sig) nil)
+    when(tmp
+      iout_56 = car(tmp)
+      chosenCurrentName56 = strcat("i(" sig ")")
+      fprintf(diagPort "success I56 %s\n" chosenCurrentName56)
+    )
+  )
+)
+foreach(sig list(
+    "VSENSE_I56:p" "VSENSE_I56:n" "VSENSE_I56:PLUS" "VSENSE_I56:MINUS" "VSENSE_I56:1" "VSENSE_I56:2"
+    "/VSENSE_I56/p" "/VSENSE_I56/n" "/VSENSE_I56/PLUS" "/VSENSE_I56/MINUS" "/VSENSE_I56/1" "/VSENSE_I56/2"
+    "I(VSENSE_I56:p)" "I(VSENSE_I56:n)" "i(VSENSE_I56:p)" "i(VSENSE_I56:n)"
+    "/I56/Iout" "/I56/iout" "/I56/1" "I56:Iout" "I56:iout" "I56:1"
+  )
+  when(iout_56 == nil
+    fprintf(diagPort "trying I56 getData(%s)\n" sig)
     tmp = errset(getData(sig) nil)
     when(tmp
       iout_56 = car(tmp)
-      chosenCurrentName = strcat("getData(" sig ")")
-      fprintf(diagPort "success %s\n" chosenCurrentName)
+      chosenCurrentName56 = strcat("getData(" sig ")")
+      fprintf(diagPort "success I56 %s\n" chosenCurrentName56)
     )
   )
 )
 
-; Last resort: original subcircuit terminal current names. This should not be
-; needed when VSENSE_I56 is saved, but it costs little to try.
-foreach(sig list(
-    "/I56/Iout"
-    "/I56/iout"
-    "/I56/1"
-    "I56:Iout"
-    "I56:iout"
-    "I56:1"
-  )
-  when(iout_56 == nil
-    fprintf(diagPort "trying fallback i/getData %s\n" sig)
-    tmp = errset(i(sig) nil)
-    when(tmp
-      iout_56 = car(tmp)
-      chosenCurrentName = strcat("i(" sig ")")
-      fprintf(diagPort "success %s\n" chosenCurrentName)
-    )
-    when(iout_56 == nil
-      tmp = errset(getData(sig) nil)
-      when(tmp
-        iout_56 = car(tmp)
-        chosenCurrentName = strcat("getData(" sig ")")
-        fprintf(diagPort "success %s\n" chosenCurrentName)
-      )
-    )
-  )
+unless(iout_172
+  fprintf(diagPort "FAILED: no I172 current candidate succeeded.\n")
+  close(diagPort)
+  closeResults(psfDir)
+  batchExitStr = getShellEnvVar("CAD_BATCH_EXIT")
+  when(batchExitStr == "1" exit())
 )
 
 unless(iout_56
-  fprintf(diagPort "FAILED: no current candidate succeeded.\n")
+  fprintf(diagPort "FAILED: no I56 current candidate succeeded.\n")
   close(diagPort)
   closeResults(psfDir)
-  ; Return normally. The shell wrapper will fail because output_signals.txt is absent.
   batchExitStr = getShellEnvVar("CAD_BATCH_EXIT")
-  when(batchExitStr == "1"
-    exit()
-  )
+  when(batchExitStr == "1" exit())
 )
 
 vpre  = v("/vpre")
@@ -142,15 +117,14 @@ when(isFile(outTmp)
   system(strcat("rm -f \"" outTmp "\""))
 )
 
-fprintf(diagPort "chosenCurrentName=%s\n" chosenCurrentName)
+fprintf(diagPort "chosenCurrentName172=%s\n" chosenCurrentName172)
+fprintf(diagPort "chosenCurrentName56=%s\n" chosenCurrentName56)
 close(diagPort)
 
-; Column order: I56_output_current, vpre, vpre1
-ocnPrint(?output outTmp ?precision 10 ?numSpaces 1 iout_56 vpre vpre1)
+ocnPrint(?output outTmp ?precision 10 ?numSpaces 1 iout_172 iout_56 vpre vpre1)
 system(strcat("mv -f \"" outTmp "\" \"" outFile "\""))
-
 closeResults(psfDir)
-printf("Wrote %s using %s\n" outFile chosenCurrentName)
+printf("Wrote %s using %s and %s\n" outFile chosenCurrentName172 chosenCurrentName56)
 
 batchExitStr = getShellEnvVar("CAD_BATCH_EXIT")
 when(batchExitStr == "1"

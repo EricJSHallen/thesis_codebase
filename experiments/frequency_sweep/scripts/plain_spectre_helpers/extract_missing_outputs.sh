@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-set -u -o pipefail
+set -euo pipefail
 RUN_DIR="$(cd "$(dirname "$0")" && pwd -P)"
+# shellcheck disable=SC1090
 source "$RUN_DIR/RUNINFO.txt"
-source "$RUN_DIR/setup_spectre_env.sh"
-count=0; failed=0
-while IFS= read -r psf; do
-  case_dir="$(dirname "$psf")"
-  [[ -f "$case_dir/output_signals.txt" ]] && continue
-  echo "exporting $case_dir"
-  if "$RUN_DIR/run_export_case.sh" "$case_dir"; then count=$((count+1)); else failed=$((failed+1)); echo "FAILED export: $case_dir" >&2; fi
-done < <(find "$RUN_DIR/cases" -mindepth 2 -maxdepth 2 -type d -name psf -print | sort)
-echo "exported=$count failed=$failed"
-[[ "$failed" -eq 0 ]]
+missing=0
+while IFS=, read -r case_id run_name st1_file st2_file case_dir; do
+  [[ "$case_id" == "case_id" ]] && continue
+  if [[ -d "$case_dir/psf" && ! -s "$case_dir/output_signals.txt" ]]; then
+    echo "exporting missing output: $run_name"
+    "$RUN_DIR/run_export_case.sh" "$case_dir" || missing=$((missing+1))
+  fi
+done < "$RUN_DIR/cases.csv"
+exit "$missing"
