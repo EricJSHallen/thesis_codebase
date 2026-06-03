@@ -4,6 +4,12 @@ plot_frequency_sweep_csvs_v3.py
 
 Interactive Matplotlib viewer for formatted frequency-sweep CSV outputs.
 
+Expected formatted input layout:
+    database/formatted/condense_syn_outputs/<run_name>/
+
+Current-preserving formatted CSVs use columns such as:
+    time_s, i_I56_Iout_A, v_vpre_res_V, v_vpre1_res_V
+
 This version tolerates formatted CSVs with:
     time + 3 signals  -> voltage1, voltage2, current are plotted normally.
     time + 2 signals  -> the two available signals are plotted, and the current
@@ -22,9 +28,6 @@ import traceback
 from pathlib import Path
 from typing import Optional
 
-import matplotlib.pyplot as plt
-import pandas as pd
-
 
 IGNORE_CSV_NAMES = {
     "conversion_summary.csv",
@@ -32,6 +35,26 @@ IGNORE_CSV_NAMES = {
     "errors.csv",
     "conversion_errors.csv",
 }
+
+RUN_TIMESTAMP_RE = re.compile(r"^(?P<stamp>\d{8}_\d{6}).*")
+
+plt = None
+pd = None
+
+
+def load_plot_dependencies() -> None:
+    global plt, pd
+    if plt is not None and pd is not None:
+        return
+    try:
+        import matplotlib.pyplot as matplotlib_pyplot
+        import pandas as pandas_module
+    except ModuleNotFoundError as exc:
+        raise ModuleNotFoundError(
+            f"Missing plotting dependency: {exc.name}. Install matplotlib and pandas to plot CSVs."
+        ) from exc
+    plt = matplotlib_pyplot
+    pd = pandas_module
 
 
 def find_repo_root(start: Optional[Path] = None) -> Path:
@@ -45,11 +68,42 @@ def find_repo_root(start: Optional[Path] = None) -> Path:
     )
 
 
+def directory_sort_key(path: Path) -> tuple[str, float, str]:
+    match = RUN_TIMESTAMP_RE.match(path.name)
+    stamp = match.group("stamp") if match else ""
+    try:
+        mtime = path.stat().st_mtime
+    except OSError:
+        mtime = 0.0
+    return (stamp, mtime, path.name)
+
+
 def latest_directory(parent: Path) -> Path:
     dirs = [p for p in parent.iterdir() if p.is_dir()]
     if not dirs:
         raise FileNotFoundError(f"No directories found under {parent}")
-    return max(dirs, key=lambda p: p.stat().st_mtime)
+    return sorted(dirs, key=directory_sort_key)[-1]
+
+
+def formatted_runs_dir(repo_root: Path) -> Path:
+    path = repo_root / "database" / "formatted" / "condense_syn_outputs"
+    if not path.is_dir():
+        raise FileNotFoundError(f"Formatted runs directory not found: {path}")
+    return path
+
+
+def list_formatted_runs(repo_root: Path) -> list[Path]:
+    runs_dir = formatted_runs_dir(repo_root)
+    return sorted((p for p in runs_dir.iterdir() if p.is_dir()), key=directory_sort_key)
+
+
+def resolve_formatted_run(repo_root: Path, run_name: str) -> Path:
+    run_dir = formatted_runs_dir(repo_root) / run_name
+    if not run_dir.is_dir():
+        raise FileNotFoundError(
+            f"Formatted run not found: {run_dir}. Run the formatter first, or pass --input-dir."
+        )
+    return run_dir
 
 
 def find_latest_formatted_run(repo_root: Path) -> Path:
@@ -88,7 +142,10 @@ def find_csv_files(input_dir: Path) -> list[Path]:
         and not p.name.startswith(".")
     ]
     if not csvs:
-        raise FileNotFoundError(f"No CSV files found under {input_dir}")
+        raise FileNotFoundError(
+            f"No plottable CSV files found under {input_dir}. "
+            "Expected formatted case CSVs, excluding conversion_summary.csv."
+        )
     return sorted(csvs, key=csv_sort_key)
 
 
@@ -279,6 +336,16 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, default=None)
     parser.add_argument("--input-dir", type=Path, default=None)
+    parser.add_argument(
+        "--run-name",
+        default=None,
+        help="Formatted run name under database/formatted/condense_syn_outputs/.",
+    )
+    parser.add_argument(
+        "--list-runs",
+        action="store_true",
+        help="List formatted runs under database/formatted/condense_syn_outputs/ and exit.",
+    )
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--start-at", type=int, default=1)
     parser.add_argument("--open-all", action="store_true")
@@ -288,7 +355,22 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     try:
         repo_root = args.repo_root.resolve() if args.repo_root else find_repo_root()
-        input_dir = args.input_dir.resolve() if args.input_dir else find_latest_formatted_run(repo_root)
+
+        if args.list_runs:
+            print(f"Formatted runs in {formatted_runs_dir(repo_root)}")
+            for run in list_formatted_runs(repo_root):
+                print(f"  {run.name}")
+            return 0
+
+        if args.input_dir is not None and args.run_name is not None:
+            raise ValueError("Use either --input-dir or --run-name, not both.")
+
+        if args.input_dir is not None:
+            input_dir = args.input_dir.resolve()
+        elif args.run_name is not None:
+            input_dir = resolve_formatted_run(repo_root, args.run_name)
+        else:
+            input_dir = find_latest_formatted_run(repo_root)
 
         csvs = find_csv_files(input_dir)
 
@@ -308,6 +390,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         print(f"Input dir: {input_dir}")
         print(f"CSV files selected: {total}")
         print("Close each Matplotlib window to advance to the next CSV.\n")
+
+        load_plot_dependencies()
 
         if args.open_all:
             for i, csv_path in enumerate(csvs, start=1):

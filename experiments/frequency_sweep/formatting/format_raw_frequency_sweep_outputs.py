@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-condense_syn_outputs_reorg_v4.py
+format_raw_frequency_sweep_outputs.py
 
-Convert plain-Spectre/OCEAN exported waveform text files from the latest raw
+Convert plain-Spectre/OCEAN exported waveform text files from a raw
 frequency-sweep run into CSV files.
 
 Expected reorganized repository layout:
@@ -19,11 +19,12 @@ Expected reorganized repository layout:
     └── experiments/
         └── frequency_sweep/
             └── formatting/
-                └── condense_syn_outputs_reorg_v4.py
+                └── format_raw_frequency_sweep_outputs.py
 
 Main properties:
   - Automatically finds the repository root.
-  - Automatically selects the latest run under database/raw unless --run-dir is given.
+  - Automatically selects the latest run under database/raw unless a run is given.
+  - Accepts a raw run name or path.
   - Accepts output_signals.txt or output.txt by default.
   - Handles files with or without the I172 current column.
   - Writes CSVs under database/formatted/condense_syn_outputs/<run_name>/.
@@ -127,12 +128,6 @@ def raw_runs_dir(repo_root: Path) -> Path:
     return path
 
 
-def formatted_dir(repo_root: Path) -> Path:
-    path = repo_root / "database" / "formatted"
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
 def run_sort_key(path: Path) -> tuple[str, float, str]:
     """Prefer timestamped directory names, then mtime."""
     match = RUN_TIMESTAMP_RE.match(path.name)
@@ -155,6 +150,41 @@ def find_latest_raw_run(repo_root: Path, pattern: str = "*") -> Path:
             f"No raw run directories found in {raw_runs_dir(repo_root)} matching {pattern!r}"
         )
     return sorted(runs, key=run_sort_key)[-1]
+
+
+def list_raw_runs(repo_root: Path, pattern: str = "*") -> list[Path]:
+    runs = [p for p in raw_runs_dir(repo_root).iterdir() if p.is_dir() and p.match(pattern)]
+    return sorted(runs, key=run_sort_key)
+
+
+def resolve_run_dir(
+    repo_root: Path,
+    run_dir: Path | None,
+    run_name: str | None,
+    run_pattern: str,
+) -> Path:
+    if run_dir is not None and run_name is not None:
+        raise ValueError("Use either --run-dir or --run-name, not both.")
+
+    if run_name is not None:
+        resolved = raw_runs_dir(repo_root) / run_name
+    elif run_dir is not None:
+        resolved = run_dir.expanduser()
+        if not resolved.is_absolute():
+            if not resolved.is_dir():
+                raw_candidate = raw_runs_dir(repo_root) / resolved
+                if raw_candidate.is_dir():
+                    resolved = raw_candidate
+            resolved = resolved.resolve()
+    else:
+        resolved = find_latest_raw_run(repo_root, run_pattern)
+
+    resolved = resolved.resolve()
+    if not resolved.is_dir():
+        raise FileNotFoundError(f"Raw run directory not found: {resolved}")
+    if not (resolved / "cases").is_dir():
+        raise FileNotFoundError(f"Run directory does not contain cases/: {resolved}")
+    return resolved
 
 
 # -----------------------------------------------------------------------------
@@ -211,6 +241,7 @@ def infer_header(raw_header_tokens: Sequence[str] | None, data_width: int) -> li
     Infer a stable CSV header.
 
     Known output widths:
+      3 = time, vpre, vpre1
       4 = time, I56, vpre, vpre1
       5 = time, I172, I56, vpre, vpre1
 
@@ -219,6 +250,9 @@ def infer_header(raw_header_tokens: Sequence[str] | None, data_width: int) -> li
     """
     joined = " ".join(raw_header_tokens or [])
     joined_lower = joined.lower()
+
+    if data_width == 3:
+        return ["time_s", "v_vpre_res_V", "v_vpre1_res_V"]
 
     if data_width == 4:
         return ["time_s", "i_I56_Iout_A", "v_vpre_res_V", "v_vpre1_res_V"]
@@ -287,6 +321,7 @@ def convert_one_case(
     input_names: Sequence[str],
     overwrite: bool,
     flat: bool,
+    dry_run: bool,
 ) -> ConversionResult:
     case_info = parse_case_dir_name(case_dir.name)
     if case_info is None:
@@ -331,6 +366,17 @@ def convert_one_case(
             raise ValueError(
                 f"internal header-width mismatch: header has {len(header)} columns, "
                 f"data has {expected_width}"
+            )
+
+        if dry_run:
+            return ConversionResult(
+                case_dir=case_dir,
+                input_txt=input_txt,
+                output_csv=output_csv,
+                status="validated",
+                message="dry run ok",
+                rows_written=len(rows),
+                columns_written=expected_width,
             )
 
         output_csv.parent.mkdir(parents=True, exist_ok=True)
@@ -404,7 +450,7 @@ def write_summary(output_root: Path, run_dir: Path, results: Sequence[Conversion
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Condense waveform text outputs from the latest database/raw run into "
+            "Format waveform text outputs from a database/raw run into "
             "database/formatted CSV files."
         )
     )
@@ -421,9 +467,19 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         help="Specific raw run directory. Default: latest directory under database/raw with cases/.",
     )
     parser.add_argument(
+        "--run-name",
+        default=None,
+        help="Raw run directory name under database/raw, for example 20260602_154345_2channel_1syn_plain.",
+    )
+    parser.add_argument(
         "--run-pattern",
         default="*",
         help="Pattern for selecting latest run under database/raw. Default: '*'.",
+    )
+    parser.add_argument(
+        "--list-runs",
+        action="store_true",
+        help="List raw runs under database/raw and exit.",
     )
     parser.add_argument(
         "--output-root",
@@ -454,6 +510,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="Skip CSVs that already exist instead of overwriting them.",
     )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate inputs and report planned outputs without writing CSVs or summary files.",
+    )
     return parser.parse_args(argv)
 
 
@@ -461,13 +522,25 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
 
     repo_root = args.repo_root.resolve() if args.repo_root else find_repo_root()
-    run_dir = args.run_dir.resolve() if args.run_dir else find_latest_raw_run(repo_root, args.run_pattern)
+
+    if args.list_runs:
+        print(f"Raw runs in {raw_runs_dir(repo_root)}")
+        for run in list_raw_runs(repo_root, args.run_pattern):
+            marker = "*" if (run / "cases").is_dir() else " "
+            print(f"  {marker} {run.name}")
+        return 0
+
+    try:
+        run_dir = resolve_run_dir(repo_root, args.run_dir, args.run_name, args.run_pattern)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 2
     input_names = tuple(args.input_names) if args.input_names else DEFAULT_INPUT_NAMES
 
     if args.output_root is not None:
         output_root = args.output_root.resolve()
     else:
-        output_root = formatted_dir(repo_root) / DEFAULT_FORMATTED_SUBDIR / run_dir.name
+        output_root = repo_root / "database" / "formatted" / DEFAULT_FORMATTED_SUBDIR / run_dir.name
 
     print("Resolved paths")
     print(f"  repo_root  : {repo_root}")
@@ -476,6 +549,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     print(f"  output_root: {output_root}")
     print(f"  input_names: {', '.join(input_names)}")
     print(f"  layout     : {'nested' if args.nested else 'flat'}")
+    print(f"  dry_run    : {args.dry_run}")
 
     results = [
         convert_one_case(
@@ -484,26 +558,32 @@ def main(argv: Sequence[str] | None = None) -> int:
             input_names=input_names,
             overwrite=not args.no_overwrite,
             flat=not args.nested,
+            dry_run=args.dry_run,
         )
         for case_dir in iter_case_dirs(run_dir)
     ]
 
-    write_summary(output_root, run_dir, results)
+    if not args.dry_run:
+        write_summary(output_root, run_dir, results)
 
     converted = sum(1 for r in results if r.status == "converted")
+    validated = sum(1 for r in results if r.status == "validated")
     skipped = sum(1 for r in results if r.status == "skipped")
     errors = sum(1 for r in results if r.status == "error")
 
     print("\nFinished.")
     print(f"  converted: {converted}")
+    if args.dry_run:
+        print(f"  validated: {validated}")
     print(f"  skipped  : {skipped}")
     print(f"  errors   : {errors}")
-    print(f"  summary  : {output_root / 'conversion_summary.csv'}")
-    print(f"  error log: {output_root / 'conversion_errors.log'}")
+    if not args.dry_run:
+        print(f"  summary  : {output_root / 'conversion_summary.csv'}")
+        print(f"  error log: {output_root / 'conversion_errors.log'}")
 
     if errors:
         return 2
-    if converted == 0:
+    if converted == 0 and validated == 0:
         return 1
     return 0
 
