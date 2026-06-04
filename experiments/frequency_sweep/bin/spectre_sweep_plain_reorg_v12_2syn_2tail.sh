@@ -43,7 +43,6 @@ done
 need_file "$OCN_DIR/2syn_2tail.ocn" "direct OCEAN script 2syn_2tail.ocn"
 
 mkdir -p "$RUN_DIR" "$RUN_DIR/logs" "$RUN_DIR/support" "$RUN_DIR/netlist_template/raw" "$RUN_DIR/cases" "$RUN_DIR/worker_state" "$RUN_DIR/ocn"
-
 for f in setup_spectre_env.sh refresh_spectre_runtime.sh run_spectre_worker.sh run_all_workers.sh run_export_case.sh extract_missing_outputs.sh; do
   cp -f "$HELPER_DIR/$f" "$RUN_DIR/$f"
 done
@@ -63,10 +62,8 @@ if not st1.is_dir():
     raise SystemExit(f'ERROR: missing st_1: {st1}')
 if not st2.is_dir():
     raise SystemExit(f'ERROR: missing st_2: {st2}')
-
 def safe(s: str) -> str:
     return re.sub(r'[^A-Za-z0-9._-]+', '_', s).strip('_')
-
 rows = []
 case_id = 0
 for st1_freq in sorted([p for p in st1.iterdir() if p.is_dir()]):
@@ -92,25 +89,25 @@ with out_csv.open('w', newline='') as f:
     w.writerows(rows)
 print(len(rows))
 PY
-TOTAL_CASES="$(($(wc -l < "$RUN_DIR/cases.csv") - 1))"
 
+TOTAL_CASES="$(($(wc -l < "$RUN_DIR/cases.csv") - 1))"
 cat > "$RUN_DIR/RUNINFO.txt" <<EOF
-REPO_DIR="$REPO_DIR"
-EXP_DIR="$EXP_DIR"
-HELPER_DIR="$HELPER_DIR"
-OCN_DIR="$OCN_DIR"
-SPIKE_DIR="$SPIKE_DIR"
-DATABASE_DIR="$DATABASE_DIR"
-RUN_ID="$RUN_ID"
-RUN_DIR="$RUN_DIR"
-NUM_JOBS="$NUM_JOBS"
-TOTAL_CASES="$TOTAL_CASES"
-SPECTRE_CMD="$SPECTRE_CMD"
-CADENCE_INSTALL_ROOT="$CADENCE_INSTALL_ROOT"
-NETLIST_SOURCE="$NETLIST_SOURCE"
-ADE_E_SOURCE="$ADE_E_SOURCE"
-TEMPLATE_OCN_SRC="$TEMPLATE_OCN_SRC"
-OUTPUT_COLUMNS="iout_172 iout_56 vpre vpre1"
+REPO_DIR='$REPO_DIR'
+EXP_DIR='$EXP_DIR'
+HELPER_DIR='$HELPER_DIR'
+OCN_DIR='$OCN_DIR'
+SPIKE_DIR='$SPIKE_DIR'
+DATABASE_DIR='$DATABASE_DIR'
+RUN_ID='$RUN_ID'
+RUN_DIR='$RUN_DIR'
+NUM_JOBS='$NUM_JOBS'
+TOTAL_CASES='$TOTAL_CASES'
+SPECTRE_CMD='$SPECTRE_CMD'
+CADENCE_INSTALL_ROOT='$CADENCE_INSTALL_ROOT'
+NETLIST_SOURCE='$NETLIST_SOURCE'
+ADE_E_SOURCE='$ADE_E_SOURCE'
+OUTPUT_COLUMNS='iout_172 iout_56 vpre vpre1'
+TRAN_STOP='0.1s'
 EOF
 
 cat > "$RUN_DIR/select_cases.py" <<'PY'
@@ -138,6 +135,7 @@ rm -rf "$TEMPLATE"
 mkdir -p "$TEMPLATE"
 cp -a "$SRC"/. "$TEMPLATE"/
 [[ -f "$RUN_DIR/support/ade_e.scs" ]] && cp -f "$RUN_DIR/support/ade_e.scs" "$TEMPLATE/ade_e.scs"
+
 python3 - "$TEMPLATE" <<'PY'
 import pathlib, re, sys
 root = pathlib.Path(sys.argv[1])
@@ -160,6 +158,7 @@ for item in patched:
     print('patched PWL placeholder', item)
 print(f'pwl_placeholder_patched_files={len(patched)}')
 PY
+
 python3 - "$TEMPLATE" <<'PY'
 import pathlib, re, sys
 root = pathlib.Path(sys.argv[1])
@@ -176,19 +175,26 @@ ns, n = re.subn(r'parameters\b.*?(?=\s+include\s+")', param_line + '\n', s, coun
 if n != 1:
     raise SystemExit('ERROR: could not replace top-level parameters block in input.scs')
 
+# Force the Spectre transient duration to 0.1 s. This is the patch9 change.
+# The full adaptive output remains enabled: strobeperiod is not reintroduced.
+tran_stop = '0.1s'
+ns, n_stop = re.subn(r'(?m)^(\s*tran\s+tran\b[^\n]*?\bstop\s*=\s*)\S+', rf'\g<1>{tran_stop}', ns, count=1)
+if n_stop == 0:
+    ns, n_stop = re.subn(r'(?m)^(\s*tran\s+tran\b(?![^\n]*\bstop\s*=)[^\n]*)$', rf'\1 stop={tran_stop}', ns, count=1)
+if n_stop == 0:
+    raise SystemExit('ERROR: could not find Spectre tran line to force stop=0.1s')
+
 # Insert ideal zero-volt current probes on I172/Iout and I56/Iout when the instance
 # line has the common dynapse1 form. This does not add a 1-ohm shunt.
 probe_specs = [
     ('I172', 'VSENSE_I172', 'i172_iout'),
-    ('I56',  'VSENSE_I56',  'i56_iout'),
+    ('I56', 'VSENSE_I56', 'i56_iout'),
 ]
 for inst, sense, node in probe_specs:
     if sense in ns:
         continue
-    # Preserve every original terminal after the Iout terminal. This handles the
-    # two-synapse testbench where I56 uses Vin but I172 uses Vin1:
-    #   I56  (0 Vdd Vin  Vtau Vthr) dynapse1
-    #   I172 (0 Vdd Vin1 Vtau Vthr) dynapse1
+    # Preserve every original terminal after the Iout terminal. This handles
+    # I172 using Vin1 while I56 uses Vin.
     pat = rf'\b{inst}\s+\(\s*0\s+([^)]*?)\)\s+dynapse1\b'
     repl = rf'{sense} ({node} 0) vsource dc=0 type=dc\n{inst} ({node} \1) dynapse1'
     ns, changed = re.subn(pat, repl, ns, count=1)
@@ -201,7 +207,6 @@ if re.search(r'^saveOptions\s+options\b.*$', ns, flags=re.M):
     ns = re.sub(r'^saveOptions\s+options\b.*$', 'saveOptions options save=allpub currents=all', ns, count=1, flags=re.M)
 else:
     ns += '\nsaveOptions options save=allpub currents=all\n'
-
 save_line = 'save vpre vpre1 VSENSE_I172:p VSENSE_I172:n VSENSE_I56:p VSENSE_I56:n I172:Iout I56:Iout'
 if re.search(r'^save\s+', ns, flags=re.M):
     ns = re.sub(r'^save\s+.*$', save_line, ns, count=1, flags=re.M)
@@ -211,12 +216,16 @@ else:
 ns = re.sub(r'\bstrobeperiod\s*=\s*\S+', '', ns)
 if 'strobeperiod' in ns.lower():
     raise SystemExit('ERROR: strobeperiod still present after removal')
+if not re.search(r'(?m)^\s*tran\s+tran\b[^\n]*\bstop\s*=\s*0\.1s\b', ns):
+    raise SystemExit('ERROR: tran stop was not forced to 0.1s')
+
 input_scs.write_text(ns)
 (root / '.designVariables').write_text(param_line + '\n')
 combined = '\n'.join(p.read_text(errors='ignore') for p in root.rglob('*') if p.is_file())
 if '__ST1_PWL__' not in combined or '__ST2_PWL__' not in combined:
     raise SystemExit('ERROR: PWL placeholders missing after parameter patch')
 print(f'patched parameters in {input_scs}')
+print('verified tran stop=0.1s')
 for required_probe in ('VSENSE_I172', 'VSENSE_I56'):
     if required_probe not in ns:
         raise SystemExit(f'ERROR: required ideal current probe missing after patch: {required_probe}')
@@ -225,8 +234,9 @@ print('verified ideal current probes: VSENSE_I172 VSENSE_I56')
 print('verified output columns: iout_172 iout_56 vpre vpre1')
 print('verified no transient strobeperiod: full adaptive-output data will be exported')
 PY
+
 echo "Imported template into $TEMPLATE"
-echo "Template placeholders, parameters, saveOptions, and two-current export support verified."
+echo "Template placeholders, parameters, saveOptions, tran stop=0.1s, and two-current export support verified."
 SH2
 chmod +x "$RUN_DIR/import_template.sh"
 
@@ -250,7 +260,7 @@ chmod +x "$RUN_DIR/monitoring_commands.sh"
 
 [[ -f "$ADE_E_SOURCE" ]] && cp -f "$ADE_E_SOURCE" "$RUN_DIR/support/ade_e.scs" || true
 
-echo "=== Plain Spectre frequency sweep reorg v12 2syn_2tail prep ==="
+echo "=== Plain Spectre frequency sweep reorg v12 2syn_2tail patch9 prep ==="
 echo "Repo: $REPO_DIR"
 echo "Experiment: $EXP_DIR"
 echo "Spike dir: $SPIKE_DIR"
@@ -258,7 +268,8 @@ echo "Run dir: $RUN_DIR"
 echo "NUM_JOBS: $NUM_JOBS"
 echo "TOTAL_CASES=$TOTAL_CASES"
 echo "Output columns: iout_172 iout_56 vpre vpre1"
-printf 'Next steps:\n cd %s\n ./import_template.sh\n ./refresh_spectre_runtime.sh\n source ./setup_spectre_env.sh && check_spectre_runtime && check_export_runtime\n ./run_all_workers.sh\n ./monitoring_commands.sh progress\n' "$RUN_DIR"
+echo "Transient stop: 0.1s"
+printf 'Next steps:\n cd %s\n ./import_template.sh\n grep -n "tran tran" netlist_template/raw/input.scs\n ./refresh_spectre_runtime.sh\n source ./setup_spectre_env.sh && check_spectre_runtime && check_export_runtime\n ./run_all_workers.sh\n ./monitoring_commands.sh progress\n' "$RUN_DIR"
 
 for f in "$RUN_DIR"/*.sh; do
   lines=$(wc -l < "$f")
