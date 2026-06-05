@@ -5,3 +5,12 @@ Im going to put things here from research papers that I think I should totally h
 EXPLENATION OF CIRCUIT 
 - mention of IPSC and EPSC and how this can be changed by chaning pmos to nmos
 BIOLOGICAL EXPLENATION
+
+
+
+
+
+
+
+
+ok so like what do I actually need in my thesis. I need to have 
