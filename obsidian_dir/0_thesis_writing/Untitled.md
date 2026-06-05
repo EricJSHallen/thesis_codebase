@@ -14,3 +14,9 @@ BIOLOGICAL EXPLENATION
 
 
 ok so like what do I actually need in my thesis. I need to have 
+
+
+
+how do I want to do the graphs. x axis, phase shift of input spikes. y axis difference normalised
+
+x axis phase shift, ratio
