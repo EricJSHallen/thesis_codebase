@@ -173,24 +173,49 @@ def group_rows_by_vthr(rows: Sequence[IntegralRow]) -> dict[str, list[IntegralRo
     return dict(sorted(groups.items()))
 
 
+def parse_vthr_voltage(label: str) -> float:
+    return float(label.removeprefix("vthr_").replace("p", "."))
+
+
+def format_vthr_label(label: str) -> str:
+    return rf"$V_{{thr}} = {parse_vthr_voltage(label):g}V$"
+
+
+def darken_color(color, factor: float = 0.75):
+    red, green, blue, alpha = color
+    return (red * factor, green * factor, blue * factor, alpha)
+
+
 def plot_rows(rows: Sequence[IntegralRow], absolute_difference: bool) -> None:
     load_plot_dependency()
     groups = group_rows_by_vthr(rows)
+    group_items = sorted(groups.items(), key=lambda item: parse_vthr_voltage(item[0]))
+    cmap = plt.get_cmap("rainbow")
+    colors = {
+        label: darken_color(cmap(index / max(len(group_items) - 1, 1)))
+        for index, (label, _) in enumerate(group_items)
+    }
 
-    fig, axes = plt.subplots(2, 1, sharex=True, figsize=(10, 8))
-    diff_ax, ratio_ax = axes
-    for label, group in groups.items():
+    fig, axes = plt.subplots(
+        3,
+        1,
+        figsize=(10, 8),
+        gridspec_kw={"height_ratios": [4, 4, 2]},
+    )
+    diff_ax, ratio_ax, legend_ax = axes
+    legend_ax.axis("off")
+    for label, group in group_items:
         x = [row.phase_shift_s * 1e6 for row in group]
-        diff_y = [row.difference_a_s for row in group]
+        diff_y = [row.difference_a_s * 1e12 for row in group]
         ratio_y = [row.ratio for row in group]
         if absolute_difference:
             diff_y = [abs(value) for value in diff_y]
-        plot_label = label if len(groups) > 1 else None
-        diff_ax.plot(x, diff_y, marker="o", markersize=3, linewidth=1, label=plot_label)
-        ratio_ax.plot(x, ratio_y, marker="o", markersize=3, linewidth=1, label=plot_label)
+        plot_label = format_vthr_label(label) if len(groups) > 1 else None
+        diff_ax.plot(x, diff_y, marker="o", markersize=3, linewidth=1.3, color=colors[label], label=plot_label)
+        ratio_ax.plot(x, ratio_y, marker="o", markersize=3, linewidth=1.3, color=colors[label], label=plot_label)
 
     diff_ax.set_xlabel(r"interspike interval ($\mu s$)")
-    diff_ax.set_ylabel(r"$\Delta Q$")
+    diff_ax.set_ylabel(r"$\Delta Q$ (pC)")
     diff_ax.set_title(r"$\Delta Q$ of multiplexed and non multiplexed architecture")
     diff_ax.ticklabel_format(axis="x", style="plain", useOffset=False)
     diff_ax.grid(True)
@@ -201,24 +226,17 @@ def plot_rows(rows: Sequence[IntegralRow], absolute_difference: bool) -> None:
     ratio_ax.grid(True)
     if len(groups) > 1:
         legend_ncol = min(len(groups), 4)
-        diff_ax.legend(
-            title="Vthr",
-            loc="upper left",
-            bbox_to_anchor=(0, -0.32, 1, 0.1),
+        ratio_handles, ratio_labels = ratio_ax.get_legend_handles_labels()
+        legend_ax.legend(
+            ratio_handles,
+            ratio_labels,
+            title=r"$V_{thr}$",
+            loc="center",
             mode="expand",
             ncol=legend_ncol,
-            borderaxespad=0,
-        )
-        ratio_ax.legend(
-            title="Vthr",
-            loc="upper left",
-            bbox_to_anchor=(0, -0.38, 1, 0.1),
-            mode="expand",
-            ncol=legend_ncol,
-            borderaxespad=0,
         )
     fig.tight_layout()
-    fig.subplots_adjust(hspace=1.25, bottom=0.38)
+    fig.subplots_adjust(hspace=0.55)
 
     print(f"Rows plotted: {len(rows)}")
     print(f"Vthr groups: {', '.join(groups)}")

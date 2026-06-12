@@ -177,8 +177,15 @@ def plot_rows(rows: Sequence[IntegralRow], absolute_difference: bool) -> None:
     load_plot_dependency()
     groups = group_rows_by_vtau(rows)
 
-    fig, axes = plt.subplots(2, 1, sharex=True, figsize=(10, 8))
-    diff_ax, ratio_ax = axes
+    fig, axes = plt.subplots(
+        4,
+        1,
+        figsize=(10, 8),
+        gridspec_kw={"height_ratios": [4, 0.9, 4, 0.9]},
+    )
+    diff_ax, diff_legend_ax, ratio_ax, ratio_legend_ax = axes
+    diff_legend_ax.axis("off")
+    ratio_legend_ax.axis("off")
     for label, group in groups.items():
         x = [row.phase_shift_s * 1e6 for row in group]
         diff_y = [row.difference_a_s for row in group]
@@ -201,24 +208,26 @@ def plot_rows(rows: Sequence[IntegralRow], absolute_difference: bool) -> None:
     ratio_ax.grid(True)
     if len(groups) > 1:
         legend_ncol = min(len(groups), 4)
-        diff_ax.legend(
+        diff_handles, diff_labels = diff_ax.get_legend_handles_labels()
+        ratio_handles, ratio_labels = ratio_ax.get_legend_handles_labels()
+        diff_legend_ax.legend(
+            diff_handles,
+            diff_labels,
             title="Vtau",
-            loc="upper left",
-            bbox_to_anchor=(0, -0.32, 1, 0.1),
+            loc="center",
             mode="expand",
             ncol=legend_ncol,
-            borderaxespad=0,
         )
-        ratio_ax.legend(
+        ratio_legend_ax.legend(
+            ratio_handles,
+            ratio_labels,
             title="Vtau",
-            loc="upper left",
-            bbox_to_anchor=(0, -0.38, 1, 0.1),
+            loc="center",
             mode="expand",
             ncol=legend_ncol,
-            borderaxespad=0,
         )
     fig.tight_layout()
-    fig.subplots_adjust(hspace=1.25, bottom=0.38)
+    fig.subplots_adjust(hspace=0.45)
 
     print(f"Rows plotted: {len(rows)}")
     print(f"Vtau groups: {', '.join(groups)}")
