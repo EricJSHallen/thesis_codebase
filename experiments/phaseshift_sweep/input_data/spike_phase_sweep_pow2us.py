@@ -1,7 +1,7 @@
 """
 spike_phase_sweep_pow2us.py
 
-Single-spike phase-shift generator for Cadence/Spectre PWL inputs.
+Single-spike interspike-interval generator for Cadence/Spectre PWL inputs.
 
 Directory structure produced beside this script:
 
@@ -13,7 +13,7 @@ Directory structure produced beside this script:
             2e-6_phase_shift/base.pwl
             4e-6_phase_shift/base.pwl
             ...
-            2.56e-4_phase_shift/base.pwl
+            1.6e-5_phase_shift/base.pwl
 
     single_spike_phase_sweep_output_csv/
         st_1/
@@ -23,13 +23,14 @@ Directory structure produced beside this script:
             2e-6_phase_shift/base.csv
             4e-6_phase_shift/base.csv
             ...
-            2.56e-4_phase_shift/base.csv
+            1.6e-5_phase_shift/base.csv
 
 Behaviour:
     - st_1 is always the same single spike.
-    - st_2 is a copy of st_1 shifted later in time.
-    - The st_2 directory sweeps absolute phase shifts from 1 us to 256 us
-      in powers of two.
+    - st_2 contains one spike starting after st_1 ends.
+    - The st_2 directory sweeps interspike intervals from 1 us to 16 us
+      in powers of two. Directory names retain the "_phase_shift" suffix
+      for compatibility with downstream scripts.
     - There is no Poisson-distributed spike generation.
     - There is no frequency sweep.
 """
@@ -60,8 +61,9 @@ pulse_width = 1.0e-6
 rise_time = 1.0e-8
 fall_time = 1.0e-8
 
-# Absolute phase-shift sweep for st_2, in seconds.
-phase_shift_values_us = (1, 2, 4, 8, 16)
+# Interspike interval sweep for st_2, in microseconds. Each value is the
+# temporal distance between the end of the st_1 spike and start of the st_2 spike.
+interspike_interval_values_us = (1, 2, 4, 8, 16)
 
 # Output behaviour.
 overwrite_output_directory = True
@@ -74,7 +76,7 @@ base_filename_stem = "base"
 
 def format_scientific_for_dir(value: float) -> str:
     """
-    Format values like 1e-6, 2e-6, ..., 2.56e-4 for folder names.
+    Format values like 1e-6, 2e-6, ..., 1.6e-5 for folder names.
 
     Python's default scientific notation gives strings such as 1e-06. This
     function removes redundant exponent zeros so the folders are easier to read.
@@ -85,9 +87,9 @@ def format_scientific_for_dir(value: float) -> str:
     return f"{mantissa}e{exponent_int}"
 
 
-def phase_shift_directory_name(phase_shift_s: float) -> str:
-    """Return the folder name used for one st_2 phase-shift case."""
-    return f"{format_scientific_for_dir(phase_shift_s)}_phase_shift"
+def phase_shift_directory_name(interspike_interval_s: float) -> str:
+    """Return the compatible folder name used for one st_2 interval case."""
+    return f"{format_scientific_for_dir(interspike_interval_s)}_phase_shift"
 
 
 # -----------------------------------------------------------------------------
@@ -108,22 +110,23 @@ def validate_user_variables() -> None:
         raise ValueError("rise_time and fall_time must be positive.")
     if pulse_width <= rise_time:
         raise ValueError("pulse_width must be larger than rise_time.")
-    if not phase_shift_values_us:
-        raise ValueError("phase_shift_values_us must contain at least one phase shift.")
-    if any(phase_shift_us <= 0 for phase_shift_us in phase_shift_values_us):
-        raise ValueError("phase_shift_values_us must contain only positive values.")
+    if not interspike_interval_values_us:
+        raise ValueError("interspike_interval_values_us must contain at least one interval.")
+    if any(interval_us <= 0 for interval_us in interspike_interval_values_us):
+        raise ValueError("interspike_interval_values_us must contain only positive values.")
 
-    phase_shifts = get_phase_shifts()
-    phase_shift_stop = max(phase_shifts)
-    latest_shifted_end = base_spike_start_time + phase_shift_stop + pulse_width + fall_time
-    if latest_shifted_end > total_time:
+    interspike_intervals = get_interspike_intervals()
+    max_interspike_interval = max(interspike_intervals)
+    st1_end_time = get_st1_end_time()
+    latest_st2_end = st1_end_time + max_interspike_interval + pulse_width + fall_time
+    if latest_st2_end > total_time:
         raise ValueError(
-            "The largest shifted st_2 pulse would exceed total_time. "
+            "The st_2 pulse with the largest interspike interval would exceed total_time. "
             "Increase total_time, move base_spike_start_time earlier, reduce the maximum "
-            "phase shift, or reduce pulse_width/fall_time."
+            "interspike interval, or reduce pulse_width/fall_time."
         )
 
-    base_end = base_spike_start_time + pulse_width + fall_time
+    base_end = get_st1_end_time()
     if base_end > total_time:
         raise ValueError(
             "The st_1 base pulse would exceed total_time. Increase total_time, "
@@ -131,14 +134,19 @@ def validate_user_variables() -> None:
         )
 
 
-def get_phase_shifts() -> list[float]:
+def get_interspike_intervals() -> list[float]:
     """
-    Return the absolute st_2 phase shifts.
+    Return the st_1-end to st_2-start intervals.
 
     The default values are:
-        1 us, 2 us, 4 us, 8 us, 16 us, 32 us, 64 us, 128 us, 256 us
+        1 us, 2 us, 4 us, 8 us, 16 us
     """
-    return [phase_shift_us * 1.0e-6 for phase_shift_us in phase_shift_values_us]
+    return [interval_us * 1.0e-6 for interval_us in interspike_interval_values_us]
+
+
+def get_st1_end_time() -> float:
+    """Return the time where the st_1 pulse has fallen back to 0 V."""
+    return base_spike_start_time + pulse_width + fall_time
 
 
 def build_single_pulse_points(spike_start_time: float, duration_s: float) -> list[tuple[float, float]]:
@@ -223,37 +231,40 @@ def main() -> None:
     write_spike_train_pwl(st1_dir / f"{base_filename_stem}.pwl", st1_points)
     write_spike_train_csv(csv_st1_dir / f"{base_filename_stem}.csv", st1_points)
 
-    # st_2: same pulse, shifted by each absolute phase-shift value.
+    # st_2: one pulse after st_1, separated by each interspike interval value.
     st2_root = output_root / "st_2"
     csv_st2_root = csv_output_root / "st_2"
     st2_root.mkdir(parents=True, exist_ok=True)
     csv_st2_root.mkdir(parents=True, exist_ok=True)
 
-    phase_shifts = get_phase_shifts()
-    for phase_shift_s in phase_shifts:
-        shifted_start_time = base_spike_start_time + phase_shift_s
-        shifted_points = build_single_pulse_points(shifted_start_time, total_time)
+    st1_end_time = get_st1_end_time()
+    interspike_intervals = get_interspike_intervals()
+    for interspike_interval_s in interspike_intervals:
+        st2_start_time = st1_end_time + interspike_interval_s
+        st2_points = build_single_pulse_points(st2_start_time, total_time)
 
-        phase_dir_name = phase_shift_directory_name(phase_shift_s)
+        phase_dir_name = phase_shift_directory_name(interspike_interval_s)
         st2_phase_dir = st2_root / phase_dir_name
         csv_st2_phase_dir = csv_st2_root / phase_dir_name
         st2_phase_dir.mkdir(parents=True, exist_ok=True)
         csv_st2_phase_dir.mkdir(parents=True, exist_ok=True)
 
-        write_spike_train_pwl(st2_phase_dir / f"{base_filename_stem}.pwl", shifted_points)
-        write_spike_train_csv(csv_st2_phase_dir / f"{base_filename_stem}.csv", shifted_points)
+        write_spike_train_pwl(st2_phase_dir / f"{base_filename_stem}.pwl", st2_points)
+        write_spike_train_csv(csv_st2_phase_dir / f"{base_filename_stem}.csv", st2_points)
 
     print(f"PWL directory tree written to: {output_root.resolve()}")
     print(f"CSV directory tree written to: {csv_output_root.resolve()}")
     print(f"st_1 spike start time: {base_spike_start_time:.12e} s")
+    print(f"st_1 spike end time: {st1_end_time:.12e} s")
     print(
-        "st_2 phase-shift sweep: "
-        f"{', '.join(f'{phase_shift_s:.12e} s' for phase_shift_s in phase_shifts)}"
+        "st_2 interspike-interval sweep: "
+        f"{', '.join(f'{interval_s:.12e} s' for interval_s in interspike_intervals)}"
     )
+    print("Output directories retain the '_phase_shift' suffix for compatibility.")
     print(f"Pulse width: {pulse_width:.12e} s")
-    print(f"Number of st_2 phase-shift cases written: {len(phase_shifts)}")
-    print(f"Total PWL files written: {1 + len(phase_shifts)}")
-    print(f"Total CSV files written: {1 + len(phase_shifts)}")
+    print(f"Number of st_2 interspike-interval cases written: {len(interspike_intervals)}")
+    print(f"Total PWL files written: {1 + len(interspike_intervals)}")
+    print(f"Total CSV files written: {1 + len(interspike_intervals)}")
 
 
 if __name__ == "__main__":

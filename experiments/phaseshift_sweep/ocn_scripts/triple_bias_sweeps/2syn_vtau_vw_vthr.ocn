@@ -6,7 +6,7 @@
 ; Sweeps Vtau, Vw, and Vthr from 0.1 to 1.8 in 0.1 increments using all combinations.
 
 simulator('spectre)
-envOption('userCmdLineOption "++aps +mt=4")
+envOption('userCmdLineOption "++aps=liberal +mt=4")
 option('redefinedparams "warning")
 
 design("sebastian_thesis_pilot" "dynapsetb1" "schematic")
@@ -77,7 +77,7 @@ unless(isDir(outputBaseDir)
 )
 
 ; Match the generated PWL duration from spike_phase_sweep.py.
-analysis('tran ?stop "20u")
+analysis('tran ?stop "25u")
 
 desVar("m2l" 200n)
 desVar("m2ltb" 1.05u)
