@@ -1,0 +1,25 @@
+
+
+%explain for multiplexed set up why we have to have multiple input branches 
+
+%linear superposition principle of current from kirchoffs circuit laws.
+
+
+In this paper the DPI synapse circuits that will be investigated are shown in Fig~\ref{fig:non-multiplexedsetup} and Fig~\ref{fig:multiplexedsetup}. The former of these two is the non multiplexed setup where there are two seperate DPI synapses that have a connected output. By Kirchhoff's circuit laws we know that the output current signal is simply a linear superposition of the synaptic currents, $I_\mathrm{out, non-multiplexed} =  I_\mathrm{syn1} + I_\mathrm{syn2}$ .    The latter of these two set ups is the multiplexed architecture. For this circuit, there are two input branches that are both connected to the differential pair component of the DPI. Under these conditions $I_\mathrm{out, multiplexed} = I_\mathrm{syn}$. Due to the non-linear dynamics of the circuit equation describing a DPI synapse, as expanded upon further in Section~\ref{analytical} $I_\mathrm{out, non-multiplexed} \neq I_\mathrm{out, multiplexed}$ generally. The purpose of this paper, as explained in Section~\ref{introduction} is to understand under what regimes of $V_\mathrm{w}$, $V_\mathrm{thr}$, $V_\tau$ and mean frequency $\nu$ of input spikes or ISIs for $V_\mathrm{pre,1}$ and $V_\mathrm{pre,2}$  the DPI maintains linear approximately linear dynamics and hence  $I_\mathrm{out, non-multiplexed} \approx I_\mathrm{out, multiplexed}$.  For The multiplexed setup it is important to remember that two input branches are required as the input voltage signals of $V_\mathrm{pre,1}$ and $V_\mathrm{pre,2}$ cannot share the same connection.
+
+
+
+
+METHOD %this is where I should include the mathematical calculations that I put into python in order to make the data that I was using. 
+
+
+
+
+RESULTS
+%is there a more technical term for this than heatmap
+...
+
+From this data several heatmap plots were made. The first of these \ref{} shows the absolute difference in the charge transferred. This plot is mostly as one would expect where for high $V_\tau$ and low $V_\mathrm{thr}$ there was a greater difference in the net amount of charge transferred. This is logical as when there is a lower threshold, more current will flow through the transistor $M_\mathrm{in}$. As more current flows through this, then there will be a greater output signal, and the total charge difference will be more pronounced, even if the ratio between the output charge of the two setups qualitatively "small" compared to other domains. It also makes sense, as that there would be more charge transfer for greater $V_\tau$  because as there is a greater time constant, there will be less current flowing through $M_\tau$. this means that the capacitor will charge more slowly, the voltage $V_\mathrm{syn}$ will increase slower, and as a result there will be a more drawn out output signal with greater total charge transfer at $I_\mathrm{syn}$. 
+
+The more interesting of the data is that displayed in the second and third heatmaps Fig~\ref{} and Fig~\ref{}. this show the ratio between the integrated  charge for the former, and the inverse of this for the latter. For understanding under which domains we can approximate the multipelexed set up as the non multiplexed set up, this metric is far more useful. These 
+
