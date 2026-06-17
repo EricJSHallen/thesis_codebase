@@ -61,7 +61,7 @@ rise_time = 1.0e-8
 fall_time = 1.0e-8
 
 # Absolute phase-shift sweep for st_2, in seconds.
-phase_shift_values_us = (1, 2, 4, 8, 16, 32, 64, 128, 256)
+phase_shift_values_us = (1, 2, 4, 8, 16)
 
 # Output behaviour.
 overwrite_output_directory = True

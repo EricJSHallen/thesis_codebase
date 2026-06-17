@@ -1,0 +1,345 @@
+; Phase-shift batch OCEAN script for the 2-synapse circuit.
+; CIW usage:
+;   Load("/home/s5117909/Documents/thesis/thesis_codebase/experiments/phaseshift_sweep/ocn_scripts/triple_bias_sweeps/2syn_vtau_vw_vthr.ocn")
+;
+; Outputs: iout_172 iout_56 vpre vpre1
+; Sweeps Vtau, Vw, and Vthr from 0.1 to 1.8 in 0.1 increments using all combinations.
+
+simulator('spectre)
+envOption('userCmdLineOption "++aps +mt=4")
+option('redefinedparams "warning")
+
+design("sebastian_thesis_pilot" "dynapsetb1" "schematic")
+
+; Spectre model-library setup.
+modelConfig = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/config.scs"
+modelParam  = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/param.scs"
+modelBip    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/bip.scs"
+modelCap    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/cap.scs"
+modelDio    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/dio.scs"
+modelMos    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/mos.scs"
+modelRes    = "/projects/bics/designkits/xfab/xp018/cadence/v8_0/spectre/v8_0_1/lp5mos/res.scs"
+
+foreach(modelPath list(modelConfig modelParam modelBip modelCap modelDio modelMos modelRes)
+  unless(isFile(modelPath)
+    error("Cannot find Spectre model file: %s\n" modelPath)
+  )
+)
+
+printf("Using ADE Spectre model libraries from XP018 lp5mos via apply(modelFile ...).\n")
+
+modelFileList = list(
+  list(modelConfig "default")
+  list(modelParam  "3s")
+  list(modelBip    "tm")
+  list(modelCap    "tm")
+  list(modelDio    "tm")
+  list(modelMos    "tm")
+  list(modelRes    "tm")
+)
+apply('modelFile modelFileList)
+
+; Repository paths for the BICS/server environment.
+baseRepoDir = "/home/s5117909/Documents/thesis/thesis_codebase"
+pwlBaseDir = strcat(baseRepoDir "/experiments/phaseshift_sweep/input_data/single_spike_phase_sweep_output")
+st1BaseDir = strcat(pwlBaseDir "/st_1")
+st2BaseDir = strcat(pwlBaseDir "/st_2")
+st1File = strcat(st1BaseDir "/base.pwl")
+
+outputBaseDir = strcat(baseRepoDir "/database/phase_shift_2syn_ocean_output_vtau_vw_vthr_v2")
+
+; Optional parallel splitting. CIW Load() runs sequentially by default.
+numJobsStr = getShellEnvVar("CAD_NUM_JOBS")
+numJobs = if(numJobsStr then atoi(numJobsStr) else 1)
+
+jobIndexStr = getShellEnvVar("CAD_JOB_INDEX")
+jobIndex = if(jobIndexStr then atoi(jobIndexStr) else 0)
+
+when(numJobs < 1
+  error("CAD_NUM_JOBS must be >= 1.\n")
+)
+
+when(jobIndex < 0 || jobIndex >= numJobs
+  error("CAD_JOB_INDEX must satisfy 0 <= CAD_JOB_INDEX < CAD_NUM_JOBS.\n")
+)
+
+runSerial = 0
+assignedRunCount = 0
+skippedRunCount = 0
+alreadyDoneCount = 0
+failedOrRunCount = 0
+missingInputCount = 0
+
+printf("Parallel split: job %d of %d\n" jobIndex numJobs)
+
+unless(isDir(outputBaseDir)
+  system(strcat("mkdir -p \"" outputBaseDir "\""))
+)
+
+; Match the generated PWL duration from spike_phase_sweep.py.
+analysis('tran ?stop "20u")
+
+desVar("m2l" 200n)
+desVar("m2ltb" 1.05u)
+desVar("m2w" 3u)
+desVar("m2wtb" 2.1u)
+desVar("m3l" 4u)
+desVar("m3w" 2.1u)
+desVar("m4l" 1.05u)
+desVar("m4ltb" 1.05u)
+desVar("m4w" 2.1u)
+desVar("m4wtb" 2.1u)
+desVar("m5l" 1.05u)
+desVar("m5w" 2.1u)
+desVar("pw" 100u)
+desVar("T" 1m)
+desVar("Vin" 0)
+desVar("vmax" 1.8)
+desVar("capacitance" 6p)
+
+save('i "/I172/Iout")
+save('i "/I56/Iout")
+save('v "/vpre")
+save('v "/vpre1")
+
+unless(isDir(st1BaseDir)
+  error("Cannot find st_1 directory: %s\n" st1BaseDir)
+)
+
+unless(isDir(st2BaseDir)
+  error("Cannot find st_2 directory: %s\n" st2BaseDir)
+)
+
+unless(isFile(st1File)
+  error("Cannot find fixed st_1 PWL file: %s\n" st1File)
+)
+
+phaseDirs = getDirFiles(st2BaseDir)
+
+vtauSweep = list(
+  list(0.1 "vtau_0p1")
+  list(0.2 "vtau_0p2")
+  list(0.3 "vtau_0p3")
+  list(0.4 "vtau_0p4")
+  list(0.5 "vtau_0p5")
+  list(0.6 "vtau_0p6")
+  list(0.7 "vtau_0p7")
+  list(0.8 "vtau_0p8")
+  list(0.9 "vtau_0p9")
+  list(1.0 "vtau_1p0")
+  list(1.1 "vtau_1p1")
+  list(1.2 "vtau_1p2")
+  list(1.3 "vtau_1p3")
+  list(1.4 "vtau_1p4")
+  list(1.5 "vtau_1p5")
+  list(1.6 "vtau_1p6")
+  list(1.7 "vtau_1p7")
+  list(1.8 "vtau_1p8")
+)
+
+vthrSweep = list(
+  list(0.1 "vthr_0p1")
+  list(0.2 "vthr_0p2")
+  list(0.3 "vthr_0p3")
+  list(0.4 "vthr_0p4")
+  list(0.5 "vthr_0p5")
+  list(0.6 "vthr_0p6")
+  list(0.7 "vthr_0p7")
+  list(0.8 "vthr_0p8")
+  list(0.9 "vthr_0p9")
+  list(1.0 "vthr_1p0")
+  list(1.1 "vthr_1p1")
+  list(1.2 "vthr_1p2")
+  list(1.3 "vthr_1p3")
+  list(1.4 "vthr_1p4")
+  list(1.5 "vthr_1p5")
+  list(1.6 "vthr_1p6")
+  list(1.7 "vthr_1p7")
+  list(1.8 "vthr_1p8")
+)
+
+vwSweep = list(
+  list(0.1 "vw_0p1")
+  list(0.2 "vw_0p2")
+  list(0.3 "vw_0p3")
+  list(0.4 "vw_0p4")
+  list(0.5 "vw_0p5")
+  list(0.6 "vw_0p6")
+  list(0.7 "vw_0p7")
+  list(0.8 "vw_0p8")
+  list(0.9 "vw_0p9")
+  list(1.0 "vw_1p0")
+  list(1.1 "vw_1p1")
+  list(1.2 "vw_1p2")
+  list(1.3 "vw_1p3")
+  list(1.4 "vw_1p4")
+  list(1.5 "vw_1p5")
+  list(1.6 "vw_1p6")
+  list(1.7 "vw_1p7")
+  list(1.8 "vw_1p8")
+)
+
+printf("Phase-shift sweep input: %s\n" pwlBaseDir)
+printf("Fixed st_1 file: %s\n" st1File)
+printf("st_2 case pattern: <phase_shift>_phase_shift/base.pwl\n")
+printf("Vtau/Vw/Vthr sweep: 0.1 to 1.8 in 0.1 increments, all combinations\n")
+
+manifestPath = strcat(
+  outputBaseDir
+  "/run_manifest_job_"
+  sprintf(nil "%d" jobIndex)
+  "_of_"
+  sprintf(nil "%d" numJobs)
+  ".csv"
+)
+manifestPort = outfile(manifestPath "w")
+
+fprintf(manifestPort "run_name,vtau,vtau_label,vw,vw_label,vthr,vthr_label,phase_shift,st1_file,st2_file,run_dir\n")
+
+foreach(vtauSpec vtauSweep
+  vtauValue = car(vtauSpec)
+  vtauLabel = cadr(vtauSpec)
+
+  foreach(vwSpec vwSweep
+    vwValue = car(vwSpec)
+    vwLabel = cadr(vwSpec)
+
+    foreach(vthrSpec vthrSweep
+      vthrValue = car(vthrSpec)
+      vthrLabel = cadr(vthrSpec)
+
+      foreach(phaseDirName phaseDirs
+        when(phaseDirName != "." && phaseDirName != ".."
+          phaseDir = strcat(st2BaseDir "/" phaseDirName)
+
+        when(isDir(phaseDir)
+          st2File = strcat(phaseDir "/base.pwl")
+
+          if(isFile(st2File) then
+            runName = strcat(vtauLabel "/" vwLabel "/" vthrLabel "/" phaseDirName)
+            runDir = strcat(outputBaseDir "/" runName)
+
+            thisRunSerial = runSerial
+            runSerial = plus(runSerial 1)
+
+            if(mod(thisRunSerial numJobs) == jobIndex then
+              assignedRunCount = plus(assignedRunCount 1)
+
+              unless(isDir(runDir)
+                system(strcat("mkdir -p \"" runDir "\""))
+              )
+
+              outputSignalsFile = strcat(runDir "/output_signals.txt")
+              outputSignalsTmp  = strcat(runDir "/output_signals.txt.tmp")
+
+              if(isFile(outputSignalsFile) then
+                alreadyDoneCount = plus(alreadyDoneCount 1)
+                printf("Skipping existing completed output: %s\n" runName)
+              else
+                failedOrRunCount = plus(failedOrRunCount 1)
+
+                fprintf(
+                  manifestPort
+                  "%s,%g,%s,%g,%s,%g,%s,%s,%s,%s,%s\n"
+                  runName vtauValue vtauLabel vwValue vwLabel vthrValue vthrLabel phaseDirName st1File st2File runDir
+                )
+
+                currentResultsDir = runDir
+                resultsDir(currentResultsDir)
+
+                ; File paths need embedded quotation marks so Spectre receives strings.
+                desVar("pwlFile_st1" strcat("\"" st1File "\""))
+                desVar("pwlFile_st2" strcat("\"" st2File "\""))
+                desVar("Vtau" vtauValue)
+                desVar("Vw" vwValue)
+                desVar("Vthr" vthrValue)
+
+                runStatus = errset(run() t)
+                availableResults = results()
+
+                if(runStatus == nil || !(member('tran availableResults) || member("tran" availableResults)) then
+                  warn("Spectre did not produce a tran result for %s. Not writing output_signals.txt.\n" runName)
+                  warn("Available results are: %L\n" availableResults)
+
+                  when(isFile(outputSignalsTmp)
+                    system(strcat("rm -f \"" outputSignalsTmp "\""))
+                  )
+                else
+                  selectResult('tran)
+                  iout_172 = i("/I172/Iout")
+                  iout_56 = i("/I56/Iout")
+                  vpre = v("/vpre")
+                  vpre1 = v("/vpre1")
+
+                  when(isFile(outputSignalsTmp)
+                    system(strcat("rm -f \"" outputSignalsTmp "\""))
+                  )
+
+                  ; Use an explicit output port. This is more reliable when
+                  ; the script is loaded from the Virtuoso CIW than passing a
+                  ; filename string directly to ocnPrint.
+                  outputSignalsPort = outfile(outputSignalsTmp "w")
+
+                  fprintf(outputSignalsPort "# output_signals.txt generated by %s\n" runName)
+                  fprintf(outputSignalsPort "# run_dir=%s\n" runDir)
+                  fprintf(outputSignalsPort "# Vtau=%g\n" vtauValue)
+                  fprintf(outputSignalsPort "# vtau_label=%s\n" vtauLabel)
+                  fprintf(outputSignalsPort "# Vw=%g\n" vwValue)
+                  fprintf(outputSignalsPort "# vw_label=%s\n" vwLabel)
+                  fprintf(outputSignalsPort "# Vthr=%g\n" vthrValue)
+                  fprintf(outputSignalsPort "# vthr_label=%s\n" vthrLabel)
+                  fprintf(outputSignalsPort "# st1_file=%s\n" st1File)
+                  fprintf(outputSignalsPort "# st2_file=%s\n" st2File)
+
+                  ocnPrint(
+                    ?output outputSignalsPort
+                    ?precision 10
+                    ?numSpaces 1
+                    iout_172 iout_56 vpre vpre1
+                  )
+
+                  fprintf(outputSignalsPort "\n# OCEAN_OUTPUT_COMPLETE\n")
+                  close(outputSignalsPort)
+
+                  if(isFile(outputSignalsTmp) then
+                    system(strcat("mv -f \"" outputSignalsTmp "\" \"" outputSignalsFile "\""))
+                    printf("Wrote signal output: %s\n" outputSignalsFile)
+                  else
+                    warn("ocnPrint did not create the temporary signal file: %s\n" outputSignalsTmp)
+                  )
+
+                  printf("Finished: %s\n" runName)
+                )
+
+                closeResults(currentResultsDir)
+              )
+            else
+              skippedRunCount = plus(skippedRunCount 1)
+            )
+          else
+            missingInputCount = plus(missingInputCount 1)
+            warn("Skipping phase directory without base.pwl: %s\n" phaseDir)
+          )
+        )
+      )
+    )
+  )
+)
+
+close(manifestPort)
+
+printf("Finished assigned simulations for job %d of %d.\n" jobIndex numJobs)
+printf("Total valid Vtau/Vw/Vthr/phase-shift cases seen by this process: %d\n" runSerial)
+printf("Cases assigned to this process: %d\n" assignedRunCount)
+printf("Cases skipped by this process: %d\n" skippedRunCount)
+printf("Cases already completed and skipped by resume mode: %d\n" alreadyDoneCount)
+printf("Cases newly attempted by this process: %d\n" failedOrRunCount)
+printf("Phase directories missing base.pwl: %d\n" missingInputCount)
+printf("Manifest written to: %s\n" manifestPath)
+printf("Output base directory: %s\n" outputBaseDir)
+
+batchExitStr = getShellEnvVar("CAD_BATCH_EXIT")
+when(batchExitStr == "1"
+  printf("CAD_BATCH_EXIT=1, exiting OCEAN.\n")
+  exit()
+)

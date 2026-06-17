@@ -18,6 +18,14 @@ ocn_scripts/pwl_1syn_phase_shift.ocn
 ocn_scripts/pwl_2syn_phase_shift.ocn
 ```
 
+Generated analysis figures can be written under:
+
+```text
+experiments/phaseshift_sweep/outputimages/
+```
+
+Use `--save-images --no-show` on supported plotting scripts to batch-write images without opening Matplotlib windows.
+
 CIW entrypoints on the server:
 
 ```skill

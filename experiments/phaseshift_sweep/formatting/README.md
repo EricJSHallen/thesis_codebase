@@ -113,3 +113,32 @@ Dry-run both `1syn` and `2syn` outputs with:
 python3 experiments/phaseshift_sweep/formatting/format_raw_phaseshift_vthr_outputs.py --all --dry-run
 python3 experiments/phaseshift_sweep/formatting/format_raw_phaseshift_vw_outputs.py --all --dry-run
 ```
+
+## Dual-Bias Vtau/Vthr Sweep Formatter
+
+Use `dual_bias_sweeps/format_raw_phaseshift_vtau_vthr_outputs.py` for dual-bias Vtau/Vthr sweep outputs stored under:
+
+```text
+database/raw/phase_shift_1syn_ocean_output_vtau_vthr_v2/
+database/raw/phase_shift_2syn_ocean_output_vtau_vthr_v2/
+```
+
+This formatter only processes nested lowercase `vtau_*p*/vthr_*p*` run folders and ignores other layouts.
+
+Example raw input:
+
+```text
+database/raw/phase_shift_1syn_ocean_output_vtau_vthr_v2/vtau_0p1/vthr_0p1/3.2e-5_phase_shift/output_signals.txt
+```
+
+Formatted output:
+
+```text
+database/formatted/phase_shift_1syn_vtau_vthr_v2/vtau_0p1/vthr_0p1/3.2e-5_phase_shift.csv
+```
+
+Dry-run both `1syn` and `2syn` dual-bias outputs with:
+
+```bash
+python3 experiments/phaseshift_sweep/formatting/dual_bias_sweeps/format_raw_phaseshift_vtau_vthr_outputs.py --all --dry-run
+```

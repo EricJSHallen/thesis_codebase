@@ -22,6 +22,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Sequence
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from plot_output_utils import add_image_output_args, resolve_output_dir, save_figure
+
 
 plt = None
 
@@ -186,7 +190,7 @@ def darken_color(color, factor: float = 0.75):
     return (red * factor, green * factor, blue * factor, alpha)
 
 
-def plot_rows(rows: Sequence[IntegralRow], absolute_difference: bool) -> None:
+def plot_rows(rows: Sequence[IntegralRow], absolute_difference: bool):
     load_plot_dependency()
     groups = group_rows_by_vtau(rows)
     group_items = sorted(groups.items(), key=lambda item: parse_vtau_voltage(item[0]))
@@ -240,7 +244,7 @@ def plot_rows(rows: Sequence[IntegralRow], absolute_difference: bool) -> None:
 
     print(f"Rows plotted: {len(rows)}")
     print(f"Vtau groups: {', '.join(groups)}")
-    plt.show()
+    return fig
 
 
 def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
@@ -255,6 +259,7 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
     parser.add_argument("--start-at", type=int, default=1)
     parser.add_argument("--absolute-difference", action="store_true")
     parser.add_argument("--debug", action="store_true")
+    add_image_output_args(parser)
     return parser.parse_args(argv)
 
 
@@ -268,7 +273,18 @@ def main(argv: Optional[list[str]] = None) -> int:
             rows = compute_integral_rows(repo_root, args.one_syn_dir, args.two_syn_dir)
 
         rows = selected_rows(rows, args.start_at, args.limit)
-        plot_rows(rows, absolute_difference=args.absolute_difference)
+        fig = plot_rows(rows, absolute_difference=args.absolute_difference)
+        if args.save_images:
+            save_figure(
+                fig,
+                resolve_output_dir(repo_root, args.output_dir, "vtau_sweep"),
+                "vtau_sweep_integral_difference",
+                args.image_format,
+                args.dpi,
+            )
+        if not args.no_show:
+            plt.show()
+        plt.close("all")
         return 0
     except Exception as exc:
         if args.debug:
