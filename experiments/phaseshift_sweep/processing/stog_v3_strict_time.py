@@ -5,6 +5,8 @@ from pathlib import Path
 
 output_csv = Path(__file__).resolve().with_name("spike_train.csv")
 
+
+num_vpre_branch = 2
 total_time = 0.1  # seconds
 mean_frequency_hz = 9000
 pulse_height = 1.8  # volts

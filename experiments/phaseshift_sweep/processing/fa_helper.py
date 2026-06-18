@@ -3,12 +3,11 @@ import random
 
 num_vpre_branch = 2
 total_time = 1  # seconds
-mean_frequency_hz = 10
+mean_frequency_hz = 1000
 pulse_height = 1.8  # volts
 pulse_width = 1e-6  # seconds
 random_seed = 12345
-prior_window_s = 0.010
-posterior_window_s = 0.005
+isi = [25e-6, 10e-6, 5e-6, 3e-6, 2e-6]
 
 
 def format_isi(isi_unformatted: list[float]) -> list[float]:
@@ -32,12 +31,6 @@ def validate_parameters() -> None:
         raise ValueError("pulse_width must be positive.")
     if pulse_width >= total_time:
         raise ValueError("pulse_width must be smaller than total_time.")
-    if prior_window_s <= 0:
-        raise ValueError("prior_window_s must be positive.")
-    if posterior_window_s <= 0:
-        raise ValueError("posterior_window_s must be positive.")
-    if posterior_window_s >= prior_window_s:
-        raise ValueError("posterior_window_s must be smaller than prior_window_s.")
 
 
 def generate_poisson_spike_times(rng: random.Random) -> list[float]:
@@ -132,20 +125,42 @@ def find_close_adjacent_spikes(
     return gaps_less_than_prior, gaps_less_than_posterior
 
 
+def sweep_isi_windows(
+    spikes: list[dict[str, float]],
+    formatted_interspike_intervals: list[float],
+) -> list[dict]:
+    sweep_results = []
+
+    for i in range(len(formatted_interspike_intervals) - 1):
+        prior = formatted_interspike_intervals[i]
+        posterior = formatted_interspike_intervals[i + 1]
+
+        gaps_less_than_prior, gaps_less_than_posterior = find_close_adjacent_spikes(
+            spikes,
+            prior,
+            posterior,
+        )
+
+        sweep_results.append(
+            {
+                "run_index": i,
+                "prior": prior,
+                "posterior": posterior,
+                "gaps_less_than_prior": gaps_less_than_prior,
+                "gaps_less_than_posterior": gaps_less_than_posterior,
+            }
+        )
+
+    return sweep_results
+
+
 def main() -> None:
     validate_parameters()
 
     branch_spike_times = generate_branch_spike_times()
     spike_times = combine_spike_times(branch_spike_times)
     spikes = build_spikes(spike_times)
-    interspike_intervals = get_interspike_intervals(spikes)
-    formatted_interspike_intervals = format_isi(interspike_intervals)
-
-    gaps_less_than_prior, gaps_less_than_posterior = find_close_adjacent_spikes(
-        spikes,
-        prior_window_s,
-        posterior_window_s,
-    )
+    formatted_interspike_intervals = format_isi(isi)
 
     print(f"Vpre branches generated: {num_vpre_branch}")
     for branch_index, branch_spikes in enumerate(branch_spike_times):
@@ -154,14 +169,21 @@ def main() -> None:
     print(f"Non-overlapping combined spikes analyzed: {len(spikes)}")
     print(f"Overlapping combined spikes skipped: {len(spike_times) - len(spikes)}")
     print(f"Unique interspike intervals: {len(formatted_interspike_intervals)}")
-    print(
-        f"Adjacent gaps less than prior_window_s={prior_window_s}: "
-        f"{len(gaps_less_than_prior)}"
-    )
-    print(
-        f"Adjacent gaps less than posterior_window_s={posterior_window_s}: "
-        f"{len(gaps_less_than_posterior)}"
-    )
+
+    if len(formatted_interspike_intervals) < 2:
+        print("Need at least two unique interspike intervals to sweep prior/posterior windows.")
+        return
+
+    sweep_results = sweep_isi_windows(spikes, formatted_interspike_intervals)
+
+    for result in sweep_results:
+        print(
+            f"Run {result['run_index']}: "
+            f"prior={result['prior']:.12e}, "
+            f"posterior={result['posterior']:.12e}, "
+            f"gaps < prior={len(result['gaps_less_than_prior'])}, "
+            f"gaps < posterior={len(result['gaps_less_than_posterior'])}"
+        )
 
 
 if __name__ == "__main__":
