@@ -25,6 +25,9 @@ IGNORE_CSV_NAMES = {
     "conversion_errors.csv",
 }
 
+THRESHOLD_GRID_VOLTAGES = (0.7, 1.2, 1.7)
+THRESHOLD_GRID_TOLERANCE_PERCENTAGES = tuple(range(0, 101, 10))
+
 TIME_COL = "time_s"
 ONE_SYN_CURRENT = "i_I56_Iout_A"
 TWO_SYN_I172 = "i_I172_Iout_A"
@@ -2410,6 +2413,91 @@ def write_ratio_fit_threshold_rows(
                 ])
 
 
+def is_threshold_grid_label(label: str, bias: str) -> bool:
+    voltage = label_to_voltage(label, bias)
+    return any(math.isclose(voltage, grid_voltage, rel_tol=0.0, abs_tol=1e-9) for grid_voltage in THRESHOLD_GRID_VOLTAGES)
+
+
+def filter_threshold_grid_rows(rows: Sequence[IntegralRow], config: SweepConfig) -> list[IntegralRow]:
+    filtered = [
+        row
+        for row in rows
+        if is_threshold_grid_label(row.bias_a_label, config.bias_a)
+        and is_threshold_grid_label(row.bias_b_label, config.bias_b)
+    ]
+    if not filtered:
+        voltages = ", ".join(f"{voltage:g}" for voltage in THRESHOLD_GRID_VOLTAGES)
+        raise FileNotFoundError(f"No integral rows found for {config.bias_a}/{config.bias_b} voltage grid: {voltages}")
+    return filtered
+
+
+def write_ratio_fit_threshold_grid_rows(
+    rows: Sequence[IntegralRow],
+    config: SweepConfig,
+    max_us: float,
+    fit_min_points: int,
+    handle,
+) -> None:
+    writer = csv.writer(handle)
+    writer.writerow([
+        "bias_a",
+        "bias_a_label",
+        "bias_a_voltage",
+        "bias_b",
+        "bias_b_label",
+        "bias_b_voltage",
+        "tolerance_fraction",
+        "tolerance_percent",
+        "threshold_ratio",
+        "max_us",
+        "tau_us",
+        "y_inf",
+        "amplitude",
+        "isi_us",
+        "status",
+    ])
+
+    pages = group_rows(rows, "bias_b_label")
+    for bias_b_label, page_rows in sorted(pages.items(), key=lambda item: label_to_voltage(item[0], config.bias_b)):
+        groups = group_rows(page_rows, "bias_a_label")
+        for bias_a_label, curve_rows in sorted(groups.items(), key=lambda item: label_to_voltage(item[0], config.bias_a)):
+            bias_a_voltage = label_to_voltage(bias_a_label, config.bias_a)
+            bias_b_voltage = label_to_voltage(bias_b_label, config.bias_b)
+            try:
+                y_inf, amplitude, tau, x_min = ratio_fit_params(curve_rows, fit_min_points)
+                fit_status = None
+            except Exception as exc:
+                y_inf = amplitude = tau = x_min = None
+                fit_status = f"fit_failed: {exc}"
+
+            for tolerance_percent in THRESHOLD_GRID_TOLERANCE_PERCENTAGES:
+                tolerance_fraction = tolerance_percent / 100
+                threshold = 1.0 + tolerance_fraction
+                if fit_status is None:
+                    status, crossing = threshold_crossing_us(y_inf, amplitude, tau, x_min, max_us, threshold)
+                else:
+                    status = fit_status
+                    crossing = None
+
+                writer.writerow([
+                    config.bias_a,
+                    bias_a_label,
+                    f"{bias_a_voltage:.12g}",
+                    config.bias_b,
+                    bias_b_label,
+                    f"{bias_b_voltage:.12g}",
+                    f"{tolerance_fraction:.12g}",
+                    f"{tolerance_percent:.12g}",
+                    f"{threshold:.12g}",
+                    f"{max_us:.12g}",
+                    "" if tau is None else f"{tau:.12g}",
+                    "" if y_inf is None else f"{y_inf:.12g}",
+                    "" if amplitude is None else f"{amplitude:.12g}",
+                    "" if crossing is None else f"{crossing:.12g}",
+                    status,
+                ])
+
+
 def main_ratio_fit_threshold(config: SweepConfig, argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=f"Export {config.name} ratio-fit threshold crossing data as CSV.")
     add_common_pair_args(parser, config)
@@ -2448,6 +2536,60 @@ def main_ratio_fit_threshold(config: SweepConfig, argv: Optional[list[str]] = No
             args.output_csv.parent.mkdir(parents=True, exist_ok=True)
             with args.output_csv.open("w", newline="", encoding="utf-8") as handle:
                 write_ratio_fit_threshold_rows(rows, config, args.threshold, args.max_us, args.fit_min_points, handle)
+        return 0
+    except KeyboardInterrupt:
+        print("\nInterrupted by user.")
+        return 130
+    except Exception as exc:
+        if args.debug:
+            traceback.print_exc()
+        else:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            print("Run again with --debug for a full traceback.", file=sys.stderr)
+        return 1
+
+
+def main_ratio_fit_threshold_grid(config: SweepConfig, argv: Optional[list[str]] = None) -> int:
+    parser = argparse.ArgumentParser(
+        description=(
+            f"Export {config.name} ratio-fit threshold crossing data for the "
+            "0.7/1.2/1.7 bias voltage grid as CSV."
+        )
+    )
+    add_common_pair_args(parser, config)
+    parser.add_argument("--integrals-csv", type=Path, default=None)
+    parser.add_argument("--max-us", type=float, default=500.0, help="Maximum extrapolated interspike interval in microseconds.")
+    parser.add_argument("--fit-min-points", type=int, default=3, help="Minimum finite ratio points required to fit a curve.")
+    parser.add_argument(
+        "--max-phase-shift-us",
+        type=float,
+        default=None,
+        help="Only use phase-shift points at or below this interspike interval in microseconds for fitting.",
+    )
+    parser.add_argument("--output-csv", type=Path, default=None, help="Write CSV here instead of stdout.")
+    args = parser.parse_args(argv)
+    try:
+        if args.max_us <= 0:
+            raise ValueError("--max-us must be > 0")
+        if args.fit_min_points < 3:
+            raise ValueError("--fit-min-points must be >= 3")
+        load_fit_dependencies()
+        repo_root = args.repo_root.resolve() if args.repo_root else find_repo_root()
+        if args.integrals_csv is not None:
+            rows = load_integral_rows_from_csv(args.integrals_csv.resolve(), config)
+        else:
+            rows = compute_integral_rows(repo_root, args.one_syn_dir, args.two_syn_dir, config)
+        rows = apply_row_filters(rows, args, config)
+        rows = filter_rows_by_max_phase_shift_us(rows, args.max_phase_shift_us)
+        rows = selected_rows(rows, args.start_at, args.limit)
+        rows = filter_threshold_grid_rows(rows, config)
+
+        if args.output_csv is None:
+            write_ratio_fit_threshold_grid_rows(rows, config, args.max_us, args.fit_min_points, sys.stdout)
+        else:
+            args.output_csv.parent.mkdir(parents=True, exist_ok=True)
+            with args.output_csv.open("w", newline="", encoding="utf-8") as handle:
+                write_ratio_fit_threshold_grid_rows(rows, config, args.max_us, args.fit_min_points, handle)
         return 0
     except KeyboardInterrupt:
         print("\nInterrupted by user.")

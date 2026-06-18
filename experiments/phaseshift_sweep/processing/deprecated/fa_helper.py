@@ -1,3 +1,6 @@
+import csv
+from itertools import product
+from pathlib import Path
 import random
 
 
@@ -8,8 +11,9 @@ pulse_width = 1e-6  # seconds
 random_seed = 12345
 isi = [25e-6, 10e-6, 5e-6, 3e-6, 2e-6]
 frequency_start_hz = 0
-frequency_step_hz = 5
-max_frequency_hz = 10000
+frequency_step_hz = 20
+max_frequency_hz = 1000
+output_csv = Path(__file__).resolve().with_name("frequency_grid_matches.csv")
 
 
 def format_isi(isi_unformatted: list[float]) -> list[float]:
@@ -35,6 +39,12 @@ def validate_parameters() -> None:
         raise ValueError("isi must contain at least one value.")
     if any(isi_value <= 0 for isi_value in isi):
         raise ValueError("isi must contain only positive values.")
+    if not isinstance(frequency_start_hz, int):
+        raise TypeError("frequency_start_hz must be an integer.")
+    if not isinstance(frequency_step_hz, int):
+        raise TypeError("frequency_step_hz must be an integer.")
+    if not isinstance(max_frequency_hz, int):
+        raise TypeError("max_frequency_hz must be an integer.")
     if frequency_start_hz < 0:
         raise ValueError("frequency_start_hz must be non-negative.")
     if frequency_step_hz <= 0:
@@ -63,10 +73,15 @@ def generate_poisson_spike_times(
     return spike_times
 
 
-def generate_branch_spike_times(frequency_hz: float) -> list[list[float]]:
+def generate_branch_spike_times(
+    branch_frequencies_hz: tuple[int, ...],
+) -> list[list[float]]:
+    if len(branch_frequencies_hz) != num_vpre_branch:
+        raise ValueError("branch_frequencies_hz must match num_vpre_branch.")
+
     branch_spike_times = []
 
-    for branch_index in range(num_vpre_branch):
+    for branch_index, frequency_hz in enumerate(branch_frequencies_hz):
         branch_seed = random_seed + branch_index
         rng = random.Random(branch_seed)
         spike_times = generate_poisson_spike_times(rng, frequency_hz)
@@ -75,13 +90,21 @@ def generate_branch_spike_times(frequency_hz: float) -> list[list[float]]:
     return branch_spike_times
 
 
-def build_combined_spikes_for_frequency(
-    frequency_hz: float,
+def build_combined_spikes_for_frequency_combo(
+    branch_frequencies_hz: tuple[int, ...],
 ) -> tuple[list[list[float]], list[float], list[dict[str, float]]]:
-    branch_spike_times = generate_branch_spike_times(frequency_hz)
+    branch_spike_times = generate_branch_spike_times(branch_frequencies_hz)
     spike_times = combine_spike_times(branch_spike_times)
     spikes = build_spikes(spike_times)
     return branch_spike_times, spike_times, spikes
+
+
+def get_frequency_values() -> list[int]:
+    return list(range(frequency_start_hz, max_frequency_hz + 1, frequency_step_hz))
+
+
+def generate_frequency_grid():
+    return product(get_frequency_values(), repeat=num_vpre_branch)
 
 
 def combine_spike_times(branch_spike_times: list[list[float]]) -> list[float]:
@@ -128,91 +151,78 @@ def get_adjacent_gap_records(spikes: list[dict[str, float]]) -> list[dict]:
     return gap_records
 
 
-def sweep_frequency_for_priors(priors: list[float]) -> list[dict]:
-    results_by_prior = {prior: None for prior in priors}
-    frequency_hz = frequency_start_hz
+def sweep_frequency_grid_for_priors(priors: list[float]) -> list[dict]:
+    grid_results = []
 
-    while frequency_hz <= max_frequency_hz:
-        branch_spike_times, spike_times, spikes = build_combined_spikes_for_frequency(
-            frequency_hz
-        )
+    for branch_frequencies_hz in generate_frequency_grid():
+        _, _, spikes = build_combined_spikes_for_frequency_combo(branch_frequencies_hz)
         gap_records = get_adjacent_gap_records(spikes)
 
         for prior in priors:
-            if results_by_prior[prior] is not None:
-                continue
-
-            gaps_less_than_prior = [
-                record for record in gap_records if record["gap"] < prior
-            ]
-
-            if gaps_less_than_prior:
-                results_by_prior[prior] = {
-                    "prior": prior,
-                    "frequency_hz": frequency_hz,
-                    "branch_spike_times": branch_spike_times,
-                    "spike_times": spike_times,
-                    "spikes": spikes,
-                    "gaps_less_than_prior": gaps_less_than_prior,
-                }
-
-        if all(result is not None for result in results_by_prior.values()):
-            break
-
-        frequency_hz += frequency_step_hz
-
-    sweep_results = []
-    for prior in priors:
-        result = results_by_prior[prior]
-        if result is None:
-            sweep_results.append(
+            gap_less_than_prior = any(record["gap"] < prior for record in gap_records)
+            grid_results.append(
                 {
                     "prior": prior,
-                    "frequency_hz": None,
-                    "branch_spike_times": [],
-                    "spike_times": [],
-                    "spikes": [],
-                    "gaps_less_than_prior": [],
+                    "branch_frequencies_hz": branch_frequencies_hz,
+                    "gap_less_than_prior": gap_less_than_prior,
                 }
             )
-        else:
-            sweep_results.append(result)
 
-    return sweep_results
+    return grid_results
+
+
+def write_frequency_grid_matches_csv(
+    grid_results: list[dict],
+) -> None:
+    with output_csv.open("w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            ["prior_s"]
+            + [
+                f"vpre_{branch_index}_frequency_hz"
+                for branch_index in range(num_vpre_branch)
+            ]
+            + ["gap_less_than_prior"]
+        )
+
+        for record in grid_results:
+            writer.writerow(
+                [
+                    f"{record['prior']:.12e}",
+                    *record["branch_frequencies_hz"],
+                    int(record["gap_less_than_prior"]),
+                ]
+            )
 
 
 def main() -> None:
     validate_parameters()
 
     priors = format_isi(isi)
-    sweep_results = sweep_frequency_for_priors(priors)
+    grid_results = sweep_frequency_grid_for_priors(priors)
+    write_frequency_grid_matches_csv(grid_results)
+    frequency_values = get_frequency_values()
+    grid_points_checked = len(frequency_values) ** num_vpre_branch
 
     print(f"Vpre branches generated: {num_vpre_branch}")
     print(
-        f"Frequency sweep: {frequency_start_hz} Hz to {max_frequency_hz} Hz "
+        f"Frequency grid: {frequency_start_hz} Hz to {max_frequency_hz} Hz "
         f"by {frequency_step_hz} Hz"
     )
+    print(f"Grid points checked: {grid_points_checked}")
     print(f"Configured priors: {', '.join(f'{prior:.12e}' for prior in priors)}")
+    print(f"CSV written to: {output_csv}")
 
-    for result in sweep_results:
-        prior = result["prior"]
-        frequency_hz = result["frequency_hz"]
-
-        print(f"\nPrior {prior:.12e}:")
-        if frequency_hz is None:
-            print(f"No matching frequency found up to {max_frequency_hz} Hz")
-            continue
-
-        branch_spike_times = result["branch_spike_times"]
-        spike_times = result["spike_times"]
-        spikes = result["spikes"]
-        print(f"First matching frequency: {frequency_hz} Hz")
-        for branch_index, branch_spikes in enumerate(branch_spike_times):
-            print(f"Branch {branch_index} spike starts generated: {len(branch_spikes)}")
-        print(f"Combined spike starts generated: {len(spike_times)}")
-        print(f"Non-overlapping combined spikes analyzed: {len(spikes)}")
-        print(f"Overlapping combined spikes skipped: {len(spike_times) - len(spikes)}")
-        print(f"Gaps < prior: {len(result['gaps_less_than_prior'])}")
+    for prior in priors:
+        matching_count = sum(
+            1
+            for record in grid_results
+            if record["prior"] == prior and record["gap_less_than_prior"]
+        )
+        print(
+            f"Prior {prior:.12e}: "
+            f"{matching_count} matching frequency combinations out of {grid_points_checked}"
+        )
 
 
 if __name__ == "__main__":
